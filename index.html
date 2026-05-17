@@ -2204,6 +2204,14 @@ function init() {
     return;
   }
 
+  // Test unlock: ?unlock=2 forces Day2 open (skip 12hr wait)
+  const unlockDay = params.get('unlock');
+  if (unlockDay === '2') {
+    localStorage.setItem('day2UnlockTime', new Date().toISOString());
+    window.location.href = window.location.pathname;
+    return;
+  }
+
   // Read URL parameters (6-axis scores from free diagnosis)
   const sixAxis = {};
   let hasScores = false;
