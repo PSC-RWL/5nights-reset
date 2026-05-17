@@ -429,6 +429,70 @@ input[type="range"]::-moz-range-thumb {
   background: rgba(240,199,96,0.06);
 }
 
+/* ===== Timeline Detail View ===== */
+.tl-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.tl-item:last-child { border-bottom: none; }
+.tl-time {
+  min-width: 52px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent-moon);
+  font-variant-numeric: tabular-nums;
+  padding-top: 1px;
+}
+.tl-content {
+  flex: 1;
+}
+.tl-label {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+.tl-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.tl-risk-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(239,107,107,0.12);
+  color: var(--danger);
+  margin-top: 4px;
+  font-weight: 500;
+}
+.tl-ok-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(74,222,128,0.1);
+  color: var(--success);
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ===== Day Complete Summary ===== */
+.complete-section {
+  margin-bottom: 20px;
+}
+.complete-section-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-moon);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
 /* ===== Timeline Visualization ===== */
 .timeline-viz {
   position: relative;
@@ -945,11 +1009,15 @@ input[type="range"]::-moz-range-thumb {
 <!-- ========== STEP 4b: Timeline Visualization ========== -->
 <div class="screen" id="step4b">
   <div class="spacer-l"></div>
-  <div class="section-label">YOUR TIMELINE</div>
-  <div class="section-title">あなたの24時間</div>
+  <div class="section-label">YOUR PATTERN</div>
+  <div class="section-title">あなたの行動パターン</div>
+  <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:20px;">
+    入力内容をもとに、あなたの1日の流れと睡眠への影響を分析しました。
+  </p>
 
-  <div class="timeline-viz" id="timelineViz"></div>
+  <div id="timelineDetail"></div>
 
+  <div class="spacer-s"></div>
   <div id="riskMarkers"></div>
 
   <div class="spacer-s"></div>
@@ -1714,7 +1782,7 @@ function submitTimeline() {
 }
 
 function renderTimelineViz(tl) {
-  const viz = document.getElementById('timelineViz');
+  const detail = document.getElementById('timelineDetail');
   const markers = document.getElementById('riskMarkers');
 
   // Identify risk points
@@ -1722,100 +1790,112 @@ function renderTimelineViz(tl) {
   const bedTime = tl.bedTime;
 
   // Risk: Screen too close to bed (within 2 hours = 120 mins)
-  if (tl.screenEnd && (bedTime - tl.screenEnd) < 120) {
-    risks.push({
-      label: 'スクリーン過多',
-      code: 'SCR',
-      desc: getTypeRiskDesc('SCR', state.brainType),
-      severity: 3
-    });
+  const screenGap = bedTime - tl.screenEnd;
+  const screenRisk = tl.screenEnd && screenGap < 120;
+  if (screenRisk) {
+    risks.push({ label: 'スクリーン過多', code: 'SCR', desc: getTypeRiskDesc('SCR', state.brainType), severity: 3 });
   }
 
   // Risk: Caffeine after 15:00 (900 mins)
   const lastCaf = tl.caffeineLast || tl.caffeineFirst;
-  if (lastCaf && lastCaf >= 900) {
-    risks.push({
-      label: 'カフェイン遅延',
-      code: 'CAF',
-      desc: getTypeRiskDesc('CAF', state.brainType),
-      severity: 2
-    });
+  const cafRisk = lastCaf && lastCaf >= 900;
+  if (cafRisk) {
+    risks.push({ label: 'カフェイン遅延', code: 'CAF', desc: getTypeRiskDesc('CAF', state.brainType), severity: 2 });
   }
 
   // Risk: No exercise
   if (tl.noExercise) {
-    risks.push({
-      label: '運動不足',
-      code: 'EXR',
-      desc: getTypeRiskDesc('EXR', state.brainType),
-      severity: 1
-    });
+    risks.push({ label: '運動不足', code: 'EXR', desc: getTypeRiskDesc('EXR', state.brainType), severity: 1 });
   }
 
   // Risk: Stress (from Q4/Q7 answers)
-  const q4 = state.answers[3]; // Q4
-  const q7 = state.answers[6]; // Q7 (確定打)
-  if (q4 || q7) {
-    risks.push({
-      label: 'ストレス過剰',
-      code: 'STR',
-      desc: getTypeRiskDesc('STR', state.brainType),
-      severity: 2
-    });
+  if (state.answers[3] || state.answers[6]) {
+    risks.push({ label: 'ストレス過剰', code: 'STR', desc: getTypeRiskDesc('STR', state.brainType), severity: 2 });
   }
 
-  // Note: Light risk is determined in environment step (STEP5), added later
+  // Build detailed vertical timeline
+  const workTypeLabels = { desk: 'デスクワーク', standing: '立ち仕事', physical: '肉体労働' };
+  let html = '<div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px;">';
 
-  // Build simple timeline bar
-  const wakeH = Math.floor(tl.wakeTime/60);
-  const bedH = Math.floor(bedTime/60);
-  const totalHours = bedH - wakeH;
+  // Wake
+  html += tlRow(formatMinutes(tl.wakeTime), '起床', null, null);
 
-  let barHtml = '<div style="display:flex; justify-content:space-between; font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">';
-  barHtml += `<span>${formatMinutes(tl.wakeTime)}</span>`;
-  barHtml += `<span>${formatMinutes(bedTime)}</span>`;
-  barHtml += '</div>';
-  barHtml += '<div class="timeline-bar">';
+  // Caffeine first
+  if (tl.caffeineFirst && !tl.noCaffeine) {
+    html += tlRow(formatMinutes(tl.caffeineFirst), 'カフェイン摂取', null, null);
+  }
 
-  // Segments
-  const segments = [
-    { start: tl.wakeTime, end: tl.workStart, color: '#273349', label: '朝' },
-    { start: tl.workStart, end: tl.workEnd, color: '#1e3a5f', label: '仕事' },
-    { start: tl.workEnd, end: tl.dinner, color: '#273349', label: '' },
-    { start: tl.dinner, end: tl.dinner + 60, color: '#2d3a28', label: '夕食' },
-    { start: tl.dinner + 60, end: tl.screenEnd || bedTime, color: '#273349', label: '' },
-  ];
+  // Work
+  html += tlRow(formatMinutes(tl.workStart), `仕事開始（${workTypeLabels[tl.workType] || 'デスクワーク'}）`, null, null);
+  html += tlRow(formatMinutes(tl.workEnd), '仕事終了', null, null);
 
+  // Last caffeine (if separate)
+  if (tl.caffeineLast) {
+    const isCafRisk = tl.caffeineLast >= 900;
+    html += tlRow(formatMinutes(tl.caffeineLast), '最後のカフェイン',
+      isCafRisk ? 'risk' : 'ok',
+      isCafRisk ? '就寝の' + Math.round((bedTime - tl.caffeineLast)/60) + '時間前 — カフェインの覚醒作用が残ります' : '15時前 — 問題ありません');
+  }
+
+  // Dinner
+  html += tlRow(formatMinutes(tl.dinner), '夕食', null, null);
+
+  // Exercise
+  if (tl.exercise) {
+    html += tlRow(formatMinutes(tl.exercise), '運動', 'ok', '身体的疲労は入眠を促進します');
+  } else if (tl.noExercise) {
+    html += tlRow('—', '運動なし', 'risk', '身体的疲労がないと、脳だけが活動した状態で夜を迎えます');
+  }
+
+  // Screen end
   if (tl.screenEnd) {
-    const isRisk = (bedTime - tl.screenEnd) < 120;
-    segments.push({ start: tl.screenEnd, end: bedTime, color: isRisk ? 'rgba(239,107,107,0.2)' : '#1a2236', label: isRisk ? '⚠' : '' });
+    html += tlRow(formatMinutes(tl.screenEnd), 'スクリーン終了',
+      screenRisk ? 'risk' : 'ok',
+      screenRisk ? '就寝まで' + Math.round(screenGap/60*10)/10 + '時間 — ブルーライトと脳の興奮が入眠を妨げます' : '就寝まで2時間以上 — 良い習慣です');
   }
 
-  const totalMins = bedTime - tl.wakeTime;
-  segments.forEach(seg => {
-    const w = Math.max(((seg.end - seg.start) / totalMins * 100), 2);
-    barHtml += `<div class="timeline-segment" style="width:${w}%; background:${seg.color};">${seg.label}</div>`;
-  });
+  // Bedtime
+  html += tlRow(formatMinutes(bedTime), '就寝', null, null);
 
-  barHtml += '</div>';
-  viz.innerHTML = barHtml;
+  html += '</div>';
+  detail.innerHTML = html;
 
-  // Risk markers
+  // Risk markers with descriptions
   let riskHtml = '';
   risks.forEach(r => {
     const stars = '★'.repeat(r.severity) + '☆'.repeat(3 - r.severity);
-    riskHtml += `<div class="risk-marker"><span>⚠</span> ${r.label}（${stars}）</div>`;
+    riskHtml += `
+      <div class="risk-marker" style="flex-direction:column; align-items:flex-start; padding:12px 14px;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span>⚠</span> <strong>${r.label}</strong>（${stars}）
+        </div>
+        <div style="font-size:0.78rem; color:var(--text-secondary); margin-top:4px; line-height:1.6;">${r.desc}</div>
+      </div>
+    `;
   });
   markers.innerHTML = riskHtml;
 
-  // Risk count message (brain type specific)
-  const riskCount = risks.length;
+  // Risk count message
   const rcMsg = document.getElementById('riskCountMsg');
-  const typeMsg = getBrainTypeRiskSummary(riskCount);
-  rcMsg.innerHTML = typeMsg;
+  rcMsg.innerHTML = getBrainTypeRiskSummary(risks.length);
 
-  // Store preliminary risk data
   state.preliminaryRisks = risks;
+}
+
+function tlRow(time, label, status, note) {
+  let badge = '';
+  if (status === 'risk') badge = '<span class="tl-risk-badge">⚠ 要改善</span>';
+  if (status === 'ok') badge = '<span class="tl-ok-badge">✓ OK</span>';
+  return `
+    <div class="tl-item">
+      <div class="tl-time">${time}</div>
+      <div class="tl-content">
+        <div class="tl-label">${label}</div>
+        ${note ? '<div class="tl-note">' + note + '</div>' : ''}
+        ${badge}
+      </div>
+    </div>
+  `;
 }
 
 function getTypeRiskDesc(code, type) {
@@ -2012,22 +2092,101 @@ function completeDay1() {
 function showDayCompleted() {
   const container = document.querySelector('.container');
   const bt = localStorage.getItem('brainType') || 'L3';
-  const typeName = typeDefinitions[bt]?.name || 'あなた';
-  const waitMsg = typeDefinitions[bt]?.waitMsg || '';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const typeDef = typeDefinitions[btKey];
+  const waitMsg = typeDef?.waitMsg || '';
+  const scores = JSON.parse(localStorage.getItem('brainTypeScores') || '{}');
+  const totalScore = Object.values(scores).reduce((a,b) => a+b, 0) || 1;
+  const env = JSON.parse(localStorage.getItem('environment') || '{}');
+  const tonightAccepted = localStorage.getItem('tonightActionAccepted') === 'yes';
+  const envLabels = { 1:{A:'完全な暗闇',B:'ほぼ暗い',C:'光漏れあり',D:'明るい'}, 2:{A:'適温管理',B:'季節により不十分',C:'管理なし'}, 3:{A:'満足',B:'まあまあ',C:'不満あり'} };
+
+  // Score bars HTML
+  const sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
+  let scoreBarsHtml = '';
+  sorted.forEach(([type, score]) => {
+    const pct = Math.round((score / totalScore) * 100);
+    const isTop = type === sorted[0][0];
+    const def = typeDefinitions[type];
+    scoreBarsHtml += `
+      <div style="margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:3px;">
+          <span style="color:${isTop?'var(--accent-moon)':'var(--text-muted)'}; font-weight:${isTop?'600':'400'};">${def.name}</span>
+          <span style="color:${isTop?'var(--accent-moon)':'var(--text-muted)'};">${pct}%</span>
+        </div>
+        <div style="height:4px; background:var(--surface); border-radius:4px; overflow:hidden;">
+          <div style="width:${pct}%; height:100%; border-radius:4px; background:${isTop?'linear-gradient(90deg,var(--accent-moon),var(--accent-gold))':'var(--surface-light)'};"></div>
+        </div>
+      </div>
+    `;
+  });
 
   container.innerHTML = `
-    <div class="screen active visible" style="padding-top:80px; text-align:center;">
-      <div style="font-size:2.5rem; margin-bottom:16px;">🌙</div>
-      <div class="title-en" style="font-size:1.8rem;">Day 1 Complete</div>
-      <div class="spacer-m"></div>
-      <div style="font-size:0.9rem; color:var(--text-secondary); line-height:1.8;">
-        ${waitMsg}
+    <div class="screen active visible" style="padding-top:60px;">
+      <div style="text-align:center; margin-bottom:28px;">
+        <div style="font-size:2.2rem; margin-bottom:12px;">🌙</div>
+        <div class="title-en" style="font-size:1.6rem;">Day 1 Complete</div>
       </div>
-      <div class="spacer-l"></div>
-      <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px; font-size:0.85rem; color:var(--text-muted);">
-        Day 2 開放予定時刻：<br>
-        <strong style="color:var(--accent-moon);" id="unlockTimeDisplay"></strong>
+
+      <!-- Brain Type -->
+      <div class="complete-section">
+        <div class="complete-section-title">YOUR BRAIN TYPE</div>
+        <div class="result-card">
+          <div class="result-type-name" style="font-size:1.1rem;">${typeDef.name}</div>
+          <div class="result-type-sub">${typeDef.sub}</div>
+          <div style="font-size:0.85rem; color:var(--text-secondary); margin-top:8px;">${typeDef.catchcopy}</div>
+        </div>
       </div>
+
+      <!-- Score Bars -->
+      <div class="complete-section">
+        <div class="complete-section-title">SCORE</div>
+        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:18px;">
+          ${scoreBarsHtml}
+          <div style="font-size:0.7rem; color:var(--text-muted); margin-top:8px;">※ 簡易診断に基づく概算値</div>
+        </div>
+      </div>
+
+      <!-- Environment -->
+      <div class="complete-section">
+        <div class="complete-section-title">ENVIRONMENT</div>
+        <div class="summary-card">
+          <div class="summary-item">
+            <span class="label">光環境</span>
+            <span class="value">${envLabels[1][env[1]] || '-'}</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">温度管理</span>
+            <span class="value">${envLabels[2][env[2]] || '-'}</span>
+          </div>
+          <div class="summary-item">
+            <span class="label">寝具</span>
+            <span class="value">${envLabels[3][env[3]] || '-'}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tonight's Action -->
+      ${tonightAccepted ? `
+      <div class="complete-section">
+        <div class="complete-section-title">TONIGHT</div>
+        <div style="background:linear-gradient(135deg, var(--bg-card) 0%, rgba(107,163,214,0.04) 100%); border:1px solid rgba(107,163,214,0.12); border-radius:var(--radius); padding:18px;">
+          <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.8;">${typeDef.tonightAction}</div>
+        </div>
+      </div>
+      ` : ''}
+
+      <!-- Day2 Unlock -->
+      <div class="complete-section">
+        <div class="complete-section-title">NEXT</div>
+        <div class="wait-card">
+          <div class="wait-title">Day 2 開放予定</div>
+          <div style="font-size:1.1rem; color:var(--accent-moon); font-weight:600; margin:8px 0;" id="unlockTimeDisplay"></div>
+          <div class="wait-body">${waitMsg}</div>
+        </div>
+      </div>
+
+      <div style="height:60px;"></div>
     </div>
   `;
 
