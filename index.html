@@ -1305,8 +1305,24 @@ const typeDefinitions = {
 
 // ===== INITIALIZATION =====
 function init() {
-  // Read URL parameters (6-axis scores from free diagnosis)
   const params = new URLSearchParams(window.location.search);
+
+  // Test reset: ?reset=1 clears all data and starts fresh
+  if (params.get('reset') === '1') {
+    const keysToRemove = [
+      'sixAxisScores','brainType','brainTypeScores','questionResponses',
+      'freeTextQ6','freeTextQ7','answerChangeCount','timeline','environment',
+      'riskFactorsTop3','selectedAction','selectedRoutine','sleepChecks',
+      'executionChecks','courseCorrection','commitTimestamps','dayCompletionFlags',
+      'planSelection','planSelectionTime','shareUsed','day2UnlockTime','tonightActionAccepted'
+    ];
+    keysToRemove.forEach(k => localStorage.removeItem(k));
+    // Remove reset param from URL and reload clean
+    window.location.href = window.location.pathname;
+    return;
+  }
+
+  // Read URL parameters (6-axis scores from free diagnosis)
   const sixAxis = {};
   let hasScores = false;
   for (let i = 1; i <= 6; i++) {
@@ -1320,7 +1336,6 @@ function init() {
   // Check if Day1 already completed
   const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
   if (flags.day1) {
-    // Show Day2 waiting or redirect
     showDayCompleted();
     return;
   }
