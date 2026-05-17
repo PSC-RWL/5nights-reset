@@ -775,6 +775,233 @@ input[type="range"]::-moz-range-thumb {
 }
 .modal-actions .btn-cancel:active { color: var(--text-secondary); }
 
+/* ===== Day2: Sleep Check ===== */
+.day-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-moon);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.day-indicator .day-num {
+  background: rgba(240,199,96,0.12);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+.sleep-check-group { margin-bottom: 28px; }
+.sleep-check-label {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.sleep-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 6px;
+  background: var(--surface);
+  outline: none;
+}
+.sleep-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--accent-moon);
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--glow-moon);
+}
+.sleep-slider::-moz-range-thumb {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--accent-moon);
+  cursor: pointer;
+  border: none;
+}
+.sleep-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+.wake-options { display: flex; gap: 8px; flex-wrap: wrap; }
+.wake-option {
+  flex: 1;
+  min-width: 80px;
+  padding: 12px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.wake-option.selected {
+  border-color: var(--accent-moon);
+  background: rgba(240,199,96,0.06);
+  color: var(--accent-moon);
+}
+
+/* ===== Day2: Risk Cards ===== */
+.risk-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+  transition: var(--transition);
+}
+.risk-card.primary {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.05) 100%);
+  border-color: rgba(240,199,96,0.2);
+}
+.risk-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.risk-icon { font-size: 1.3rem; }
+.risk-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+.risk-stars {
+  font-size: 0.85rem;
+  color: var(--accent-moon);
+  letter-spacing: 2px;
+}
+.risk-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+.risk-lock {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+/* ===== Day2: Action Cards ===== */
+.action-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.action-card:active { transform: scale(0.98); }
+.action-card.selected {
+  border-color: var(--accent-moon);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.06) 100%);
+  box-shadow: 0 0 20px rgba(240,199,96,0.08);
+}
+.action-difficulty {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.action-text {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.action-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.lgt-note {
+  background: rgba(107,163,214,0.06);
+  border: 1px solid rgba(107,163,214,0.12);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 0.78rem;
+  color: var(--accent-blue);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  display: none;
+}
+
+/* ===== Day2: Prediction ===== */
+.predict-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.predict-values {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.predict-val { text-align: center; }
+.predict-val .num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 600;
+}
+.predict-val .lbl {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+.predict-arrow { font-size: 1.4rem; color: var(--accent-moon); }
+.predict-bar-track {
+  height: 8px;
+  background: var(--surface);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.predict-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-moon));
+  transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
+  width: 0%;
+}
+
+/* ===== Day2: Tonight Card ===== */
+.tonight-card {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.04) 100%);
+  border: 1px solid rgba(240,199,96,0.15);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.tonight-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-moon);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.tonight-text {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+
 /* ===== Responsive ===== */
 @media (max-width:380px) {
   .container { padding: 0 16px; }
@@ -1126,6 +1353,176 @@ input[type="range"]::-moz-range-thumb {
   <div class="spacer-l"></div>
 </div>
 
+<!-- ========== DAY 2 STEP 1: Sleep Check ========== -->
+<div class="screen" id="d2step1">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 2</span>
+    <span>STEP 1 / 6</span>
+  </div>
+  <div class="section-label">SLEEP CHECK</div>
+  <div class="section-title">昨夜の睡眠を記録する</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:24px;" id="d2SleepMsg"></div>
+
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">① 寝つき</div>
+    <input type="range" class="sleep-slider" id="d2FallAsleepSlider" min="1" max="5" value="3" step="1">
+    <div class="sleep-slider-labels">
+      <span>なかなか眠れなかった</span>
+      <span>すぐに眠れた</span>
+    </div>
+  </div>
+
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">② 中途覚醒</div>
+    <div class="wake-options" id="d2WakeOptions">
+      <div class="wake-option" onclick="selectWake('none',this)">なし</div>
+      <div class="wake-option" onclick="selectWake('once',this)">1回</div>
+      <div class="wake-option" onclick="selectWake('multi',this)">2回以上</div>
+    </div>
+  </div>
+
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">③ 目覚めの感覚</div>
+    <input type="range" class="sleep-slider" id="d2MorningSlider" min="1" max="5" value="3" step="1">
+    <div class="sleep-slider-labels">
+      <span>つらい</span>
+      <span>すっきり</span>
+    </div>
+  </div>
+
+  <div class="spacer-m"></div>
+  <button class="btn-primary" onclick="submitDay2Step1()">次へ</button>
+</div>
+
+<!-- ========== DAY 2 STEP 2: Risk Factor Reveal ========== -->
+<div class="screen" id="d2step2">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 2</span>
+    <span>STEP 2 / 6</span>
+  </div>
+  <div class="section-label">HIDDEN RISK FACTORS</div>
+  <div class="section-title" style="line-height:1.6;">あなたが気づいていない<br>"隠れた不眠要因"が見つかりました</div>
+  <div style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;">
+    あなたの脳タイプは<strong style="color:var(--accent-moon);" id="d2TypeName"></strong>。<br>
+    以下の3つが睡眠を妨げています：
+  </div>
+  <div id="d2RiskList"></div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-top:16px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);">
+    このプログラムでは<strong style="color:var(--accent-moon);">最も影響が大きい1つ目</strong>を5日間で徹底改善します。
+  </div>
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="goToD2Step3()">次へ — アクションを選ぶ</button>
+</div>
+
+<!-- ========== DAY 2 STEP 3: Action Selection ========== -->
+<div class="screen" id="d2step3">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 2</span>
+    <span>STEP 3 / 6</span>
+  </div>
+  <div class="section-label">YOUR ACTION</div>
+  <div class="section-title"><span id="d2ActionRiskLabel"></span>への対策を選ぶ</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;">
+    あなたの脳タイプに最適化された3つのアクションです。<br>
+    今の生活に取り入れやすいものを1つ選んでください。
+  </div>
+  <div class="lgt-note" id="d2LgtNote">💡 上記を試しても十分な暗さが保てない場合は、アイマスクの使用も効果的です</div>
+  <div id="d2ActionChoices"></div>
+  <div class="spacer-m"></div>
+  <button class="btn-primary" id="d2ToCommitBtn" onclick="goToD2Step4()" style="opacity:0.4; pointer-events:none;">このアクションで進む</button>
+</div>
+
+<!-- ========== DAY 2 STEP 4: Commitment ========== -->
+<div class="screen" id="d2step4">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 2</span>
+    <span>STEP 4 / 6</span>
+  </div>
+  <div class="section-label">COMMITMENT</div>
+  <div class="section-title">今夜、このアクションを実行しますか？</div>
+  <div class="tonight-card" style="margin-top:20px;">
+    <div class="tonight-label">TONIGHT'S ACTION</div>
+    <div class="tonight-text" id="d2CommitActionText"></div>
+  </div>
+  <div id="d2CommitMessage" style="display:none; font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin:16px 0; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);"></div>
+  <div class="spacer-m"></div>
+  <button class="btn-primary" id="d2CommitConfirmBtn" onclick="commitDay2Action()">はい、今夜やります</button>
+  <div style="text-align:center; margin-top:12px;">
+    <button style="background:none; border:none; color:var(--text-muted); font-size:0.78rem; cursor:pointer; padding:8px;" onclick="showScreen('d2step3')">← アクションを選び直す</button>
+  </div>
+</div>
+
+<!-- ========== DAY 2 STEP 5: Predicted Score Change ========== -->
+<div class="screen" id="d2step5">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 2</span>
+    <span>STEP 5 / 6</span>
+  </div>
+  <div class="section-label">PREDICTION</div>
+  <div class="section-title">予測される変化</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:24px;">
+    選択したアクションを実行した場合の<br>
+    <span id="d2PredictLabel" style="color:var(--accent-moon);"></span>スコアの予測変化です。
+    <br><span style="font-size:0.75rem; color:var(--text-muted);">※ 睡眠科学の一般データベースに基づく概算値</span>
+  </div>
+  <div class="predict-container">
+    <div class="predict-values">
+      <div class="predict-val">
+        <div class="num" style="color:var(--text-secondary);" id="d2PredictCurrent">5</div>
+        <div class="lbl">現在</div>
+      </div>
+      <div class="predict-arrow">→</div>
+      <div class="predict-val">
+        <div class="num" style="color:var(--accent-moon);" id="d2PredictTarget">7</div>
+        <div class="lbl">予測</div>
+      </div>
+    </div>
+    <div class="predict-bar-track">
+      <div class="predict-bar-fill" id="d2PredictBar"></div>
+    </div>
+  </div>
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="goToD2Step6()">次へ</button>
+</div>
+
+<!-- ========== DAY 2 STEP 6: Summary ========== -->
+<div class="screen" id="d2step6">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 2</span>
+    <span>STEP 6 / 6</span>
+  </div>
+  <div class="section-label">TONIGHT'S PLAN</div>
+  <div class="section-title">今夜やること</div>
+  <div class="tonight-card" style="margin-top:20px;">
+    <div class="tonight-label">YOUR ACTION</div>
+    <div class="tonight-text" id="d2TonightAction"></div>
+  </div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin:16px 0;">
+    <strong style="color:var(--text-primary);">明日の朝</strong><br>
+    Day 3の睡眠チェックで昨夜の実感を記録します。<span class="text-muted">（約30秒）</span>
+  </div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+    <strong style="color:var(--text-primary);">明日の予告</strong><br>
+    2晩分のデータ比較＋脳タイプの「もう1つの側面」を開示します。<span class="text-muted">（約3分）</span>
+  </div>
+  <div style="text-align:center; margin:20px 0;">
+    <div style="font-size:0.75rem; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:8px;">DAY PROGRESS</div>
+    <div style="background:var(--surface); height:6px; border-radius:6px; overflow:hidden; margin:0 20px;">
+      <div style="width:40%; height:100%; background:linear-gradient(90deg, var(--accent-moon), var(--accent-gold)); border-radius:6px;"></div>
+    </div>
+    <div style="font-size:0.72rem; color:var(--text-muted); margin-top:6px;">40% 完了</div>
+  </div>
+  <div class="spacer-m"></div>
+  <button class="btn-primary" id="d2CompleteBtn" onclick="completeDay2()">Day 2 を完了する</button>
+  <div class="spacer-l"></div>
+</div>
+
 </div><!-- /container -->
 
 <!-- ========== Disclaimer Modal ========== -->
@@ -1303,6 +1700,490 @@ const typeDefinitions = {
   }
 };
 
+// ===================================================================
+// DAY 2 — ACTIONS DATA (60 actions, TMP excluded)
+// Structure: ACTIONS[riskCode][brainType][choice]
+// ===================================================================
+const ACTIONS = {
+  SCR: {
+    L3: {
+      A: { text:'明日のパフォーマンスを最大化するために、就寝90分前にスマホを別室に置き、明日のタスクを紙に3つ書き出してから布団に入る', note:'脳の未処理タスクを物理的に外部化し「処理完了」シグナルを送る', difficulty:'高' },
+      B: { text:'翌日の判断力を確保するために、就寝60分前に情報系アプリを全て閉じ、処理すべきことがないか最終確認してから端末をオフにする', note:'「翌日の判断力」という合理的目的を提示し、行動の根拠を明確にする', difficulty:'中' },
+      C: { text:'脳の回復効率を上げるために、就寝30分前にスマホを裏返しにし、「明日の最優先事項は○○」と1つだけ決めて目を閉じる', note:'最小限のアクションで最大効果を得る合理的アプローチ', difficulty:'低' }
+    },
+    L2: {
+      A: { text:'毎晩の就寝準備をルーティン化するために、「就寝○分前にスマホを○○に置く」という自分だけのルールを決め、同じ手順で実行する', note:'ルーティン化がこのタイプの最大の安心材料', difficulty:'高' },
+      B: { text:'毎晩同じ流れで眠りに入るために、就寝60分前にスマホのナイトモードをONにし、決まった場所に置く手順を習慣にする', note:'決まった場所＝プロセスの一部として定着させる', difficulty:'中' },
+      C: { text:'就寝準備のルールとして、スマホ使用を「○時○分まで」と具体的な時刻で区切り、アラームをセットして毎日同じ時刻に終了する', note:'時刻での区切り＝明確なルールとして機能する', difficulty:'低' }
+    },
+    R3: {
+      A: { text:'明日をもっとワクワクする1日にするために、就寝90分前にスマホを置き、「明日楽しみなこと」を1つ想像してから眠る', note:'制限ではなく「楽しみの切り替え」として設計', difficulty:'高' },
+      B: { text:'新しいリラックス体験を楽しむために、就寝60分前にSNS・動画アプリを閉じ、好きな音楽やポッドキャスト、睡眠用読み聞かせ動画に切り替える', note:'視覚刺激→聴覚刺激への切り替え。新鮮さを維持', difficulty:'中' },
+      C: { text:'こっそり試す実験として、「寝室にスマホを持ち込まない」を3日だけやってみる。何が変わるか観察してみて', note:'意志力感を排除し観察・発見の楽しさへ変換', difficulty:'低' }
+    },
+    R2: {
+      A: { text:'安心して穏やかに眠れるように、就寝90分前にSNSとメッセージを閉じ、「今日の人間関係はここまで」と心の中で区切り、あなたを大切にしてくれる人を思い浮かべながら目を閉じる', note:'対人関係の情動を区切りつつ、安心できる人の存在で不安を和らげる', difficulty:'高' },
+      B: { text:'自分だけの安心できる時間をつくるために、就寝60分前にメッセージの返信を終わらせ、好きな音楽や本など心が落ち着くものに切り替える', note:'人間関係→自分のための時間への移行', difficulty:'中' },
+      C: { text:'孤独感なく安心して眠れるように、就寝30分前にスマホを手の届かない場所に置き、代わりに安心できるものをそばに置く', note:'スマホの代わりに安心アイテムを配置', difficulty:'低' }
+    }
+  },
+  CAF: {
+    L3: {
+      A: { text:'熟睡できる体をつくるという目標のために、カフェインの最終摂取を14時に設定し、以降はデカフェまたは水に切り替える', note:'ルールではなくゴールを設定。合理的手段として提示', difficulty:'高' },
+      B: { text:'入眠効率を最大化するために、就寝時間から逆算して午後のカフェインを「○時まで1杯だけ」に設定する', note:'逆算思考＝このタイプの得意パターン', difficulty:'中' },
+      C: { text:'睡眠の質を数値で改善するために、午後のコーヒーを1杯だけ緑茶に置き換える（カフェイン量を約1/3に削減）', note:'データに基づく合理的な代替案', difficulty:'低' }
+    },
+    L2: {
+      A: { text:'毎日のルールとして「○時以降はカフェインを摂らない」と決め、実行したかどうかを毎日記録する', note:'ルール＋記録でプロセスを可視化', difficulty:'高' },
+      B: { text:'いつものコーヒータイムの手順を変えずに、午後のカフェインだけをデカフェに切り替える', note:'プロセスを変えずに中身だけ変える', difficulty:'中' },
+      C: { text:'段階的なルーティンとして、カフェインの最終摂取時刻を毎日30分ずつ前倒しにし、1週間で目標時刻に到達する', note:'段階的プロセスで無理なく移行', difficulty:'低' }
+    },
+    R3: {
+      A: { text:'午後の時間をもっと楽しくするために、カフェインを炭酸水やハーブティーなど「まだ試したことのない飲み物」に置き換えてみる', note:'新しい体験として楽しませる。発見のフレーミング', difficulty:'高' },
+      B: { text:'自分の体がどう変わるか試すチャレンジとして、「14時以降カフェインなし」を3日間だけやってみる', note:'期間限定チャレンジとして飽きさせない', difficulty:'中' },
+      C: { text:'カフェインゼロで午後を乗り切る実験として、「ノンカフェイン飲料を3種類試して一番好きなものを見つける」チャレンジをしてみる', note:'探索・発見のフレーミング。新しい好みを見つける楽しさ', difficulty:'低' }
+    },
+    R2: {
+      A: { text:'自分を大切にするリラックスタイムとして、午後のカフェインを好きなハーブティーやホットミルクに切り替える', note:'自分へのケア・いたわりとしてフレーミング', difficulty:'高' },
+      B: { text:'周りの人と一緒にいる時間を大切にしながら、自分だけデカフェを選ぶ習慣をつくる', note:'対人場面での自然な切り替え', difficulty:'中' },
+      C: { text:'今日一日頑張った自分へのいたわりとして、夕方以降のカフェインを休むことを決める', note:'「やめる」ではなく「休む」という温かい表現', difficulty:'低' }
+    }
+  },
+  EXR: {
+    L3: {
+      A: { text:'睡眠の質と翌日の生産性を同時に向上させるために、夕方（17〜19時）に15分の早歩きを通勤や買い物の動線に組み込む', note:'二重の目的達成。既存の行動動線に組み込み効率的に実行', difficulty:'高' },
+      B: { text:'入眠までの時間を短縮する目的で、就寝2時間前に10分間のストレッチを行う。動作は3つだけに絞る', note:'最小限のアクションで目的達成', difficulty:'中' },
+      C: { text:'午後の集中力維持と睡眠改善の一石二鳥を狙い、昼休みに10分の階段昇降か早歩きを取り入れる', note:'効率的な時間活用として提示', difficulty:'低' }
+    },
+    L2: {
+      A: { text:'就寝前のルーティンに組み込むために、毎日同じ時間に同じストレッチを3つだけ行う。手順を固定して習慣化する', note:'手順の固定＝プロセスの確立', difficulty:'高' },
+      B: { text:'毎晩の決まった手順として、就寝2時間前に「首→肩→腰」の順で各1分ずつストレッチ。計3分を同じ順番で続ける', note:'順番を明確にし、毎日同じプロセスで実行', difficulty:'中' },
+      C: { text:'朝のルーティンに1つだけ追加する形で、起床直後に3分間の軽い体操を取り入れる', note:'既存の朝ルーティンに追加する形で導入', difficulty:'低' }
+    },
+    R3: {
+      A: { text:'楽しく体を動かすために、好きな音楽を1曲かけてその間だけ自由に動く。曲が終わったら終了！', note:'楽しさ＋自由度で飽きさせない', difficulty:'高' },
+      B: { text:'新しい発見を楽しむために、夕方に「いつもと違うルート」で15分散歩する。毎日違う道を試してみて', note:'新しさ＋探索欲求を満たす設計', difficulty:'中' },
+      C: { text:'毎日違う体験を楽しむために、YouTubeの5分間エクササイズ動画を1本だけ、日替わりで試してみる', note:'毎日変化がある＝飽きない', difficulty:'低' }
+    },
+    R2: {
+      A: { text:'今日一日頑張った自分を労わる時間として、就寝前にゆったりとしたヨガやストレッチを10分だけ行う', note:'セルフケアとしてのフレーミング', difficulty:'高' },
+      B: { text:'大切な人との穏やかな時間として、家族やパートナーと一緒に夕方の散歩を15分。会話を楽しみながらでOK（もちろん一人でもOK）', note:'人間関係＋運動の統合。一人ではない安心感', difficulty:'中' },
+      C: { text:'安心できる自分だけの時間として、お風呂上がりに3分だけ好きな場所で深呼吸しながら軽くストレッチする', note:'既存の安心行動に接続', difficulty:'低' }
+    }
+  },
+  LGT: {
+    L3: {
+      A: { text:'メラトニン分泌を最大化する環境をつくるために、遮光カーテンを導入し寝室の光を完全にコントロールする', note:'科学的根拠を目的として明示', difficulty:'高' },
+      B: { text:'入眠効率を高めるために、就寝30分前に寝室の照明を間接照明のみに切り替え、明るさを半分以下にする', note:'段階的な光量削減で効率的に入眠環境を整備', difficulty:'中' },
+      C: { text:'最もコストをかけずに光を遮断するために、アイマスクを使用する', note:'コスト効率が最も高い解決策', difficulty:'低' }
+    },
+    L2: {
+      A: { text:'毎晩の消灯ルーティンとして、寝室の照明を「就寝○分前に消灯」と時刻を決め、同じ手順で実行する', note:'時刻ベースのルーティン確立', difficulty:'高' },
+      B: { text:'毎晩同じ明るさで眠る環境をつくるために、豆電球を暖色系の最小照度に変更し一定に保つ', note:'一定の環境＝安心のプロセス', difficulty:'中' },
+      C: { text:'寝室の光環境を完璧に整えるために、カーテンの隙間からの光漏れをチェックし、必要に応じてクリップや布で塞ぐ', note:'細部の改善＝職人的アプローチ', difficulty:'低' }
+    },
+    R3: {
+      A: { text:'寝室を特別な空間に変える楽しみとして、キャンドル風LEDライトだけの「ムード切り替え」を試してみる', note:'空間の雰囲気づくりを楽しむ', difficulty:'高' },
+      B: { text:'新しいリラックス法として、就寝前の30分間を「暗い部屋で好きな音楽を聴くだけの時間」にしてみる', note:'暗さ＝楽しいイベントに変換', difficulty:'中' },
+      C: { text:'快眠の新アイテムとして、遮光アイマスクをまずは試しに導入してみる', note:'新アイテム導入＝ワクワク感', difficulty:'低' }
+    },
+    R2: {
+      A: { text:'安心して眠れる空間をつくるために、寝室の照明を温かみのある暖色の間接照明に切り替える', note:'安心感のある空間づくり', difficulty:'高' },
+      B: { text:'家族みんなが穏やかに眠れるように、就寝前に一緒に部屋を暗くする習慣をつくる', note:'家族との共同行動。一人ではない安心感', difficulty:'中' },
+      C: { text:'安心感に包まれて眠れるように、お気に入りのアロマキャンドル風ライトを枕元に置いて穏やかな空間にする', note:'安心アイテム＋暖色光の組み合わせ', difficulty:'低' }
+    }
+  },
+  STR: {
+    L3: {
+      A: { text:'脳のワーキングメモリを解放する目的で、就寝前に「今日の問題」と「明日の対策」を1行ずつ紙に書き出し、処理を物理的に外部化する', note:'思考の外部化＝脳の処理完了シグナル', difficulty:'高' },
+      B: { text:'自律神経を意図的に副交感神経優位に切り替えるために、4-7-8呼吸法（吸う4秒→止める7秒→吐く8秒）を3セット実施する', note:'数値ベースの呼吸法で合理的にアプローチ', difficulty:'中' },
+      C: { text:'明日の成果を最大化するために、就寝前10分間で最優先タスクを3つ確定させ、「これ以上の最適化は睡眠後の脳のほうが効率的」と判断を下して終了する', note:'効率のために寝るという合理的根拠', difficulty:'低' }
+    },
+    L2: {
+      A: { text:'毎晩の振り返りルーティンとして、就寝前の5分間で「今日できたこと」を3つ書き出す。1日のプロセスを確認することで安心して眠れる', note:'自己肯定＋完了確認のプロセス', difficulty:'高' },
+      B: { text:'毎晩の就寝ルーティンの一部として、同じ時刻に同じ呼吸法（4-7-8呼吸を3セット）を行う', note:'呼吸法のルーティン化。毎日同じ＝安定の源泉', difficulty:'中' },
+      C: { text:'就寝前の3ステップを毎日同じ順番で行う：①明日の予定を手帳に書く → ②手帳を閉じる → ③布団に入る', note:'3ステップの固定プロセス', difficulty:'低' }
+    },
+    R3: {
+      A: { text:'明日をポジティブに迎えるために、就寝前に「今日一番楽しかったこと」を1つ思い浮かべ、その気持ちのまま目を閉じる', note:'ポジティブ感情で就寝モードに切り替え', difficulty:'高' },
+      B: { text:'体の感覚を新しく探索する体験として、5分間のボディスキャン（足先→頭の順に力を抜いていく）を試してみる', note:'体験型＋探索的アプローチ', difficulty:'中' },
+      C: { text:'寝室を「日常とは別の世界」に切り替える楽しみとして、好きな香りのアロマやお香を焚いてみる', note:'空間の切り替え＝新しい体験', difficulty:'低' }
+    },
+    R2: {
+      A: { text:'今日関わってくれた人への感謝を感じながら安心して眠るために、就寝前に「今日ありがたかったこと」を3つ心の中で唱える', note:'感謝＝対人関係のポジティブ再確認', difficulty:'高' },
+      B: { text:'孤独感なく安心して眠れるように、大切な人やペットなど安心できる存在を思い浮かべながら、ゆっくり深呼吸を5回する', note:'安心できる存在の想起＋呼吸法の組み合わせ', difficulty:'中' },
+      C: { text:'今日も頑張った自分を認めてあげるために、就寝前に「今日の自分、よく頑張ったね」と心の中で自分に声をかけてから目を閉じる', note:'自己肯定＝このタイプに最も響くアプローチ', difficulty:'低' }
+    }
+  }
+};
+
+// ===== RISK FACTOR DEFINITIONS =====
+const RISK_FACTORS = {
+  SCR: { label:'スクリーン過多', icon:'📱', sixAxisKey:'s2',
+    desc: {
+      L3:'就寝前のスクリーンがブルーライトで脳の覚醒信号を維持し、メラトニン分泌を最大40%抑制します。あなたの「処理し続ける脳」にとって、情報入力を物理的に遮断することが最も効率的な入眠戦略です',
+      L2:'就寝前の画面使用は脳の活動パターンを「日中モード」に固定し、いつもの就寝ルーティンの効果を下げてしまいます。手順通りに画面を切り離すことで、決まったリズムが整います',
+      R3:'スクリーンの刺激が「もう少しだけ」を生み出し続け、あなたの好奇心エンジンをフル回転させてしまいます。画面を切り替えることで、夜の時間をもっと面白い体験に変えられます',
+      R2:'SNSやメッセージを見続けることで、対人関係の感情処理が終わらず、心が休まりません。画面を閉じることは「今日の人間関係はここまで」という安心のサインになります'
+    }
+  },
+  CAF: { label:'カフェイン遅延', icon:'☕', sixAxisKey:'s3',
+    desc: {
+      L3:'カフェインの半減期は5〜6時間。15時のコーヒーは就寝時にまだ半分が血中に残り、深睡眠を最大20%削減します。翌日のパフォーマンスを考えるなら、カフェインの「損益分岐点」を知ることが合理的です',
+      L2:'午後遅くのカフェインは体内時計のリズムを乱し、「いつも通り」に眠れなくなる原因です。摂取時間のルール化で、毎晩の安定した入眠パターンを守れます',
+      R3:'カフェインが夜の覚醒を引き延ばし、翌朝のエネルギーを前借りしている状態です。午後のカフェインを別の飲み物に切り替えることで、新しい味の発見も楽しめます',
+      R2:'午後遅くのカフェインが自律神経を覚醒状態に保ち、夜の安心感を妨げています。温かいノンカフェインの飲み物に切り替えることで、自分を労わるリラックスタイムがつくれます'
+    }
+  },
+  EXR: { label:'運動不足', icon:'🏃', sixAxisKey:'s5',
+    desc: {
+      L3:'適度な運動は深睡眠を最大65%増加させるというデータがあります。睡眠の質を効率よく上げるなら、運動は最もROIの高い投資です',
+      L2:'規則正しい運動習慣は体内時計を安定させ、毎晩の睡眠リズムを一定に保つ効果があります。運動をルーティンに組み込むことで、眠りの質が安定します',
+      R3:'体を動かすことで脳内のエネルギー発散が起こり、夜の「まだ動きたい」衝動が収まります。楽しく体を動かす方法を見つければ、夜は自然に眠くなります',
+      R2:'運動には不安やストレスを軽減する効果があり、穏やかな気持ちで眠りにつけるようになります。体を動かすことは、心の安定にもつながる自分へのケアです'
+    }
+  },
+  LGT: { label:'光環境不良', icon:'💡', sixAxisKey:'s4',
+    desc: {
+      L3:'寝室の光が微量でもメラトニン分泌を抑制し、入眠潜時を延長します。光環境の最適化は、最小コストで最大効果が得られる改善ポイントです',
+      L2:'寝室の明るさが一定でないと、脳が「まだ日中」と判断してリズムが崩れます。毎晩同じ暗さを保つことで、安心して眠れる環境が整います',
+      R3:'明るい光が脳の「もっと活動したい」スイッチをONにし続けています。寝室を暗くする工夫自体を楽しめれば、夜の空間づくりが新しい体験になります',
+      R2:'明るい環境は交感神経を優位にし、心が安らぎにくい状態を作ります。温かみのある暗い空間にすることで、安心感に包まれて眠れるようになります'
+    }
+  },
+  STR: { label:'ストレス過剰', icon:'🧠', sixAxisKey:'s1',
+    desc: {
+      L3:'ストレスによるコルチゾール上昇が覚醒状態を維持し、論理的思考の「処理ループ」が止まりません。思考を物理的に外部化することで、脳に「処理完了」のシグナルを送れます',
+      L2:'ストレスが「いつもと違う」感覚を増幅させ、就寝ルーティンの効果を下げています。決まった手順でストレスを整理するプロセスを持つことで、安心感が戻ります',
+      R3:'ストレスが脳のエネルギーを消耗させ、「楽しいことで気を紛らわせたい」衝動が夜を長引かせています。ポジティブな気持ちへの切り替えで、未来への楽しみと共に眠れます',
+      R2:'対人ストレスや感情の反芻が、安心して眠れる状態を妨げています。今日の自分を肯定し、安心できる存在を思い浮かべることで、穏やかに眠りにつけます'
+    }
+  }
+};
+
+// ===== RISK RANKING LOGIC =====
+function calculateRiskFactors() {
+  const tl = JSON.parse(localStorage.getItem('timeline') || '{}');
+  const env = JSON.parse(localStorage.getItem('environment') || '{}');
+  const answers = JSON.parse(localStorage.getItem('questionResponses') || '{}');
+  const risks = [];
+
+  // SCR: Screen within 2 hours of bed
+  if (tl.screenEnd && tl.bedTime && (tl.bedTime - tl.screenEnd) < 120) {
+    const gap = tl.bedTime - tl.screenEnd;
+    risks.push({ code:'SCR', severity: gap < 60 ? 3 : 2 });
+  }
+  // CAF: Last caffeine >= 15:00 (900 mins)
+  const lastCaf = tl.caffeineLast || tl.caffeineFirst;
+  if (lastCaf && lastCaf >= 900) {
+    risks.push({ code:'CAF', severity: (lastCaf - 900) > 120 ? 3 : 2 });
+  }
+  // EXR: No exercise
+  if (tl.noExercise) {
+    risks.push({ code:'EXR', severity: 2 });
+  }
+  // LGT: Environment Q-E1 = C or D
+  if (env['1'] === 'C' || env['1'] === 'D') {
+    risks.push({ code:'LGT', severity: env['1'] === 'D' ? 3 : 2 });
+  }
+  // STR: Q4 (index 3) + Q7 (index 6)
+  let stressSev = 0;
+  if (answers['6'] && answers['6'] !== 'E') stressSev += 2;
+  if (answers['3'] && answers['3'] !== 'E') stressSev += 1;
+  if (stressSev > 0) {
+    risks.push({ code:'STR', severity: Math.min(stressSev, 3) });
+  }
+
+  // Sort by severity desc
+  risks.sort((a, b) => b.severity - a.severity);
+  const top3 = risks.slice(0, 3);
+
+  // Fill to 3 if needed
+  const used = top3.map(r => r.code);
+  for (const code of ['SCR','CAF','EXR','LGT','STR']) {
+    if (top3.length >= 3) break;
+    if (!used.includes(code)) {
+      top3.push({ code, severity: 1 });
+      used.push(code);
+    }
+  }
+  return top3.slice(0, 3);
+}
+
+// ===== DAY2 FUNCTIONS =====
+
+const D2_SLEEP_MSG = {
+  L3:'データを最適化するために、昨夜の睡眠を正確に記録しましょう。この数値がDay5までの改善指標になります。',
+  L2:'昨夜の睡眠パターンを記録します。毎日同じ項目をチェックすることで、あなたの睡眠リズムが見えてきます。',
+  R3:'さあ、本番開始！昨夜の睡眠をサクッと記録して、今日からアクションに入りましょう。',
+  R2:'昨夜の睡眠について、正直な感覚で教えてください。完璧な回答でなくて大丈夫。あなたの感覚が一番大切です。'
+};
+
+const D2_COMMIT_MSG = {
+  L3:'コミットメントが記録されました。実行データは明日のDay3で分析します。',
+  L2:'今夜のルーティンが確定しました。同じ手順で、安心して進めてください。',
+  R3:'今夜の挑戦が決まりました！明日の朝、どう変わったか楽しみにしていてください。',
+  R2:'今夜のアクションを受け入れてくれてありがとうございます。無理せず、あなたのペースで大丈夫です。'
+};
+
+const D2_WAIT_MSG = {
+  L3:'Day3では2晩分のデータを比較分析します。今夜のアクションを実行して、比較データを生成してください。',
+  L2:'今夜選んだアクションを、いつもの就寝ルーティンの中で実行してください。明日のDay3で記録を確認します。',
+  R3:'今夜のアクションを試してみて、明日の朝どう感じるか楽しみにしていてください。Day3ではサプライズもあります。',
+  R2:'今夜は選んだアクションを無理のない範囲で試してみてください。明日のDay3で、ゆっくり振り返りましょう。'
+};
+
+function isDay2Unlocked() {
+  const t = localStorage.getItem('day2UnlockTime');
+  return t ? new Date() >= new Date(t) : false;
+}
+
+function selectWake(val, el) {
+  document.querySelectorAll('#d2WakeOptions .wake-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.d2NightWake = val;
+}
+
+function submitDay2Step1() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+
+  // Save sleep check
+  const data = {
+    day: 2,
+    fallingAsleep: parseInt(document.getElementById('d2FallAsleepSlider').value),
+    nightWaking: state.d2NightWake || 'none',
+    morningFeel: parseInt(document.getElementById('d2MorningSlider').value),
+    timestamp: new Date().toISOString()
+  };
+  const checks = JSON.parse(localStorage.getItem('sleepChecks') || '[]');
+  checks.push(data);
+  localStorage.setItem('sleepChecks', JSON.stringify(checks));
+
+  // Render Step2
+  const top3 = calculateRiskFactors();
+  localStorage.setItem('riskFactorsTop3', JSON.stringify(top3));
+
+  const typeName = typeDefinitions[btKey]?.name || '';
+  document.getElementById('d2TypeName').textContent = typeName;
+
+  let html = '';
+  top3.forEach((risk, idx) => {
+    const def = RISK_FACTORS[risk.code];
+    const stars = idx === 0 ? '★★★' : idx === 1 ? '★★☆' : '★☆☆';
+    const isPrimary = idx === 0;
+    const isLocked = idx > 0;
+    html += `
+      <div class="risk-card ${isPrimary?'primary':''}" ${isLocked?'style="opacity:0.5; pointer-events:none;"':''}>
+        <div class="risk-header">
+          <span class="risk-icon">${def.icon}</span>
+          <span class="risk-label">${def.label}</span>
+          <span class="risk-stars">${stars}</span>
+        </div>
+        <div class="risk-desc">${def.desc[btKey]}</div>
+        ${isLocked?'<div class="risk-lock">🔒 サブスクで対処可能</div>':''}
+      </div>`;
+  });
+  document.getElementById('d2RiskList').innerHTML = html;
+  showScreen('d2step2');
+}
+
+function goToD2Step3() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const top3 = JSON.parse(localStorage.getItem('riskFactorsTop3') || '[]');
+  if (!top3.length) return;
+
+  const primaryRisk = top3[0].code;
+  const actions = ACTIONS[primaryRisk]?.[btKey];
+  if (!actions) return;
+
+  document.getElementById('d2ActionRiskLabel').textContent = RISK_FACTORS[primaryRisk].label;
+
+  // LGT common note
+  const lgtNote = document.getElementById('d2LgtNote');
+  if (lgtNote) lgtNote.style.display = primaryRisk === 'LGT' ? 'block' : 'none';
+
+  let html = '';
+  ['A','B','C'].forEach(key => {
+    const a = actions[key];
+    const diffLabel = a.difficulty === '高' ? '高難易度・高効果' : a.difficulty === '中' ? '中程度' : '手軽に始められる';
+    const diffColor = a.difficulty === '高' ? 'var(--accent-moon)' : a.difficulty === '中' ? 'var(--accent-blue)' : 'var(--success)';
+    html += `
+      <div class="action-card" id="d2Act${key}" onclick="selectD2Action('${key}','${primaryRisk}')">
+        <div class="action-difficulty" style="color:${diffColor};">${diffLabel}</div>
+        <div class="action-text">${a.text}</div>
+        <div class="action-note">${a.note}</div>
+      </div>`;
+  });
+  document.getElementById('d2ActionChoices').innerHTML = html;
+
+  // Reset selection
+  document.getElementById('d2ToCommitBtn').style.opacity = '0.4';
+  document.getElementById('d2ToCommitBtn').style.pointerEvents = 'none';
+
+  showScreen('d2step3');
+}
+
+function selectD2Action(choice, riskCode) {
+  document.querySelectorAll('.action-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('d2Act' + choice).classList.add('selected');
+  state.d2SelectedAction = { choice, riskCode };
+  document.getElementById('d2ToCommitBtn').style.opacity = '1';
+  document.getElementById('d2ToCommitBtn').style.pointerEvents = 'auto';
+}
+
+function goToD2Step4() {
+  const sel = state.d2SelectedAction;
+  if (!sel) return;
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const action = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  if (action) document.getElementById('d2CommitActionText').textContent = action.text;
+
+  // Reset commit UI
+  const btn = document.getElementById('d2CommitConfirmBtn');
+  btn.textContent = 'はい、今夜やります';
+  btn.style.background = '';
+  btn.style.pointerEvents = 'auto';
+  document.getElementById('d2CommitMessage').style.display = 'none';
+
+  showScreen('d2step4');
+}
+
+function commitDay2Action() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const sel = state.d2SelectedAction;
+  if (!sel) return;
+
+  // Save
+  localStorage.setItem('selectedAction', JSON.stringify(sel));
+  const timestamps = JSON.parse(localStorage.getItem('commitTimestamps') || '[]');
+  timestamps.push({ day:2, timestamp: new Date().toISOString() });
+  localStorage.setItem('commitTimestamps', JSON.stringify(timestamps));
+
+  // UI feedback
+  document.getElementById('d2CommitMessage').textContent = D2_COMMIT_MSG[btKey];
+  document.getElementById('d2CommitMessage').style.display = 'block';
+  const btn = document.getElementById('d2CommitConfirmBtn');
+  btn.textContent = '✓ 宣言しました';
+  btn.style.background = 'var(--success)';
+  btn.style.pointerEvents = 'none';
+
+  // Go to Step5 after delay
+  setTimeout(() => {
+    // Render prediction
+    const sixAxis = JSON.parse(localStorage.getItem('sixAxisScores') || '{}');
+    const riskDef = RISK_FACTORS[sel.riskCode];
+    const axisKey = riskDef.sixAxisKey;
+    const current = parseInt(sixAxis[axisKey]) || 5;
+    const predicted = Math.min(10, current + 1 + (sel.choice === 'A' ? 1 : 0));
+
+    document.getElementById('d2PredictLabel').textContent = riskDef.label;
+    document.getElementById('d2PredictCurrent').textContent = current;
+    document.getElementById('d2PredictTarget').textContent = predicted;
+
+    showScreen('d2step5');
+    setTimeout(() => {
+      document.getElementById('d2PredictBar').style.width = (predicted * 10) + '%';
+    }, 400);
+  }, 1500);
+}
+
+function goToD2Step6() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const action = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  if (action) document.getElementById('d2TonightAction').textContent = action.text;
+  showScreen('d2step6');
+}
+
+function completeDay2() {
+  const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
+  flags.day2 = new Date().toISOString();
+  localStorage.setItem('dayCompletionFlags', JSON.stringify(flags));
+
+  // Day3 unlock
+  const now = new Date();
+  const twelve = new Date(now.getTime() + 12*60*60*1000);
+  const tmr5 = new Date(now);
+  tmr5.setDate(tmr5.getDate()+1);
+  tmr5.setHours(5,0,0,0);
+  localStorage.setItem('day3UnlockTime', new Date(Math.max(twelve.getTime(), tmr5.getTime())).toISOString());
+
+  const btn = document.getElementById('d2CompleteBtn');
+  btn.textContent = '✓ Day 2 完了';
+  btn.style.background = 'var(--success)';
+  btn.style.pointerEvents = 'none';
+  setTimeout(() => showDay2Completed(), 1500);
+}
+
+function showDay2Locked() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const waitMsg = typeDefinitions[btKey]?.waitMsg || '';
+  const t = localStorage.getItem('day2UnlockTime');
+  let timeDisp = '';
+  if (t) { const d = new Date(t); timeDisp = `${d.getMonth()+1}月${d.getDate()}日 ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`; }
+
+  document.querySelector('.container').innerHTML = `
+    <div class="screen active visible" style="padding-top:80px; text-align:center;">
+      <div style="font-size:2.2rem; margin-bottom:12px;">🔒</div>
+      <div class="title-en" style="font-size:1.4rem;">Day 2 — まもなく開放</div>
+      <div class="spacer-m"></div>
+      <div style="font-size:0.88rem; color:var(--text-secondary); line-height:1.8;">${waitMsg}</div>
+      <div class="spacer-m"></div>
+      <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+        <div style="font-size:0.78rem; color:var(--text-muted);">開放予定時刻</div>
+        <div style="font-size:1.2rem; color:var(--accent-moon); font-weight:600; margin-top:6px;">${timeDisp}</div>
+      </div>
+    </div>`;
+}
+
+function showDay2Completed() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const action = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  const riskLabel = RISK_FACTORS[sel.riskCode]?.label || '';
+  const t = localStorage.getItem('day3UnlockTime');
+  let timeDisp = '';
+  if (t) { const d = new Date(t); timeDisp = `${d.getMonth()+1}月${d.getDate()}日 ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`; }
+
+  document.querySelector('.container').innerHTML = `
+    <div class="screen active visible" style="padding-top:60px;">
+      <div style="text-align:center; margin-bottom:28px;">
+        <div style="font-size:2.2rem; margin-bottom:12px;">🌙</div>
+        <div class="title-en" style="font-size:1.6rem;">Day 2 Complete</div>
+      </div>
+      <div class="complete-section">
+        <div class="complete-section-title">TONIGHT'S ACTION</div>
+        <div class="tonight-card">
+          <div style="font-size:0.72rem; color:var(--accent-moon); letter-spacing:0.08em; margin-bottom:6px;">${riskLabel}</div>
+          <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.8;">${action?.text || ''}</div>
+        </div>
+      </div>
+      <div class="complete-section">
+        <div class="complete-section-title">NEXT</div>
+        <div class="wait-card">
+          <div class="wait-title">Day 3 開放予定</div>
+          <div style="font-size:1.1rem; color:var(--accent-moon); font-weight:600; margin:8px 0;">${timeDisp}</div>
+          <div class="wait-body">${D2_WAIT_MSG[btKey]}</div>
+        </div>
+      </div>
+      <div style="text-align:center; margin:20px 0;">
+        <div style="font-size:0.75rem; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:8px;">DAY PROGRESS</div>
+        <div style="background:var(--surface); height:6px; border-radius:6px; overflow:hidden; margin:0 20px;">
+          <div style="width:40%; height:100%; background:linear-gradient(90deg, var(--accent-moon), var(--accent-gold)); border-radius:6px;"></div>
+        </div>
+        <div style="font-size:0.72rem; color:var(--text-muted); margin-top:6px;">40% 完了</div>
+      </div>
+      <div style="height:60px;"></div>
+    </div>`;
+}
+
 // ===== INITIALIZATION =====
 function init() {
   const params = new URLSearchParams(window.location.search);
@@ -1314,10 +2195,11 @@ function init() {
       'freeTextQ6','freeTextQ7','answerChangeCount','timeline','environment',
       'riskFactorsTop3','selectedAction','selectedRoutine','sleepChecks',
       'executionChecks','courseCorrection','commitTimestamps','dayCompletionFlags',
-      'planSelection','planSelectionTime','shareUsed','day2UnlockTime','tonightActionAccepted'
+      'planSelection','planSelectionTime','shareUsed',
+      'day2UnlockTime','day3UnlockTime','day4UnlockTime','day5UnlockTime',
+      'tonightActionAccepted'
     ];
     keysToRemove.forEach(k => localStorage.removeItem(k));
-    // Remove reset param from URL and reload clean
     window.location.href = window.location.pathname;
     return;
   }
@@ -1333,14 +2215,28 @@ function init() {
     localStorage.setItem('sixAxisScores', JSON.stringify(sixAxis));
   }
 
-  // Check if Day1 already completed
+  // Route to correct day
   const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
-  if (flags.day1) {
-    showDayCompleted();
+
+  if (flags.day2) {
+    showDay2Completed();
     return;
   }
 
-  // Show opening
+  if (flags.day1) {
+    // Day1 complete — check Day2 unlock
+    if (isDay2Unlocked()) {
+      const bt = localStorage.getItem('brainType') || 'L3';
+      const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+      document.getElementById('d2SleepMsg').textContent = D2_SLEEP_MSG[btKey];
+      showScreen('d2step1');
+    } else {
+      showDay2Locked();
+    }
+    return;
+  }
+
+  // Day1 not complete
   showScreen('step1');
 }
 
