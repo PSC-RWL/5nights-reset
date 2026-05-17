@@ -542,6 +542,75 @@ input[type="range"]::-moz-range-thumb {
   border: 1px solid var(--border);
 }
 
+/* ===== Score Bars ===== */
+.score-bar-item {
+  margin-bottom: 14px;
+}
+.score-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+.score-bar-name {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.score-bar-name.active {
+  color: var(--accent-moon);
+  font-weight: 600;
+}
+.score-bar-pct {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.score-bar-pct.active {
+  color: var(--accent-moon);
+}
+.score-bar-track {
+  height: 6px;
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--surface-light);
+  transition: width 1s cubic-bezier(0.16,1,0.3,1);
+}
+.score-bar-fill.active {
+  background: linear-gradient(90deg, var(--accent-moon), var(--accent-gold));
+}
+
+/* ===== Type Detail Card ===== */
+.type-detail-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  margin-bottom: 16px;
+}
+.type-detail-card.primary {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.04) 100%);
+  border-color: rgba(240,199,96,0.15);
+}
+.type-detail-card.secondary {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(107,163,214,0.04) 100%);
+  border-color: rgba(107,163,214,0.12);
+}
+.type-rank-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.type-rank-label.primary { color: var(--accent-moon); }
+.type-rank-label.secondary { color: var(--accent-blue); }
+
 /* ===== Brand Tag ===== */
 .brand-tag {
   text-align: center;
@@ -720,7 +789,21 @@ input[type="range"]::-moz-range-thumb {
     <svg id="radarChart" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
 
-  <div class="result-card" id="resultCard"></div>
+  <!-- Score Bars -->
+  <div id="scoreBars" style="margin:0 0 24px;"></div>
+
+  <!-- Primary Type -->
+  <div id="primaryTypeCard"></div>
+
+  <!-- Secondary Type (composite only) -->
+  <div id="secondaryTypeCard" style="display:none;"></div>
+
+  <!-- Precision Teaser -->
+  <div style="margin-top:16px; padding:14px 18px; background:rgba(167,139,250,0.06); border:1px solid rgba(167,139,250,0.12); border-radius:var(--radius-sm); font-size:0.78rem; color:var(--text-muted); line-height:1.7;">
+    ※ 7問の簡易診断に基づく概算値です。<strong style="color:var(--accent-purple);">B-Brain正式診断</strong>（80問）で、より精密な脳タイプ分析が可能です。
+  </div>
+
+  <div class="spacer-s"></div>
 
   <div class="lock-teaser">
     <span class="lock-icon">🔒</span>
@@ -1062,7 +1145,7 @@ const questions = [
   },
   {
     id: 'Q4',
-    text: '仕事で大きなストレスを感じた日の夜、\nどうなることが多い？',
+    text: 'ストレスやイライラを感じている日の夜、\nどうなることが多い？',
     options: [
       { label:'A', text:'問題の原因と解決策を論理的に整理しようとして目が冴える', type:'L3' },
       { label:'B', text:'「自分のやり方は正しかったのか」と手順や細部を何度も振り返る', type:'L2' },
@@ -1404,24 +1487,106 @@ function finishQuiz() {
   showScreen('step3');
 }
 
-// ===== RADAR CHART =====
+// ===== RADAR CHART & RESULT =====
 function renderResult() {
   const scores = state.scores;
   const maxScore = Math.max(...Object.values(scores), 1);
-  const detail = state.brainTypeDetail;
+  const totalScore = Object.values(scores).reduce((a,b) => a+b, 0) || 1;
 
   // Draw radar chart
   drawRadar(scores, maxScore);
 
-  // Result card
-  const card = document.getElementById('resultCard');
-  card.innerHTML = `
-    <div class="result-type-name">${detail.name}</div>
-    <div class="result-type-sub">${detail.sub}</div>
-    <div style="font-size:0.9rem; color:var(--accent-moon); margin-bottom:14px; font-style:italic;">${detail.catchcopy}</div>
-    <div class="result-feature">${detail.feature.replace(/\n/g,'<br>')}</div>
-    <div class="result-program">📋 ${detail.program}</div>
+  // Sorted types by score
+  const sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
+
+  // Score bars (all 4 types, active ones highlighted)
+  const barsEl = document.getElementById('scoreBars');
+  const activeTypes = [];
+  // Determine which types are "active" (primary + secondary if composite)
+  if (state.brainType === 'BALANCED') {
+    sorted.forEach(s => { if (s[1] >= sorted[0][1]) activeTypes.push(s[0]); });
+  } else {
+    activeTypes.push(sorted[0][0]);
+    if (sorted[0][1] - sorted[1][1] <= 1) activeTypes.push(sorted[1][0]);
+  }
+
+  let barsHtml = '';
+  sorted.forEach(([type, score]) => {
+    const pct = Math.round((score / totalScore) * 100);
+    const isActive = activeTypes.includes(type);
+    const def = typeDefinitions[type];
+    barsHtml += `
+      <div class="score-bar-item">
+        <div class="score-bar-header">
+          <span class="score-bar-name ${isActive?'active':''}">${def.name}</span>
+          <span class="score-bar-pct ${isActive?'active':''}">${pct}%</span>
+        </div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill ${isActive?'active':''}" style="width:0%;" data-width="${pct}%"></div>
+        </div>
+      </div>
+    `;
+  });
+  barsEl.innerHTML = barsHtml;
+
+  // Animate bars after render
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      barsEl.querySelectorAll('.score-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width;
+      });
+    }, 200);
+  });
+
+  // Primary type card
+  const primaryKey = sorted[0][0];
+  const primaryDef = typeDefinitions[primaryKey];
+  const primaryCard = document.getElementById('primaryTypeCard');
+  primaryCard.innerHTML = `
+    <div class="type-detail-card primary">
+      <div class="type-rank-label primary">▍あなたの思考傾向で一番優位に高いのは</div>
+      <div class="result-type-name">${primaryDef.name}</div>
+      <div class="result-type-sub">${primaryDef.sub}</div>
+      <div style="font-size:0.88rem; color:var(--accent-moon); margin:10px 0 14px; font-style:italic;">${primaryDef.catchcopy}</div>
+      <div class="result-feature">${primaryDef.feature.replace(/\n/g,'<br>')}</div>
+      <div class="result-program" style="margin-top:14px;">📋 ${primaryDef.program}</div>
+    </div>
   `;
+
+  // Secondary type card (if composite or balanced)
+  const secondaryCard = document.getElementById('secondaryTypeCard');
+  if (activeTypes.length >= 2 && state.brainType !== 'BALANCED') {
+    const secKey = sorted[1][0];
+    const secDef = typeDefinitions[secKey];
+    secondaryCard.style.display = 'block';
+    secondaryCard.innerHTML = `
+      <div class="type-detail-card secondary">
+        <div class="type-rank-label secondary">▍次に優位なのは</div>
+        <div class="result-type-name" style="color:var(--accent-blue);">${secDef.name}</div>
+        <div class="result-type-sub">${secDef.sub}</div>
+        <div style="font-size:0.88rem; color:var(--accent-blue); margin:10px 0 14px; font-style:italic;">${secDef.catchcopy}</div>
+        <div class="result-feature">${secDef.feature.replace(/\n/g,'<br>')}</div>
+        <div style="margin-top:14px; padding:10px 14px; background:rgba(107,163,214,0.06); border-radius:var(--radius-sm); font-size:0.82rem; color:var(--accent-blue);">
+          💡 2つの思考傾向を持つあなたには、より精密な分析が有効です。メンバーシップのB-Brain正式診断で、複合型の詳細が明らかになります。
+        </div>
+      </div>
+    `;
+  } else if (state.brainType === 'BALANCED') {
+    secondaryCard.style.display = 'block';
+    secondaryCard.innerHTML = `
+      <div class="type-detail-card secondary">
+        <div class="type-rank-label secondary">▍バランス型</div>
+        <div style="font-size:0.9rem; color:var(--text-primary); font-weight:500; margin-bottom:10px;">複数の思考傾向が均衡しています</div>
+        <div class="result-feature">
+          あなたは状況や環境によって異なる思考パターンが現れるタイプです。
+          これは柔軟性の表れでもありますが、簡易診断では最適なアプローチを1つに絞りにくい傾向があります。
+        </div>
+        <div style="margin-top:14px; padding:10px 14px; background:rgba(167,139,250,0.06); border-radius:var(--radius-sm); font-size:0.82rem; color:var(--accent-purple);">
+          🧠 B-Brain正式診断（80問）で、あなたの脳の使い方の全体像が数値で明らかになります。
+        </div>
+      </div>
+    `;
+  }
 }
 
 function drawRadar(scores, maxScore) {
