@@ -747,7 +747,7 @@ input[type="range"]::-moz-range-thumb {
     <div class="timeline-item">
       <label>起床時間</label>
       <div class="time-slider-wrap">
-        <input type="range" min="300" max="600" value="420" step="15"
+        <input type="range" min="180" max="720" value="420" step="15"
           oninput="updateTimeDisplay(this,'wakeDisplay')" id="wakeSlider">
         <div class="time-display" id="wakeDisplay">7:00</div>
       </div>
@@ -761,7 +761,7 @@ input[type="range"]::-moz-range-thumb {
         <button class="toggle-btn" onclick="toggleCaffeine('first','no',this)" id="cafFirstNo">摂らない</button>
       </div>
       <div class="time-slider-wrap" id="cafFirstSliderWrap">
-        <input type="range" min="300" max="720" value="450" step="15"
+        <input type="range" min="180" max="1320" value="450" step="15"
           oninput="updateTimeDisplay(this,'cafFirstDisplay')" id="cafFirstSlider">
         <div class="time-display" id="cafFirstDisplay">7:30</div>
       </div>
@@ -786,13 +786,13 @@ input[type="range"]::-moz-range-thumb {
       <label>主な仕事/活動の時間帯</label>
       <div class="time-slider-wrap" style="margin-bottom:8px;">
         <span style="font-size:0.75rem; color:var(--text-muted); min-width:32px;">開始</span>
-        <input type="range" min="300" max="1320" value="540" step="15"
+        <input type="range" min="0" max="1380" value="540" step="15"
           oninput="updateTimeDisplay(this,'workStartDisplay')" id="workStartSlider">
         <div class="time-display" id="workStartDisplay">9:00</div>
       </div>
       <div class="time-slider-wrap">
         <span style="font-size:0.75rem; color:var(--text-muted); min-width:32px;">終了</span>
-        <input type="range" min="300" max="1440" value="1080" step="15"
+        <input type="range" min="0" max="1620" value="1080" step="15"
           oninput="updateTimeDisplay(this,'workEndDisplay')" id="workEndSlider">
         <div class="time-display" id="workEndDisplay">18:00</div>
       </div>
@@ -812,7 +812,7 @@ input[type="range"]::-moz-range-thumb {
     <div class="timeline-item">
       <label>夕食の時間</label>
       <div class="time-slider-wrap">
-        <input type="range" min="1020" max="1380" value="1140" step="15"
+        <input type="range" min="660" max="1500" value="1140" step="15"
           oninput="updateTimeDisplay(this,'dinnerDisplay')" id="dinnerSlider">
         <div class="time-display" id="dinnerDisplay">19:00</div>
       </div>
@@ -836,7 +836,7 @@ input[type="range"]::-moz-range-thumb {
     <div class="timeline-item">
       <label>スクリーン使用終了時間</label>
       <div class="time-slider-wrap">
-        <input type="range" min="1140" max="1500" value="1380" step="15"
+        <input type="range" min="720" max="1620" value="1380" step="15"
           oninput="updateTimeDisplay(this,'screenDisplay')" id="screenSlider">
         <div class="time-display" id="screenDisplay">23:00</div>
       </div>
@@ -846,7 +846,7 @@ input[type="range"]::-moz-range-thumb {
     <div class="timeline-item">
       <label>就寝時間</label>
       <div class="time-slider-wrap">
-        <input type="range" min="1200" max="1560" value="1440" step="15"
+        <input type="range" min="1080" max="1680" value="1440" step="15"
           oninput="updateTimeDisplay(this,'bedDisplay')" id="bedSlider">
         <div class="time-display" id="bedDisplay">24:00</div>
       </div>
@@ -926,10 +926,30 @@ input[type="range"]::-moz-range-thumb {
   <div class="section-label">DAY 1 COMPLETE</div>
   <div class="section-title" style="font-size:1.1rem;">今日わかったこと</div>
 
+  <!-- Results Review -->
+  <div class="result-card" id="step6ResultReview" style="margin-bottom:16px;"></div>
+
   <div class="summary-card" id="summaryCard"></div>
 
-  <div class="spacer-s"></div>
+  <div class="spacer-m"></div>
 
+  <!-- Tonight's Action -->
+  <div id="tonightActionSection" style="display:none;">
+    <div class="section-label">TONIGHT</div>
+    <div class="section-title" style="font-size:1rem;">明日から本格スタートですが——<br>今夜、1つだけ試してみませんか？</div>
+    <div class="spacer-s"></div>
+    <div id="tonightActionCard" class="result-card" style="border-color:rgba(107,163,214,0.2); background:linear-gradient(135deg, var(--bg-card) 0%, rgba(107,163,214,0.04) 100%);"></div>
+
+    <div class="spacer-s"></div>
+    <div class="toggle-row">
+      <button class="toggle-btn" onclick="acceptTonightAction(true)" id="tonightYes" style="flex:1;">今夜やってみる</button>
+      <button class="toggle-btn" onclick="acceptTonightAction(false)" id="tonightSkip" style="flex:1;">明日から始める</button>
+    </div>
+  </div>
+
+  <div class="spacer-m"></div>
+
+  <!-- Tomorrow Preview -->
   <div style="font-size:0.88rem; color:var(--text-secondary); line-height:1.8;">
     <strong style="color:var(--text-primary);">明日の予告</strong><br>
     あなたの脳タイプに合ったアクションを3択から選びます。<br>
@@ -1031,11 +1051,11 @@ const questions = [
   },
   {
     id: 'Q3',
-    text: '旅行先のホテルで眠れないとき、\n最も近い原因は？',
+    text: 'いつもと違う場所や環境で眠るとき、\n最も眠れなくなる原因は？',
     options: [
-      { label:'A', text:'明日以降の計画（仕事を含む）を見直すことが多い', type:'L3' },
+      { label:'A', text:'翌日以降の予定や段取りを頭の中で整理し始める', type:'L3' },
       { label:'B', text:'いつもと違う環境やルーティンが気になって落ち着かない', type:'L2' },
-      { label:'C', text:'翌日の観光が楽しみすぎてワクワクが止まらない', type:'R3' },
+      { label:'C', text:'新しい環境への興味やワクワクが止まらない', type:'R3' },
       { label:'D', text:'一緒にいる人や、離れている家族のことが気になる', type:'R2' },
     ],
     points: 1
@@ -1098,33 +1118,37 @@ const typeDefinitions = {
     name: 'ストラテジスト型',
     sub: '左脳3次元・Why型',
     catchcopy: '思考が止まらない、夜の戦略家',
-    feature: '脳が「処理モード」から抜け出せず、明日のタスクや計画が次々と整理され始めます。論理的で合理的な思考は昼間の武器ですが、夜はその同じ力が入眠を妨げます。',
+    feature: '脳が「処理モード」から抜け出せず、明日のタスクや計画が次々と整理され始めます。論理的で合理的な思考は昼間の武器ですが、夜はその同じ力が入眠を妨げます。\n\n布団に入った瞬間、脳は「今日の未処理タスク」を検索し始めます。これは意志の弱さではなく、あなたの脳が高い処理能力を持っている証拠です。問題は「止め方」を知らないこと。このプログラムでは、脳に"処理完了"のシグナルを送る具体的な方法を実践します。',
     program: '思考の外部化と脳の処理完了シグナルで、考え続ける脳をリセットします',
-    waitMsg: '明日の朝、データをもとにDay2が開放されます。データがない状態で次に進んでも最適なアクションは提案できません。'
+    waitMsg: '明日の朝、データをもとにDay2が開放されます。データがない状態で次に進んでも最適なアクションは提案できません。',
+    tonightAction: '今夜寝る前に、明日やることを3つだけ紙に書き出してください。頭の中のタスクを「外」に出すことで、脳に"もう覚えておかなくていい"というシグナルを送ります。'
   },
   L2: {
     name: 'アナリスト型',
     sub: '左脳2次元・How型',
     catchcopy: 'いつもと違う、が気になる完璧主義者',
-    feature: '「いつもと違うこと」への不安が、そのままストレスに直結します。ルーティンの乱れや細部への気がかりが、眠りに入る妨げになっています。',
+    feature: '「いつもと違うこと」への不安が、そのままストレスに直結します。ルーティンの乱れや細部への気がかりが、眠りに入る妨げになっています。\n\n正確さと丁寧さを大切にするあなたの脳は、就寝前に「今日のズレ」をスキャンします。少しでも"いつもと違う"ことがあると、それが気になって眠れません。この傾向を逆に活かし、"眠るための手順"そのものをルーティン化するのがこのプログラムのアプローチです。',
     program: '安心できる就寝ルーティンの構築で、毎晩同じ手順で穏やかに入眠します',
-    waitMsg: '5日間プログラムは毎日決まったリズムで進むことで効果を発揮します。いつもの就寝ルーティンの前にこのページを開いてください。'
+    waitMsg: '5日間プログラムは毎日決まったリズムで進むことで効果を発揮します。いつもの就寝ルーティンの前にこのページを開いてください。',
+    tonightAction: '今夜の就寝準備を「いつもと同じ順番」で意識的に行ってみてください。歯磨き→着替え→布団、のように順番を決めて、それを明日も繰り返す。小さなルーティンが安心につながります。'
   },
   R3: {
     name: 'アクティベーター型',
     sub: '右脳3次元・What型',
     catchcopy: '夜にエンジンがかかる、好奇心の塊',
-    feature: '「まだ起きていたい」「もっとやりたいことがある」という衝動が、夜になるほど強くなります。好奇心とワクワクは素晴らしい資質ですが、就寝時間との戦いになりがちです。',
+    feature: '「まだ起きていたい」「もっとやりたいことがある」という衝動が、夜になるほど強くなります。好奇心とワクワクは素晴らしい資質ですが、就寝時間との戦いになりがちです。\n\nあなたの脳は夜にクリエイティブモードに入りやすい構造を持っています。「あと5分だけ」が30分になり、気づけば深夜。これは自制心の問題ではなく、脳の活動リズムの特性です。このプログラムでは「制限」ではなく「切り替え」のテクニックで、楽しさを味方につけます。',
     program: '楽しさを活かした切り替えスイッチで、ワクワクを明日に持ち越します',
-    waitMsg: 'Day2では脳タイプ専用のアクションを3つ用意しています。明日、勝負です。'
+    waitMsg: 'Day2では脳タイプ専用のアクションを3つ用意しています。明日、勝負です。',
+    tonightAction: '今夜、布団に入る時間を1つ決めてください（何時でもOK）。そしてその10分前にスマホにアラームをセット。鳴ったら「今日のワクワクは明日に持ち越し」と声に出して、布団へ。'
   },
   R2: {
     name: 'ハーモナイザー型',
     sub: '右脳2次元・Who型',
     catchcopy: '人の気持ちに敏感すぎる、共感の達人',
-    feature: '対人ストレスや感情の反芻が、布団の中で繰り返し浮かんできます。共感力が高く人の気持ちを敏感に感じ取れるからこそ、夜に一人になると感情が整理できずに眠れなくなります。',
+    feature: '対人ストレスや感情の反芻が、布団の中で繰り返し浮かんできます。共感力が高く人の気持ちを敏感に感じ取れるからこそ、夜に一人になると感情が整理できずに眠れなくなります。\n\n日中は周囲に気を配り、相手の感情を自分のことのように感じ取るあなたの脳は、夜になるとその日の「感情の在庫」を棚卸しします。あの人は怒っていたかも、自分の言い方がまずかったかも——この反芻が止まりません。このプログラムでは、感情を「区切る」方法で安心を作ります。',
     program: '感情の区切りと安心の環境づくりで、穏やかな入眠を実現します',
-    waitMsg: '今日はたくさんの質問に答えてくれてありがとうございます。焦る必要はまったくありません。'
+    waitMsg: '今日はたくさんの質問に答えてくれてありがとうございます。焦る必要はまったくありません。',
+    tonightAction: '今夜、布団に入ったら「今日はもう終わり。よくがんばった」と心の中で自分に声をかけてください。たった一言ですが、感情に区切りをつける最初のステップです。'
   }
 };
 
@@ -1216,7 +1240,8 @@ function renderQuestion(idx) {
 
   let html = `
     <div class="fade-in" key="${idx}">
-      <p style="font-size:0.92rem; color:var(--text-primary); line-height:1.8; margin-bottom:24px; white-space:pre-line;">${q.text}</p>
+      <p style="font-size:0.92rem; color:var(--text-primary); line-height:1.8; margin-bottom:8px; white-space:pre-line;">${q.text}</p>
+      ${!q.hasFreeText ? '<p style="font-size:0.72rem; color:var(--text-muted); margin-bottom:20px;">※ 完全に一致しなくても、最も近いものを1つ選んでください</p>' : '<div style="margin-bottom:20px;"></div>'}
       <div class="options-list">
   `;
 
@@ -1714,6 +1739,7 @@ function renderSummary() {
   const card = document.getElementById('summaryCard');
   const detail = state.brainTypeDetail;
   const riskCount = state.preliminaryRisks ? state.preliminaryRisks.length : 0;
+  const bt = state.brainType === 'BALANCED' ? 'L3' : state.brainType;
 
   const envLabels = {
     1: { A:'完全な暗闇', B:'ほぼ暗い', C:'光漏れあり', D:'明るい' },
@@ -1721,6 +1747,21 @@ function renderSummary() {
     3: { A:'満足', B:'まあまあ', C:'不満あり' }
   };
 
+  // Results Review Card (top of STEP6)
+  const reviewCard = document.getElementById('step6ResultReview');
+  reviewCard.innerHTML = `
+    <div style="font-size:0.72rem; letter-spacing:0.12em; color:var(--accent-moon); margin-bottom:8px; font-weight:500;">YOUR BRAIN TYPE</div>
+    <div class="result-type-name" style="font-size:1.15rem;">${detail.name}</div>
+    <div class="result-type-sub">${detail.sub}</div>
+    <div style="font-size:0.85rem; color:var(--text-secondary); line-height:1.75; margin-top:12px;">
+      ${detail.catchcopy}
+    </div>
+    <div style="margin-top:14px; padding:12px 14px; background:rgba(107,163,214,0.06); border-radius:var(--radius-sm); font-size:0.82rem; color:var(--accent-blue);">
+      📋 ${detail.program}
+    </div>
+  `;
+
+  // Summary Card
   card.innerHTML = `
     <h4>📋 Day 1 サマリー</h4>
     <div class="summary-item">
@@ -1745,14 +1786,34 @@ function renderSummary() {
     </div>
   `;
 
+  // Tonight's Action
+  const tonightSection = document.getElementById('tonightActionSection');
+  const tonightCard = document.getElementById('tonightActionCard');
+  const tonightAction = typeDefinitions[bt]?.tonightAction || typeDefinitions.L3.tonightAction;
+
+  tonightCard.innerHTML = `
+    <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.85;">
+      ${tonightAction}
+    </div>
+    <div style="margin-top:12px; font-size:0.75rem; color:var(--text-muted);">
+      ⏱ 所要時間：1分以内
+    </div>
+  `;
+  tonightSection.style.display = 'block';
+
   // Wait message (brain type specific)
   const waitCard = document.getElementById('waitCard');
-  const bt = state.brainType === 'BALANCED' ? 'L3' : state.brainType;
   const waitMsg = typeDefinitions[bt]?.waitMsg || typeDefinitions.L3.waitMsg;
   waitCard.innerHTML = `
     <div class="wait-title">Day 2 は明日開放されます</div>
     <div class="wait-body">${waitMsg}</div>
   `;
+}
+
+function acceptTonightAction(accepted) {
+  document.getElementById('tonightYes').classList.toggle('active', accepted);
+  document.getElementById('tonightSkip').classList.toggle('active', !accepted);
+  localStorage.setItem('tonightActionAccepted', accepted ? 'yes' : 'no');
 }
 
 // ===== COMPLETE DAY 1 =====
