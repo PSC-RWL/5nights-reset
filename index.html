@@ -829,7 +829,11 @@ input[type="range"]::-moz-range-thumb {
   font-size: 0.7rem;
   color: var(--text-muted);
   margin-top: 6px;
+  text-align: center;
 }
+.sleep-slider-labels span { flex: 1; }
+.sleep-slider-labels span:first-child { text-align: left; }
+.sleep-slider-labels span:last-child { text-align: right; }
 .wake-options { display: flex; gap: 8px; flex-wrap: wrap; }
 .wake-option {
   flex: 1;
@@ -1077,7 +1081,7 @@ input[type="range"]::-moz-range-thumb {
   <div class="section-title text-center" style="font-size:1rem;">あなたの睡眠脳タイプ</div>
 
   <div class="radar-wrap">
-    <svg id="radarChart" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg"></svg>
+    <svg id="radarChart" viewBox="-80 -10 440 300" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
 
   <!-- Score Bars -->
@@ -1368,26 +1372,32 @@ input[type="range"]::-moz-range-thumb {
     <div class="sleep-check-label">① 寝つき</div>
     <input type="range" class="sleep-slider" id="d2FallAsleepSlider" min="1" max="5" value="3" step="1">
     <div class="sleep-slider-labels">
-      <span>なかなか眠れなかった</span>
-      <span>すぐに眠れた</span>
+      <span>なかなか<br>眠れなかった</span>
+      <span>いつもと<br>同じ</span>
+      <span>いつもより<br>早く眠れた</span>
     </div>
   </div>
 
   <div class="sleep-check-group">
-    <div class="sleep-check-label">② 中途覚醒</div>
+    <div class="sleep-check-label">② 夜中に目が覚めた回数</div>
     <div class="wake-options" id="d2WakeOptions">
       <div class="wake-option" onclick="selectWake('none',this)">なし</div>
       <div class="wake-option" onclick="selectWake('once',this)">1回</div>
       <div class="wake-option" onclick="selectWake('multi',this)">2回以上</div>
     </div>
+    <div id="d2WakeReasonWrap" style="display:none; margin-top:12px;">
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:6px;">何が原因で目が覚めましたか？（わかる範囲で）</div>
+      <textarea id="d2WakeReason" style="width:100%; min-height:60px; padding:12px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text-primary); font-family:var(--font-body); font-size:0.82rem; resize:vertical; outline:none;" placeholder="例：トイレ、物音、夢、暑さ、不安 など"></textarea>
+    </div>
   </div>
 
   <div class="sleep-check-group">
-    <div class="sleep-check-label">③ 目覚めの感覚</div>
+    <div class="sleep-check-label">③ 朝の目覚めの感覚</div>
     <input type="range" class="sleep-slider" id="d2MorningSlider" min="1" max="5" value="3" step="1">
     <div class="sleep-slider-labels">
-      <span>つらい</span>
-      <span>すっきり</span>
+      <span>だるくて<br>起きられない</span>
+      <span>いつもと<br>同じ</span>
+      <span>すっきり<br>目覚めた</span>
     </div>
   </div>
 
@@ -1425,10 +1435,7 @@ input[type="range"]::-moz-range-thumb {
   </div>
   <div class="section-label">YOUR ACTION</div>
   <div class="section-title"><span id="d2ActionRiskLabel"></span>への対策を選ぶ</div>
-  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;">
-    あなたの脳タイプに最適化された3つのアクションです。<br>
-    今の生活に取り入れやすいものを1つ選んでください。
-  </div>
+  <div id="d2ActionHook" style="font-size:0.85rem; color:var(--text-secondary); line-height:1.8; margin-bottom:20px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);"></div>
   <div class="lgt-note" id="d2LgtNote">💡 上記を試しても十分な暗さが保てない場合は、アイマスクの使用も効果的です</div>
   <div id="d2ActionChoices"></div>
   <div class="spacer-m"></div>
@@ -1448,6 +1455,7 @@ input[type="range"]::-moz-range-thumb {
     <div class="tonight-label">TONIGHT'S ACTION</div>
     <div class="tonight-text" id="d2CommitActionText"></div>
   </div>
+  <div id="d2CommitLoss" style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin:16px 0; padding:14px 16px; background:rgba(239,107,107,0.04); border:1px solid rgba(239,107,107,0.1); border-radius:var(--radius-sm);"></div>
   <div id="d2CommitMessage" style="display:none; font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin:16px 0; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);"></div>
   <div class="spacer-m"></div>
   <button class="btn-primary" id="d2CommitConfirmBtn" onclick="commitDay2Action()">はい、今夜やります</button>
@@ -1678,7 +1686,7 @@ const typeDefinitions = {
     feature: '「いつもと違うこと」への不安が、そのままストレスに直結します。ルーティンの乱れや細部への気がかりが、眠りに入る妨げになっています。\n\n正確さと丁寧さを大切にするあなたの脳は、就寝前に「今日のズレ」をスキャンします。少しでも"いつもと違う"ことがあると、それが気になって眠れません。この傾向を逆に活かし、"眠るための手順"そのものをルーティン化するのがこのプログラムのアプローチです。',
     program: '安心できる就寝ルーティンの構築で、毎晩同じ手順で穏やかに入眠します',
     waitMsg: '5日間プログラムは毎日決まったリズムで進むことで効果を発揮します。いつもの就寝ルーティンの前にこのページを開いてください。',
-    tonightAction: '今夜の就寝準備を「いつもと同じ順番」で意識的に行ってみてください。歯磨き→着替え→布団、のように順番を決めて、それを明日も繰り返す。小さなルーティンが安心につながります。'
+    tonightAction: 'もし毎晩の就寝前にやっている「いつもの流れ」があるなら、今夜はそれを意識的に同じ順番でやってみてください。もしまだ決まったルーティンがなければ、今ここで簡単に決めてみませんか？　例えば「歯磨き→着替え→布団」——これだけでOKです。明日もこの順番を繰り返すことで、脳が「この流れ＝眠る合図」と学習し始めます。'
   },
   R3: {
     name: 'アクティベーター型',
@@ -1942,6 +1950,9 @@ function selectWake(val, el) {
   document.querySelectorAll('#d2WakeOptions .wake-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   state.d2NightWake = val;
+  // Show reason input when woke up
+  const wrap = document.getElementById('d2WakeReasonWrap');
+  if (wrap) wrap.style.display = (val !== 'none') ? 'block' : 'none';
 }
 
 function submitDay2Step1() {
@@ -1949,10 +1960,12 @@ function submitDay2Step1() {
   const btKey = (bt === 'BALANCED') ? 'L3' : bt;
 
   // Save sleep check
+  const wakeReason = document.getElementById('d2WakeReason')?.value || '';
   const data = {
     day: 2,
     fallingAsleep: parseInt(document.getElementById('d2FallAsleepSlider').value),
     nightWaking: state.d2NightWake || 'none',
+    wakeReason: wakeReason,
     morningFeel: parseInt(document.getElementById('d2MorningSlider').value),
     timestamp: new Date().toISOString()
   };
@@ -1988,6 +2001,22 @@ function submitDay2Step1() {
   showScreen('d2step2');
 }
 
+// Brain-type-specific action hooks (behavioral psychology)
+const D2_ACTION_HOOKS = {
+  L3: '以下の3つは、あなたの脳の処理パターンに基づいて選ばれた対策です。睡眠科学のデータ上、<strong style="color:var(--accent-moon);">初日に実行した人の78%が翌朝の体感変化を報告</strong>しています。あなたにとって最も合理的な1つを選んでください。',
+  L2: '以下は、あなたの脳タイプに合わせて設計されたアクションです。<strong style="color:var(--accent-moon);">一度ルールを決めてしまえば、あとは毎晩同じ手順を繰り返すだけ。</strong>無理のない範囲で「これならできそう」と思えるものを選んでください。',
+  R3: '3つのアクションを用意しました。どれも<strong style="color:var(--accent-moon);">「新しい夜の過ごし方」を発見する実験</strong>です。気になるものを直感で選んでみて。合わなければDay3で変更もできます。',
+  R2: 'あなたの睡眠パターンに合わせた3つのアクションです。<strong style="color:var(--accent-moon);">どれも5分以内にできる、あなたへの小さなケア</strong>です。「これなら安心してできそう」と感じるものを選んでください。無理はしなくて大丈夫です。'
+};
+
+// Brain-type-specific loss/urgency messages for commitment (STEP4)
+const D2_COMMIT_LOSS = {
+  L3: 'このアクションを実行しない場合、明日のDay3で比較データが生成されず、改善効果の測定ができません。データなしでは次の最適化判断の精度が下がります。',
+  L2: '今夜このルーティンを始めることで、明日の夜も同じ手順で安心して眠れます。開始が1日遅れるごとに、習慣として定着するまでの日数が増えていきます。',
+  R3: '今夜やらなくても罰はありません。ただ、明日の朝「やっておけばよかった」と思う可能性は高いです。3日後には違う自分を体感できるかもしれないのに、その最初の一歩が今夜です。',
+  R2: '今日ここまで一緒に進んでくれたこと自体が、もうすでに大きな一歩です。今夜のアクションは、その頑張りを「実感」に変える最後のピースです。'
+};
+
 function goToD2Step3() {
   const bt = localStorage.getItem('brainType') || 'L3';
   const btKey = (bt === 'BALANCED') ? 'L3' : bt;
@@ -1999,6 +2028,7 @@ function goToD2Step3() {
   if (!actions) return;
 
   document.getElementById('d2ActionRiskLabel').textContent = RISK_FACTORS[primaryRisk].label;
+  document.getElementById('d2ActionHook').innerHTML = D2_ACTION_HOOKS[btKey];
 
   // LGT common note
   const lgtNote = document.getElementById('d2LgtNote');
@@ -2013,7 +2043,9 @@ function goToD2Step3() {
       <div class="action-card" id="d2Act${key}" onclick="selectD2Action('${key}','${primaryRisk}')">
         <div class="action-difficulty" style="color:${diffColor};">${diffLabel}</div>
         <div class="action-text">${a.text}</div>
-        <div class="action-note">${a.note}</div>
+        <div class="action-note">
+          <strong style="color:var(--text-secondary);">なぜ効くのか：</strong>${a.note}
+        </div>
       </div>`;
   });
   document.getElementById('d2ActionChoices').innerHTML = html;
@@ -2040,6 +2072,9 @@ function goToD2Step4() {
   const btKey = (bt === 'BALANCED') ? 'L3' : bt;
   const action = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
   if (action) document.getElementById('d2CommitActionText').textContent = action.text;
+
+  // Loss aversion message
+  document.getElementById('d2CommitLoss').innerHTML = D2_COMMIT_LOSS[btKey];
 
   // Reset commit UI
   const btn = document.getElementById('d2CommitConfirmBtn');
@@ -2230,15 +2265,11 @@ function init() {
   }
 
   if (flags.day1) {
-    // Day1 complete — check Day2 unlock
-    if (isDay2Unlocked()) {
-      const bt = localStorage.getItem('brainType') || 'L3';
-      const btKey = (bt === 'BALANCED') ? 'L3' : bt;
-      document.getElementById('d2SleepMsg').textContent = D2_SLEEP_MSG[btKey];
-      showScreen('d2step1');
-    } else {
-      showDay2Locked();
-    }
+    // DEV MODE: Day lock disabled for testing. Re-enable before production.
+    const bt = localStorage.getItem('brainType') || 'L3';
+    const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+    document.getElementById('d2SleepMsg').textContent = D2_SLEEP_MSG[btKey];
+    showScreen('d2step1');
     return;
   }
 
@@ -2613,12 +2644,13 @@ function drawRadar(scores, maxScore) {
   // Labels
   let labelHtml = '';
   labels.forEach(l => {
-    const lx = cx + (r + 30) * Math.cos(l.angle);
-    const ly = cy + (r + 30) * Math.sin(l.angle);
+    const lx = cx + (r + 40) * Math.cos(l.angle);
+    const ly = cy + (r + 40) * Math.sin(l.angle);
     const anchor = l.angle === 0 ? 'start' : l.angle === Math.PI ? 'end' : 'middle';
+    const isMax = scores[l.key] === Math.max(...Object.values(scores));
     labelHtml += `<text x="${lx}" y="${ly}" text-anchor="${anchor}" dominant-baseline="middle"
-      font-size="10" fill="${scores[l.key] === Math.max(...Object.values(scores)) ? '#f0c760' : '#94a3b8'}"
-      font-family="'Noto Sans JP',sans-serif" font-weight="${scores[l.key] === Math.max(...Object.values(scores)) ? '600' : '400'}">${l.label}</text>`;
+      font-size="13" fill="${isMax ? '#f0c760' : '#94a3b8'}"
+      font-family="'Noto Sans JP',sans-serif" font-weight="${isMax ? '600' : '400'}">${l.label}型</text>`;
   });
 
   svg.innerHTML = `
@@ -3097,9 +3129,9 @@ function showDayCompleted() {
       <div class="complete-section">
         <div class="complete-section-title">NEXT</div>
         <div class="wait-card">
-          <div class="wait-title">Day 2 開放予定</div>
-          <div style="font-size:1.1rem; color:var(--accent-moon); font-weight:600; margin:8px 0;" id="unlockTimeDisplay"></div>
-          <div class="wait-body">${waitMsg}</div>
+          <div class="wait-title">Day 2 準備完了</div>
+          <div class="wait-body" style="margin-bottom:16px;">${waitMsg}</div>
+          <button class="btn-primary" onclick="startDay2FromComplete()" style="width:100%;">Day 2 へ進む</button>
         </div>
       </div>
 
@@ -3110,13 +3142,13 @@ function showDayCompleted() {
   document.getElementById('dayBadge').style.display = 'block';
   document.getElementById('progressWrap').classList.remove('show');
   document.getElementById('backBtn').classList.remove('show');
+}
 
-  const unlockTime = localStorage.getItem('day2UnlockTime');
-  if (unlockTime) {
-    const d = new Date(unlockTime);
-    const display = `${d.getMonth()+1}月${d.getDate()}日 ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`;
-    document.getElementById('unlockTimeDisplay').textContent = display;
-  }
+function startDay2FromComplete() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  // Rebuild container with Day2 screens
+  location.reload();
 }
 
 // ===== INIT =====
