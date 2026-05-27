@@ -1006,6 +1006,151 @@ input[type="range"]::-moz-range-thumb {
   line-height: 1.8;
 }
 
+/* ===== Day3: Execution Check ===== */
+.exec-option {
+  flex: 1;
+  min-width: 80px;
+  padding: 14px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1.5;
+}
+.exec-option.selected {
+  border-color: var(--accent-moon);
+  background: rgba(240,199,96,0.06);
+  color: var(--accent-moon);
+}
+.exec-options { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ===== Day3: Before/After Chart ===== */
+.ba-chart {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+}
+.ba-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.ba-row:last-child { margin-bottom: 0; }
+.ba-label {
+  width: 60px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-align: right;
+  flex-shrink: 0;
+}
+.ba-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ba-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ba-bar-track {
+  flex: 1;
+  height: 10px;
+  background: var(--surface);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.ba-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+  width: 0%;
+}
+.ba-bar-fill.before { background: var(--surface-light); }
+.ba-bar-fill.after { background: linear-gradient(90deg, var(--accent-moon), var(--accent-gold)); }
+.ba-bar-val {
+  font-size: 0.72rem;
+  font-weight: 600;
+  min-width: 18px;
+  text-align: right;
+}
+.ba-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 16px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.ba-legend-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ===== Day3: Brain Insight Card ===== */
+.insight-card {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(167,139,250,0.04) 100%);
+  border: 1px solid rgba(167,139,250,0.15);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.insight-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-purple);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.insight-headline {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.insight-body {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+.insight-lock {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(167,139,250,0.06);
+  border: 1px solid rgba(167,139,250,0.1);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--accent-purple);
+  line-height: 1.6;
+}
+
+/* ===== Day3: Course Correction ===== */
+.correction-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.correction-card:active { transform: scale(0.98); }
+.correction-card.selected {
+  border-color: var(--accent-moon);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.06) 100%);
+}
+
 /* ===== Responsive ===== */
 @media (max-width:380px) {
   .container { padding: 0 16px; }
@@ -1013,6 +1158,29 @@ input[type="range"]::-moz-range-thumb {
   .option-card { padding: 15px 16px; font-size: 0.84rem; }
   .modal-card { padding: 28px 20px 24px; }
 }
+/* ===== Reset / Dev Controls ===== */
+.reset-link {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 99;
+  padding: 8px 14px;
+  background: rgba(30,41,59,0.9);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+  font-family: var(--font-body);
+  text-decoration: none;
+}
+.reset-link:active {
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
 </style>
 </head>
 <body>
@@ -1022,6 +1190,9 @@ input[type="range"]::-moz-range-thumb {
 
 <!-- Day Badge -->
 <div class="day-badge" id="dayBadge" style="display:none;">DAY 1 / 5</div>
+
+<!-- Reset Link -->
+<a class="reset-link" id="resetLink" onclick="confirmReset()" style="display:none;">↺ 最初から</a>
 
 <!-- Progress Bar -->
 <div class="progress-wrap" id="progressWrap">
@@ -1082,8 +1253,8 @@ input[type="range"]::-moz-range-thumb {
 
   <div class="radar-wrap" style="position:relative; max-width:320px; margin:0 auto;">
     <div id="radarLabelTop" class="radar-label" style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-size:0.75rem;"></div>
-    <div id="radarLabelLeft" class="radar-label" style="position:absolute; top:50%; left:0; transform:translateY(-50%); font-size:0.75rem;"></div>
-    <div id="radarLabelRight" class="radar-label" style="position:absolute; top:50%; right:0; transform:translateY(-50%); font-size:0.75rem;"></div>
+    <div id="radarLabelLeft" class="radar-label" style="position:absolute; top:42%; left:0; transform:translateY(-50%); font-size:0.75rem;"></div>
+    <div id="radarLabelRight" class="radar-label" style="position:absolute; top:42%; right:-8px; transform:translateY(-50%); font-size:0.75rem;"></div>
     <div id="radarLabelBottom" class="radar-label" style="position:absolute; bottom:0; left:50%; transform:translateX(-50%); font-size:0.75rem;"></div>
     <svg id="radarChart" viewBox="10 10 260 260" style="display:block; width:100%; padding:24px 40px;" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
@@ -1149,17 +1320,21 @@ input[type="range"]::-moz-range-thumb {
       </div>
     </div>
 
-    <!-- Last caffeine -->
+    <!-- Caffeine frequency + last time -->
     <div class="timeline-item" id="cafLastWrap" style="display:none;">
-      <label>最後のカフェイン摂取</label>
+      <label>1日のカフェイン回数</label>
       <div class="toggle-row" style="margin-bottom:8px;">
-        <button class="toggle-btn" onclick="toggleCaffeine('last','multi',this)" id="cafLastMulti">複数回飲む</button>
-        <button class="toggle-btn" onclick="toggleCaffeine('last','once',this)" id="cafLastOnce">1回だけ</button>
+        <button class="toggle-btn" onclick="selectCafFreq('once',this)" id="cafFreqOnce">1回</button>
+        <button class="toggle-btn" onclick="selectCafFreq('twice',this)" id="cafFreqTwice">2回</button>
+        <button class="toggle-btn" onclick="selectCafFreq('three',this)" id="cafFreqThree">3回以上</button>
       </div>
-      <div class="time-slider-wrap" id="cafLastSliderWrap" style="display:none;">
-        <input type="range" min="300" max="1320" value="900" step="15"
-          oninput="updateTimeDisplay(this,'cafLastDisplay')" id="cafLastSlider">
-        <div class="time-display" id="cafLastDisplay">15:00</div>
+      <div id="cafLastTimeSection" style="display:none;">
+        <label style="font-size:0.82rem; color:var(--text-muted); margin-bottom:6px; display:block;">最後の摂取時刻</label>
+        <div class="time-slider-wrap" id="cafLastSliderWrap">
+          <input type="range" min="300" max="1320" value="900" step="15"
+            oninput="updateTimeDisplay(this,'cafLastDisplay')" id="cafLastSlider">
+          <div class="time-display" id="cafLastDisplay">15:00</div>
+        </div>
       </div>
     </div>
 
@@ -1532,6 +1707,167 @@ input[type="range"]::-moz-range-thumb {
   </div>
   <div class="spacer-m"></div>
   <button class="btn-primary" id="d2CompleteBtn" onclick="completeDay2()">Day 2 を完了する</button>
+  <div class="spacer-l"></div>
+</div>
+
+<!-- ========== DAY 3 STEP 1: Sleep Check + Execution Check ========== -->
+<div class="screen" id="d3step1">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 3</span>
+    <span>STEP 1 / 5</span>
+  </div>
+  <div class="section-label">SLEEP CHECK</div>
+  <div class="section-title">昨夜の睡眠を記録する</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:24px;" id="d3SleepMsg"></div>
+
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">① 寝つき</div>
+    <input type="range" class="sleep-slider" id="d3FallAsleepSlider" min="1" max="5" value="3" step="1">
+    <div class="sleep-slider-labels">
+      <span>なかなか<br>眠れなかった</span>
+      <span>いつもと<br>同じ</span>
+      <span>いつもより<br>早く眠れた</span>
+    </div>
+  </div>
+
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">② 夜中に目が覚めた回数</div>
+    <div class="wake-options" id="d3WakeOptions">
+      <div class="wake-option" onclick="selectWakeD3('none',this)">なし</div>
+      <div class="wake-option" onclick="selectWakeD3('once',this)">1回</div>
+      <div class="wake-option" onclick="selectWakeD3('multi',this)">2回以上</div>
+    </div>
+  </div>
+
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">③ 朝の目覚めの感覚</div>
+    <input type="range" class="sleep-slider" id="d3MorningSlider" min="1" max="5" value="3" step="1">
+    <div class="sleep-slider-labels">
+      <span>だるくて<br>起きられない</span>
+      <span>いつもと<br>同じ</span>
+      <span>すっきり<br>目覚めた</span>
+    </div>
+  </div>
+
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">④ 昨夜のアクション、実行できた？</div>
+    <div class="exec-options" id="d3ExecOptions">
+      <div class="exec-option" onclick="selectExecD3('full',this)">しっかり<br>できた</div>
+      <div class="exec-option" onclick="selectExecD3('partial',this)">一部<br>できた</div>
+      <div class="exec-option" onclick="selectExecD3('none',this)">できな<br>かった</div>
+    </div>
+  </div>
+
+  <div id="d3ExecFollow" style="display:none; font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-top:-8px; margin-bottom:20px; padding:14px 16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);"></div>
+
+  <div class="spacer-m"></div>
+  <button class="btn-primary" onclick="submitDay3Step1()">次へ</button>
+</div>
+
+<!-- ========== DAY 3 STEP 2: Before/After Visualization ========== -->
+<div class="screen" id="d3step2">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 3</span>
+    <span>STEP 2 / 5</span>
+  </div>
+  <div class="section-label">BEFORE / AFTER</div>
+  <div class="section-title">2晩分のデータ比較</div>
+  <div id="d3BAMessage" style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;"></div>
+
+  <div class="ba-chart" id="d3BAChart"></div>
+
+  <div id="d3BAVerdict" style="margin-top:16px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); font-size:0.85rem; color:var(--text-secondary); line-height:1.7;"></div>
+
+  <div id="d3PredictCompare" style="display:none; margin-top:16px;"></div>
+
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="goToD3Step3()">次へ</button>
+</div>
+
+<!-- ========== DAY 3 STEP 3: Brain Type Second Aspect ========== -->
+<div class="screen" id="d3step3">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 3</span>
+    <span>STEP 3 / 5</span>
+  </div>
+  <div class="section-label">BRAIN INSIGHT</div>
+  <div class="section-title">脳タイプの「もう1つの側面」</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;">
+    Day 1では<strong style="color:var(--accent-moon);">入眠パターン</strong>を開示しました。<br>
+    今日は<strong style="color:var(--accent-purple);">睡眠の質への影響</strong>をお伝えします。
+  </div>
+
+  <div class="insight-card" id="d3InsightCard"></div>
+
+  <div style="margin-top:20px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);">
+    <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.7;">
+      入眠パターン＋睡眠の質。<br>これで約<strong style="color:var(--accent-moon);">30%</strong>が見えました。
+    </div>
+    <div class="insight-lock" style="margin-top:12px;">
+      🔒 残り70%はメンバーシップで段階的に解放されます
+    </div>
+  </div>
+
+  <div id="d3AwarenessBlock" style="margin-top:20px; padding:16px; background:rgba(107,163,214,0.04); border:1px solid rgba(107,163,214,0.1); border-radius:var(--radius-sm); font-size:0.85rem; color:var(--text-secondary); line-height:1.8;"></div>
+
+  <div class="spacer-l"></div>
+  <button class="btn-primary" id="d3Step3NextBtn" onclick="goToD3Step4()">次へ</button>
+</div>
+
+<!-- ========== DAY 3 STEP 4: Course Correction ========== -->
+<div class="screen" id="d3step4">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 3</span>
+    <span>STEP 4 / 5</span>
+  </div>
+  <div class="section-label" id="d3Step4Label">COURSE CORRECTION</div>
+  <div class="section-title" id="d3Step4Title">軌道修正</div>
+  <div id="d3Step4Desc" style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;"></div>
+
+  <div id="d3CorrectionChoices"></div>
+
+  <div class="spacer-m"></div>
+  <button class="btn-primary" id="d3CorrectionBtn" onclick="confirmD3Correction()">このアクションに変更する</button>
+  <div style="text-align:center; margin-top:12px;">
+    <button style="background:none; border:none; color:var(--text-muted); font-size:0.78rem; cursor:pointer; padding:8px;" onclick="skipD3Correction()">変更せずに今のアクションを続ける →</button>
+  </div>
+</div>
+
+<!-- ========== DAY 3 STEP 5: Summary ========== -->
+<div class="screen" id="d3step5">
+  <div class="spacer-l"></div>
+  <div class="day-indicator">
+    <span class="day-num">DAY 3</span>
+    <span>STEP 5 / 5</span>
+  </div>
+  <div class="section-label">DAY 3 SUMMARY</div>
+  <div class="section-title">今夜もアクションを継続</div>
+
+  <div class="tonight-card" style="margin-top:20px;">
+    <div class="tonight-label">TONIGHT'S ACTION</div>
+    <div class="tonight-text" id="d3TonightAction"></div>
+  </div>
+
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin:16px 0;">
+    <strong style="color:var(--text-primary);">明日の予告</strong><br>
+    脳タイプに合った<strong style="color:var(--accent-moon);">「入眠スイッチ」</strong>を見つけます。<br>
+    環境＋行動の2本柱が揃い、金曜夜の快眠へ。<span class="text-muted">（約5分）</span>
+  </div>
+
+  <div style="text-align:center; margin:20px 0;">
+    <div style="font-size:0.75rem; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:8px;">DAY PROGRESS</div>
+    <div style="background:var(--surface); height:6px; border-radius:6px; overflow:hidden; margin:0 20px;">
+      <div style="width:60%; height:100%; background:linear-gradient(90deg, var(--accent-moon), var(--accent-gold)); border-radius:6px;"></div>
+    </div>
+    <div style="font-size:0.72rem; color:var(--text-muted); margin-top:6px;">60% 完了</div>
+  </div>
+
+  <div class="spacer-m"></div>
+  <button class="btn-primary" id="d3CompleteBtn" onclick="completeDay3()">Day 3 を完了する</button>
   <div class="spacer-l"></div>
 </div>
 
@@ -2119,6 +2455,15 @@ function commitDay2Action() {
     const current = parseInt(sixAxis[axisKey]) || 5;
     const predicted = Math.min(10, current + 1 + (sel.choice === 'A' ? 1 : 0));
 
+    // Save prediction for Day3 comparison
+    localStorage.setItem('day2Prediction', JSON.stringify({
+      label: riskDef.label,
+      axisKey: axisKey,
+      current: current,
+      predicted: predicted,
+      riskCode: sel.riskCode
+    }));
+
     document.getElementById('d2PredictLabel').textContent = riskDef.label;
     document.getElementById('d2PredictCurrent').textContent = current;
     document.getElementById('d2PredictTarget').textContent = predicted;
@@ -2207,9 +2552,9 @@ function showDay2Completed() {
       <div class="complete-section">
         <div class="complete-section-title">NEXT</div>
         <div class="wait-card">
-          <div class="wait-title">Day 3 開放予定</div>
-          <div style="font-size:1.1rem; color:var(--accent-moon); font-weight:600; margin:8px 0;">${timeDisp}</div>
-          <div class="wait-body">${D2_WAIT_MSG[btKey]}</div>
+          <div class="wait-title">Day 3 準備完了</div>
+          <div class="wait-body" style="margin-bottom:16px;">${D2_WAIT_MSG[btKey]}</div>
+          <button class="btn-primary" onclick="startDay3FromComplete()" style="width:100%;">Day 3 へ進む</button>
         </div>
       </div>
       <div style="text-align:center; margin:20px 0;">
@@ -2220,6 +2565,482 @@ function showDay2Completed() {
         <div style="font-size:0.72rem; color:var(--text-muted); margin-top:6px;">40% 完了</div>
       </div>
       <div style="height:60px;"></div>
+    </div>`;
+}
+
+// ===================================================================
+// DAY 3 — FUNCTIONS
+// ===================================================================
+
+const D3_SLEEP_MSG = {
+  L3:'2晩目のデータを記録します。Day1のベースラインと比較分析するために、昨夜の数値を正確に入力してください。',
+  L2:'昨夜の睡眠パターンを記録します。毎日同じ項目を同じ手順でチェックすることが、正確な改善データの基盤です。',
+  R3:'2晩目の記録です。昨夜のアクション後、何か変化はありましたか？まずはデータで確かめましょう。',
+  R2:'昨夜の睡眠について教えてください。完璧じゃなくて大丈夫。あなたの正直な感覚が一番大切です。'
+};
+
+const D3_EXEC_FOLLOW = {
+  full: {
+    L3:'実行データが記録されました。次のSTEPで効果をデータで確認します。',
+    L2:'素晴らしいです。ルーティンとして手順通りに実行できた証拠です。このまま続けてください。',
+    R3:'やりましたね！次のSTEPで変化が見えますよ。',
+    R2:'頑張りましたね。ちゃんとできたこと、自分を褒めてあげてください。'
+  },
+  partial: {
+    L3:'一部実行のデータも改善の手がかりになります。STEP 4で実行可能な範囲に調整できます。',
+    L2:'全部でなくても、一部でも実行できたことは立派です。STEP 4で手順を調整できますので安心してください。',
+    R3:'全部じゃなくても全然OK。合わなかった部分があれば、STEP 4で別のアクションに切り替えられます。',
+    R2:'一部でもやってみたこと自体が大きな一歩です。自分を責めないでくださいね。無理のない方法をSTEP 4で一緒に見つけましょう。'
+  },
+  none: {
+    L3:'未実行データも分析対象です。原因を特定し、STEP 4で実行可能なアクションに切り替えましょう。',
+    L2:'できなかった日もあります。それは手順が合わなかっただけかもしれません。STEP 4で調整しましょう。',
+    R3:'大丈夫、まだ3日目です。合わなかっただけかも。STEP 4で別のアクションを試してみませんか？',
+    R2:'できなかったことを正直に教えてくれてありがとうございます。あなたのせいじゃありません。STEP 4で無理のない方法を一緒に探しましょう。'
+  }
+};
+
+// Brain type 2nd aspect: Sleep Quality Impact
+const D3_BRAIN_INSIGHT = {
+  L3: {
+    headline: '深睡眠から浅い睡眠への移行しやすさ',
+    body: 'ストラテジスト型の脳は、睡眠中も情報整理を続ける傾向があります。<br><br>日中に処理しきれなかった情報が多いほど、深い睡眠（ノンレム睡眠ステージ3-4）から浅い睡眠への移行が頻繁になります。<br><br>これは「頭が良い」ことの副作用とも言えます。脳の処理能力が高いがゆえに、睡眠中まで稼働してしまうのです。'
+  },
+  L2: {
+    headline: '環境変化への敏感さによる中途覚醒',
+    body: 'アナリスト型の脳は、環境の微細な変化を検知する感度が非常に高くなっています。<br><br>温度変化、光の変化、音の変化——日中は気にならないレベルの環境変化が、睡眠中は覚醒トリガーになりやすいのです。<br><br>これは「緻密さ」の裏返し。細部に気づける能力が、夜は過敏さとして現れます。'
+  },
+  R3: {
+    headline: '体内時計の後ろズレと睡眠リズムの不安定さ',
+    body: 'アクティベーター型の脳は、夜になるほど活性化する傾向があります。<br><br>体内時計（概日リズム）が一般的な人より後ろにズレやすく、「夜型」になりやすい体質です。さらに毎日の就寝時刻がバラつきやすく、睡眠リズムが安定しにくい。<br><br>これは「行動力」の裏返し。常に新しい刺激を求める脳が、夜の終わりを受け入れにくいのです。'
+  },
+  R2: {
+    headline: '感情体験の睡眠中処理による翌朝の疲労感',
+    body: 'ハーモナイザー型の脳は、日中の対人関係や感情体験を睡眠中に処理する負荷が高くなっています。<br><br>特にレム睡眠（夢を見る睡眠）中に感情の再処理が活発に行われ、結果として「寝たのに疲れている」「夢見が悪い」という体感につながります。<br><br>これは「共感力」の裏返し。人の気持ちを深く受け取れるからこそ、その処理に脳のリソースを使うのです。'
+  }
+};
+
+const D3_WAIT_MSG = {
+  L3:'Day4では2つ目の改善軸として「入眠ルーティン」を選択します。環境＋行動の2本柱でデータの改善幅を最大化します。',
+  L2:'明日のDay4では、就寝直前の入眠ルーティンを選びます。今夜も同じ手順でアクションを実行してください。',
+  R3:'Day4では「入眠スイッチ」という新しいアプローチが登場します。環境×行動の組み合わせ——楽しみにしていてください。',
+  R2:'今夜も無理のない範囲でアクションを続けてみてください。明日のDay4で、さらに安心して眠れる方法を一緒に見つけましょう。'
+};
+
+function selectWakeD3(val, el) {
+  document.querySelectorAll('#d3WakeOptions .wake-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.d3NightWake = val;
+}
+
+function selectExecD3(val, el) {
+  document.querySelectorAll('#d3ExecOptions .exec-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.d3ExecResult = val;
+}
+
+function submitDay3Step1() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+
+  // Save sleep check
+  const data = {
+    day: 3,
+    fallingAsleep: parseInt(document.getElementById('d3FallAsleepSlider').value),
+    nightWaking: state.d3NightWake || 'none',
+    morningFeel: parseInt(document.getElementById('d3MorningSlider').value),
+    execution: state.d3ExecResult || 'none',
+    timestamp: new Date().toISOString()
+  };
+  const checks = JSON.parse(localStorage.getItem('sleepChecks') || '[]');
+  checks.push(data);
+  localStorage.setItem('sleepChecks', JSON.stringify(checks));
+
+  // Save execution check
+  const execChecks = JSON.parse(localStorage.getItem('executionChecks') || '[]');
+  execChecks.push({ day: 3, result: state.d3ExecResult || 'none', timestamp: new Date().toISOString() });
+  localStorage.setItem('executionChecks', JSON.stringify(execChecks));
+
+  // Show follow message as interstitial
+  const execVal = state.d3ExecResult || 'none';
+  const follow = D3_EXEC_FOLLOW[execVal]?.[btKey] || '';
+  const followEl = document.getElementById('d3ExecFollow');
+  followEl.textContent = follow;
+  followEl.style.display = 'block';
+  followEl.style.opacity = '0';
+  followEl.style.transform = 'translateY(10px)';
+  followEl.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  requestAnimationFrame(() => {
+    followEl.style.opacity = '1';
+    followEl.style.transform = 'translateY(0)';
+  });
+
+  // Transition to Step2 after the message is read
+  setTimeout(() => {
+    renderD3BeforeAfter();
+    showScreen('d3step2');
+  }, 2200);
+}
+
+function renderD3BeforeAfter() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const checks = JSON.parse(localStorage.getItem('sleepChecks') || '[]');
+
+  const day2Data = checks.find(c => c.day === 2);
+  const day3Data = checks.find(c => c.day === 3);
+
+  const beforeFall = day2Data ? day2Data.fallingAsleep : 3;
+  const afterFall = day3Data ? day3Data.fallingAsleep : 3;
+  const beforeMorn = day2Data ? day2Data.morningFeel : 3;
+  const afterMorn = day3Data ? day3Data.morningFeel : 3;
+
+  // Night waking to numeric: none=5, once=3, multi=1
+  const wakeScore = v => v === 'none' ? 5 : v === 'once' ? 3 : 1;
+  const beforeWake = day2Data ? wakeScore(day2Data.nightWaking) : 3;
+  const afterWake = day3Data ? wakeScore(day3Data.nightWaking) : 3;
+
+  // Check improvement
+  const fallImproved = afterFall > beforeFall;
+  const wakeImproved = afterWake > beforeWake;
+  const mornImproved = afterMorn > beforeMorn;
+  const anyImproved = fallImproved || wakeImproved || mornImproved;
+  const allSame = afterFall === beforeFall && afterWake === beforeWake && afterMorn === beforeMorn;
+
+  const chart = document.getElementById('d3BAChart');
+  chart.innerHTML = `
+    <div class="ba-row">
+      <div class="ba-label">寝つき</div>
+      <div class="ba-bars">
+        <div class="ba-bar-wrap">
+          <div class="ba-bar-track"><div class="ba-bar-fill before" data-width="${beforeFall*20}%"></div></div>
+          <div class="ba-bar-val" style="color:var(--text-muted);">${beforeFall}</div>
+        </div>
+        <div class="ba-bar-wrap">
+          <div class="ba-bar-track"><div class="ba-bar-fill after" data-width="${afterFall*20}%"></div></div>
+          <div class="ba-bar-val" style="color:var(--accent-moon);">${afterFall}</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-row">
+      <div class="ba-label">中途覚醒</div>
+      <div class="ba-bars">
+        <div class="ba-bar-wrap">
+          <div class="ba-bar-track"><div class="ba-bar-fill before" data-width="${beforeWake*20}%"></div></div>
+          <div class="ba-bar-val" style="color:var(--text-muted);">${beforeWake}</div>
+        </div>
+        <div class="ba-bar-wrap">
+          <div class="ba-bar-track"><div class="ba-bar-fill after" data-width="${afterWake*20}%"></div></div>
+          <div class="ba-bar-val" style="color:var(--accent-moon);">${afterWake}</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-row">
+      <div class="ba-label">目覚め</div>
+      <div class="ba-bars">
+        <div class="ba-bar-wrap">
+          <div class="ba-bar-track"><div class="ba-bar-fill before" data-width="${beforeMorn*20}%"></div></div>
+          <div class="ba-bar-val" style="color:var(--text-muted);">${beforeMorn}</div>
+        </div>
+        <div class="ba-bar-wrap">
+          <div class="ba-bar-track"><div class="ba-bar-fill after" data-width="${afterMorn*20}%"></div></div>
+          <div class="ba-bar-val" style="color:var(--accent-moon);">${afterMorn}</div>
+        </div>
+      </div>
+    </div>
+    <div class="ba-legend">
+      <span><span class="ba-legend-dot" style="background:var(--surface-light);"></span>Day 1（ベースライン）</span>
+      <span><span class="ba-legend-dot" style="background:var(--accent-moon);"></span>Day 2（アクション実行後）</span>
+    </div>
+  `;
+
+  // Animate bars
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      chart.querySelectorAll('.ba-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width;
+      });
+    }, 300);
+  });
+
+  // Verdict message (brain type specific)
+  const verdict = document.getElementById('d3BAVerdict');
+  if (anyImproved) {
+    const msgs = {
+      L3:'あなた自身のデータで改善が確認されました。1晩で変化が現れるということは、選択したアクションがあなたの脳タイプに適合している証拠です。',
+      L2:'昨夜のアクションが数値に反映されています。決めた手順を実行した結果が、こうして「見える化」されました。今夜も同じ手順を続けてください。',
+      R3:'変化が出ています！たった1晩のアクションでこの結果——まだ2日目ですよ。Day4の入眠スイッチが加われば、さらに面白い変化が起こるかも。',
+      R2:'昨夜頑張った結果が、ちゃんとデータに表れています。あなたの努力は無駄じゃありません。安心して今夜も続けてくださいね。'
+    };
+    verdict.innerHTML = `<strong style="color:var(--accent-moon);">✦ 改善が見られます</strong><br><br>${msgs[btKey]}`;
+  } else if (allSame) {
+    const msgs = {
+      L3:'統計的に見て、睡眠改善は2〜5晩で体感に現れるのが標準です。まだ2晩目のデータです。3晩目以降のトレンドで正確な判断ができます。',
+      L2:'1晩では変化が出ないこともあります。これは正常な範囲です。ルーティンとして定着させるには最低3晩の継続が必要です。今夜も同じ手順を続けてください。',
+      R3:'まだ2晩目。変化はこれからです。実は、脳が新しいパターンに適応するには3日ほどかかります。Day4の入眠スイッチが加わる明日が本当のターニングポイントです。',
+      R2:'変化がまだ見えなくても大丈夫。焦る必要はまったくありません。体は確実にあなたの努力を受け取っています。2〜5晩で体感に現れます。'
+    };
+    verdict.innerHTML = `<strong style="color:var(--accent-blue);">◆ まだ変化は見られません</strong><br><br>${msgs[btKey]}`;
+  } else {
+    const msgs = {
+      L3:'数値が下がっていますが、これは1データポイントの変動です。一時的な外的要因（ストレス、体調、天候等）の影響を排除するため、3晩以上のトレンドで判断してください。',
+      L2:'昨夜は何か「いつもと違う」ことがあったかもしれません。数値が一時的に下がることは自然なことです。手順自体は間違っていないので、今夜も同じルーティンを続けてください。',
+      R3:'昨夜はちょっと合わなかったかも。でも全然OK。Day4で新しい入眠スイッチを追加すると、また違った変化が出るはずです。',
+      R2:'昨夜は体調や気持ちの影響があったかもしれません。あなたのせいじゃありません。今夜もう一度、無理のない範囲で試してみてください。'
+    };
+    verdict.innerHTML = `<strong style="color:var(--text-secondary);">◆ 一時的な変動</strong><br><br>${msgs[btKey]}`;
+  }
+
+  // Intro message
+  const msgEl = document.getElementById('d3BAMessage');
+  msgEl.innerHTML = `Day 1（何もしていない夜）と Day 2（アクション実行後）の<br>睡眠データを比較します。`;
+
+  // Prediction vs Actual comparison
+  const pred = JSON.parse(localStorage.getItem('day2Prediction') || 'null');
+  if (pred) {
+    const predEl = document.getElementById('d3PredictCompare');
+    predEl.style.display = 'block';
+    // Calculate actual change based on sleep check averages
+    const avgBefore = Math.round((beforeFall + beforeWake + beforeMorn) / 3 * 10) / 10;
+    const avgAfter = Math.round((afterFall + afterWake + afterMorn) / 3 * 10) / 10;
+    const actualChange = avgAfter - avgBefore;
+    const predictedChange = pred.predicted - pred.current;
+    const hitRate = actualChange >= predictedChange ? '達成' : '未達';
+    const hitColor = actualChange >= predictedChange ? 'var(--success)' : 'var(--accent-blue)';
+
+    predEl.innerHTML = `
+      <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+        <div style="font-size:0.72rem; letter-spacing:0.12em; color:var(--accent-moon); font-weight:500; margin-bottom:12px;">PREDICTION vs ACTUAL</div>
+        <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:16px;">
+          Day 2 で提示した<strong style="color:var(--accent-moon);">${pred.label}</strong>の予測変化との比較
+        </div>
+        <div style="display:flex; justify-content:space-around; text-align:center;">
+          <div>
+            <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">予測スコア</div>
+            <div style="font-family:var(--font-display); font-size:1.6rem; color:var(--text-secondary);">${pred.current}</div>
+            <div style="font-size:0.85rem; color:var(--accent-moon);">→ ${pred.predicted}</div>
+          </div>
+          <div style="border-left:1px solid var(--border); margin:0 4px;"></div>
+          <div>
+            <div style="font-size:0.7rem; color:var(--text-muted); margin-bottom:4px;">実際の睡眠平均</div>
+            <div style="font-family:var(--font-display); font-size:1.6rem; color:var(--text-secondary);">${avgBefore.toFixed(1)}</div>
+            <div style="font-size:0.85rem; color:${hitColor};">→ ${avgAfter.toFixed(1)}</div>
+          </div>
+        </div>
+        <div style="margin-top:14px; text-align:center; font-size:0.78rem; color:var(--text-muted);">
+          ※ 睡眠体感3項目（寝つき・中途覚醒・目覚め）の平均値で比較
+        </div>
+      </div>`;
+  }
+}
+
+function renderD3Step3() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const insight = D3_BRAIN_INSIGHT[btKey];
+
+  const card = document.getElementById('d3InsightCard');
+  card.innerHTML = `
+    <div class="insight-title">SLEEP QUALITY IMPACT</div>
+    <div class="insight-headline">${insight.headline}</div>
+    <div class="insight-body">${insight.body}</div>
+  `;
+
+  // Self-awareness / hidden factor block
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const top3 = JSON.parse(localStorage.getItem('riskFactorsTop3') || '[]');
+  const primaryRisk = top3[0]?.code || '';
+  const secondaryRisk = top3[1]?.code || '';
+  const primaryLabel = RISK_FACTORS[primaryRisk]?.label || '';
+  const secondaryLabel = RISK_FACTORS[secondaryRisk]?.label || '';
+
+  const awareness = document.getElementById('d3AwarenessBlock');
+  const awarenessMsgs = {
+    L3:`あなたが自覚している原因は"<strong style="color:var(--accent-moon);">${primaryLabel}</strong>"ですが、気づいていない隠れた要因として"<strong style="color:var(--accent-blue);">${secondaryLabel}</strong>"も影響しています。<br><br>Day4では、この隠れた要因にもアプローチします。`,
+    L2:`あなたが自覚している原因は"<strong style="color:var(--accent-moon);">${primaryLabel}</strong>"です。しかし、隠れた要因として"<strong style="color:var(--accent-blue);">${secondaryLabel}</strong>"も睡眠を妨げている可能性があります。<br><br>Day4で、この隠れた要因にも手順立てて対処していきます。`,
+    R3:`自覚している"<strong style="color:var(--accent-moon);">${primaryLabel}</strong>"だけじゃなく、実は"<strong style="color:var(--accent-blue);">${secondaryLabel}</strong>"も隠れた不眠要因です。<br><br>Day4では、この隠れた要因を攻略する「入眠スイッチ」が登場します。`,
+    R2:`あなたが感じている"<strong style="color:var(--accent-moon);">${primaryLabel}</strong>"に加えて、気づいていなかった"<strong style="color:var(--accent-blue);">${secondaryLabel}</strong>"も、穏やかな眠りを妨げています。<br><br>Day4では、この隠れた要因にも安心してアプローチできる方法を一緒に見つけます。`
+  };
+  awareness.innerHTML = awarenessMsgs[btKey];
+}
+
+function goToD3Step3() {
+  renderD3Step3();
+  showScreen('d3step3');
+}
+
+function goToD3Step4() {
+  const execResult = state.d3ExecResult || 'full';
+
+  if (execResult === 'full') {
+    // Skip correction, go directly to step5
+    goToD3Step5();
+  } else {
+    // Show course correction
+    renderD3CourseCorrection();
+    showScreen('d3step4');
+  }
+}
+
+function renderD3CourseCorrection() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const top3 = JSON.parse(localStorage.getItem('riskFactorsTop3') || '[]');
+  const primaryRisk = top3[0]?.code || 'SCR';
+  const currentChoice = sel.choice || 'A';
+  const actions = ACTIONS[primaryRisk]?.[btKey];
+  if (!actions) return;
+
+  const desc = document.getElementById('d3Step4Desc');
+  const descMsgs = {
+    L3:'前回のアクションの実行率が低かった場合、アクション自体がフィットしていない可能性があります。以下の2つの代替案から、より実行可能なものを選んでください。',
+    L2:'前回のアクションが難しかった場合は、手順を変更できます。無理なく続けられるものを選ぶことが、ルーティン定着への近道です。',
+    R3:'合わなかったアクションを続ける必要はありません。別のアクションに切り替えて、もう一度実験してみましょう。',
+    R2:'前回のアクションが難しく感じたなら、それはあなたのせいではありません。もっと無理のないものに変えて大丈夫です。'
+  };
+  desc.textContent = descMsgs[btKey];
+
+  // Show the 2 unchosen actions
+  const otherChoices = ['A','B','C'].filter(k => k !== currentChoice);
+  let html = '';
+  otherChoices.forEach(key => {
+    const a = actions[key];
+    const diffLabel = a.difficulty === '高' ? '高難易度・高効果' : a.difficulty === '中' ? '中程度' : '手軽に始められる';
+    const diffColor = a.difficulty === '高' ? 'var(--accent-moon)' : a.difficulty === '中' ? 'var(--accent-blue)' : 'var(--success)';
+    html += `
+      <div class="correction-card" id="d3Corr${key}" onclick="selectD3Correction('${key}','${primaryRisk}')">
+        <div class="action-difficulty" style="color:${diffColor};">${diffLabel}</div>
+        <div class="action-text">${a.text}</div>
+        <div class="action-note">
+          <strong style="color:var(--text-secondary);">なぜ効くのか：</strong>${a.note}
+        </div>
+      </div>`;
+  });
+  document.getElementById('d3CorrectionChoices').innerHTML = html;
+  state.d3CorrectionChoice = null;
+  document.getElementById('d3CorrectionBtn').style.opacity = '0.4';
+  document.getElementById('d3CorrectionBtn').style.pointerEvents = 'none';
+}
+
+function selectD3Correction(choice, riskCode) {
+  document.querySelectorAll('.correction-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('d3Corr' + choice).classList.add('selected');
+  state.d3CorrectionChoice = { choice, riskCode };
+  document.getElementById('d3CorrectionBtn').style.opacity = '1';
+  document.getElementById('d3CorrectionBtn').style.pointerEvents = 'auto';
+}
+
+function confirmD3Correction() {
+  if (!state.d3CorrectionChoice) return;
+  // Save course correction history (before updating selectedAction)
+  const previousAction = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  localStorage.setItem('courseCorrection', JSON.stringify({
+    changed: true,
+    from: previousAction,
+    to: state.d3CorrectionChoice,
+    day: 3,
+    timestamp: new Date().toISOString()
+  }));
+  // Update selected action
+  localStorage.setItem('selectedAction', JSON.stringify(state.d3CorrectionChoice));
+  goToD3Step5();
+}
+
+function skipD3Correction() {
+  localStorage.setItem('courseCorrection', JSON.stringify({ changed: false, day: 3 }));
+  goToD3Step5();
+}
+
+function goToD3Step5() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const action = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  if (action) document.getElementById('d3TonightAction').textContent = action.text;
+  showScreen('d3step5');
+}
+
+function completeDay3() {
+  const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
+  flags.day3 = new Date().toISOString();
+  localStorage.setItem('dayCompletionFlags', JSON.stringify(flags));
+
+  // Day4 unlock
+  const now = new Date();
+  const twelve = new Date(now.getTime() + 12*60*60*1000);
+  const tmr5 = new Date(now);
+  tmr5.setDate(tmr5.getDate()+1);
+  tmr5.setHours(5,0,0,0);
+  localStorage.setItem('day4UnlockTime', new Date(Math.max(twelve.getTime(), tmr5.getTime())).toISOString());
+
+  const btn = document.getElementById('d3CompleteBtn');
+  btn.textContent = '✓ Day 3 完了';
+  btn.style.background = 'var(--success)';
+  btn.style.pointerEvents = 'none';
+  setTimeout(() => showDay3Completed(), 1500);
+}
+
+function showDay3Completed() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const action = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  const t = localStorage.getItem('day4UnlockTime');
+  let timeDisp = '';
+  if (t) { const d = new Date(t); timeDisp = `${d.getMonth()+1}月${d.getDate()}日 ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`; }
+
+  document.querySelector('.container').innerHTML = `
+    <div class="screen active visible" style="padding-top:60px;">
+      <div style="text-align:center; margin-bottom:28px;">
+        <div style="font-size:2.2rem; margin-bottom:12px;">🌙</div>
+        <div class="title-en" style="font-size:1.6rem;">Day 3 Complete</div>
+      </div>
+      <div class="complete-section">
+        <div class="complete-section-title">TONIGHT'S ACTION</div>
+        <div class="tonight-card">
+          <div style="font-size:0.72rem; color:var(--accent-moon); letter-spacing:0.08em; margin-bottom:6px;">${RISK_FACTORS[sel.riskCode]?.label || ''}</div>
+          <div style="font-size:0.85rem; color:var(--text-primary); line-height:1.8;">${action?.text || ''}</div>
+        </div>
+      </div>
+      <div class="complete-section">
+        <div class="complete-section-title">NEXT</div>
+        <div class="wait-card">
+          <div class="wait-title">Day 4 開放予定</div>
+          <div style="font-size:1.1rem; color:var(--accent-moon); font-weight:600; margin:8px 0;">${timeDisp}</div>
+          <div class="wait-body">${D3_WAIT_MSG[btKey]}</div>
+        </div>
+      </div>
+      <div style="text-align:center; margin:20px 0;">
+        <div style="font-size:0.75rem; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:8px;">DAY PROGRESS</div>
+        <div style="background:var(--surface); height:6px; border-radius:6px; overflow:hidden; margin:0 20px;">
+          <div style="width:60%; height:100%; background:linear-gradient(90deg, var(--accent-moon), var(--accent-gold)); border-radius:6px;"></div>
+        </div>
+        <div style="font-size:0.72rem; color:var(--text-muted); margin-top:6px;">60% 完了</div>
+      </div>
+      <div style="height:60px;"></div>
+    </div>`;
+}
+
+function showDay3Locked() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const t = localStorage.getItem('day3UnlockTime');
+  let timeDisp = '';
+  if (t) { const d = new Date(t); timeDisp = `${d.getMonth()+1}月${d.getDate()}日 ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`; }
+  const waitMsg = D3_WAIT_MSG[btKey] || '';
+
+  document.querySelector('.container').innerHTML = `
+    <div class="screen active visible" style="padding-top:80px; text-align:center;">
+      <div style="font-size:2.2rem; margin-bottom:12px;">🔒</div>
+      <div class="title-en" style="font-size:1.4rem;">Day 3 — まもなく開放</div>
+      <div class="spacer-m"></div>
+      <div style="font-size:0.88rem; color:var(--text-secondary); line-height:1.8;">${waitMsg}</div>
+      <div class="spacer-m"></div>
+      <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+        <div style="font-size:0.78rem; color:var(--text-muted);">開放予定時刻</div>
+        <div style="font-size:1.2rem; color:var(--accent-moon); font-weight:600; margin-top:6px;">${timeDisp}</div>
+      </div>
     </div>`;
 }
 
@@ -2236,7 +3057,7 @@ function init() {
       'executionChecks','courseCorrection','commitTimestamps','dayCompletionFlags',
       'planSelection','planSelectionTime','shareUsed',
       'day2UnlockTime','day3UnlockTime','day4UnlockTime','day5UnlockTime',
-      'tonightActionAccepted'
+      'tonightActionAccepted','day2Prediction'
     ];
     keysToRemove.forEach(k => localStorage.removeItem(k));
     window.location.href = window.location.pathname;
@@ -2247,6 +3068,15 @@ function init() {
   const unlockDay = params.get('unlock');
   if (unlockDay === '2') {
     localStorage.setItem('day2UnlockTime', new Date(Date.now() - 60000).toISOString());
+  }
+  if (unlockDay === '3') {
+    localStorage.setItem('day3UnlockTime', new Date(Date.now() - 60000).toISOString());
+  }
+  if (unlockDay === '4') {
+    localStorage.setItem('day4UnlockTime', new Date(Date.now() - 60000).toISOString());
+  }
+  if (unlockDay === '5') {
+    localStorage.setItem('day5UnlockTime', new Date(Date.now() - 60000).toISOString());
   }
 
   // Read URL parameters (6-axis scores from free diagnosis)
@@ -2263,8 +3093,19 @@ function init() {
   // Route to correct day
   const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
 
+  if (flags.day3) {
+    showDay3Completed();
+    document.getElementById('resetLink').style.display = 'block';
+    return;
+  }
+
   if (flags.day2) {
-    showDay2Completed();
+    // DEV MODE: Day lock disabled for testing. Re-enable before production.
+    const bt = localStorage.getItem('brainType') || 'L3';
+    const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+    document.getElementById('d3SleepMsg').textContent = D3_SLEEP_MSG[btKey];
+    document.getElementById('resetLink').style.display = 'block';
+    showScreen('d3step1');
     return;
   }
 
@@ -2273,6 +3114,7 @@ function init() {
     const bt = localStorage.getItem('brainType') || 'L3';
     const btKey = (bt === 'BALANCED') ? 'L3' : bt;
     document.getElementById('d2SleepMsg').textContent = D2_SLEEP_MSG[btKey];
+    document.getElementById('resetLink').style.display = 'block';
     showScreen('d2step1');
     return;
   }
@@ -2301,7 +3143,14 @@ function showScreen(id) {
   document.getElementById('backBtn').classList.toggle('show', showProgress && state.currentQuestion > 0);
 
   // Show day badge after step1
-  document.getElementById('dayBadge').style.display = (id !== 'step1') ? 'block' : 'none';
+  const dayBadge = document.getElementById('dayBadge');
+  dayBadge.style.display = (id !== 'step1') ? 'block' : 'none';
+  if (id.startsWith('d3')) dayBadge.textContent = 'DAY 3 / 5';
+  else if (id.startsWith('d2')) dayBadge.textContent = 'DAY 2 / 5';
+  else dayBadge.textContent = 'DAY 1 / 5';
+
+  // Show reset link
+  document.getElementById('resetLink').style.display = (id !== 'step1') ? 'block' : 'none';
 }
 
 function goToStep(stepId) {
@@ -2689,11 +3538,28 @@ function toggleCaffeine(which, val, btn) {
     document.getElementById('cafFirstNo').classList.toggle('active', val==='no');
     document.getElementById('cafFirstSliderWrap').style.display = val==='yes' ? 'flex' : 'none';
     document.getElementById('cafLastWrap').style.display = val==='yes' ? 'block' : 'none';
+    // Reset frequency when toggling
+    if (val === 'no') {
+      state.caffeineFreq = null;
+      state.caffeineLast = 'once';
+    }
+  }
+}
+
+function selectCafFreq(freq, btn) {
+  state.caffeineFreq = freq;
+  document.getElementById('cafFreqOnce').classList.remove('active');
+  document.getElementById('cafFreqTwice').classList.remove('active');
+  document.getElementById('cafFreqThree').classList.remove('active');
+  btn.classList.add('active');
+
+  // Show last time slider for 2回 or 3回以上
+  if (freq === 'once') {
+    state.caffeineLast = 'once';
+    document.getElementById('cafLastTimeSection').style.display = 'none';
   } else {
-    state.caffeineLast = val;
-    document.getElementById('cafLastMulti').classList.toggle('active', val==='multi');
-    document.getElementById('cafLastOnce').classList.toggle('active', val==='once');
-    document.getElementById('cafLastSliderWrap').style.display = val==='multi' ? 'flex' : 'none';
+    state.caffeineLast = 'multi';
+    document.getElementById('cafLastTimeSection').style.display = 'block';
   }
 }
 
@@ -2716,6 +3582,7 @@ function submitTimeline() {
     caffeineFirst: state.caffeineFirst === 'yes' ? parseInt(document.getElementById('cafFirstSlider').value) : null,
     caffeineLast: (state.caffeineFirst === 'yes' && state.caffeineLast === 'multi')
       ? parseInt(document.getElementById('cafLastSlider').value) : null,
+    caffeineFreq: state.caffeineFreq || 'once',
     noCaffeine: state.caffeineFirst === 'no',
     workStart: parseInt(document.getElementById('workStartSlider').value),
     workEnd: parseInt(document.getElementById('workEndSlider').value),
@@ -2784,7 +3651,8 @@ function renderTimelineViz(tl) {
   // Last caffeine (if separate)
   if (tl.caffeineLast) {
     const isCafRisk = tl.caffeineLast >= 900;
-    html += tlRow(formatMinutes(tl.caffeineLast), '最後のカフェイン',
+    const freqLabel = tl.caffeineFreq === 'three' ? '3回以上' : tl.caffeineFreq === 'twice' ? '2回' : '';
+    html += tlRow(formatMinutes(tl.caffeineLast), `最後のカフェイン${freqLabel ? '（1日'+freqLabel+'）' : ''}`,
       isCafRisk ? 'risk' : 'ok',
       isCafRisk ? '就寝の' + Math.round((bedTime - tl.caffeineLast)/60) + '時間前 — カフェインの覚醒作用が残ります' : '15時前 — 問題ありません');
   }
@@ -3152,6 +4020,26 @@ function startDay2FromComplete() {
   const btKey = (bt === 'BALANCED') ? 'L3' : bt;
   // Rebuild container with Day2 screens
   location.reload();
+}
+
+function startDay3FromComplete() {
+  location.reload();
+}
+
+function confirmReset() {
+  if (confirm('すべてのデータをリセットして最初からやり直しますか？\n\n※ 入力したデータは全て消去されます')) {
+    const keysToRemove = [
+      'sixAxisScores','brainType','brainTypeScores','questionResponses',
+      'freeTextQ6','freeTextQ7','answerChangeCount','timeline','environment',
+      'riskFactorsTop3','selectedAction','selectedRoutine','sleepChecks',
+      'executionChecks','courseCorrection','commitTimestamps','dayCompletionFlags',
+      'planSelection','planSelectionTime','shareUsed',
+      'day2UnlockTime','day3UnlockTime','day4UnlockTime','day5UnlockTime',
+      'tonightActionAccepted','day2Prediction'
+    ];
+    keysToRemove.forEach(k => localStorage.removeItem(k));
+    window.location.href = window.location.pathname;
+  }
 }
 
 // ===== INIT =====
