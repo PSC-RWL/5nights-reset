@@ -1831,10 +1831,7 @@ input[type="range"]::-moz-range-thumb {
   <div id="d3CorrectionChoices"></div>
 
   <div class="spacer-m"></div>
-  <button class="btn-primary" id="d3CorrectionBtn" onclick="confirmD3Correction()">このアクションに変更する</button>
-  <div style="text-align:center; margin-top:12px;">
-    <button style="background:none; border:none; color:var(--text-muted); font-size:0.78rem; cursor:pointer; padding:8px;" onclick="skipD3Correction()">変更せずに今のアクションを続ける →</button>
-  </div>
+  <button class="btn-primary" id="d3CorrectionBtn" onclick="confirmD3Correction()">このアクションで今夜もやる</button>
 </div>
 
 <!-- ========== DAY 3 STEP 5: Summary ========== -->
@@ -2894,22 +2891,23 @@ function renderD3CourseCorrection() {
 
   const desc = document.getElementById('d3Step4Desc');
   const descMsgs = {
-    L3:'前回のアクションの実行率が低かった場合、アクション自体がフィットしていない可能性があります。以下の2つの代替案から、より実行可能なものを選んでください。',
-    L2:'前回のアクションが難しかった場合は、手順を変更できます。無理なく続けられるものを選ぶことが、ルーティン定着への近道です。',
-    R3:'合わなかったアクションを続ける必要はありません。別のアクションに切り替えて、もう一度実験してみましょう。',
-    R2:'前回のアクションが難しく感じたなら、それはあなたのせいではありません。もっと無理のないものに変えて大丈夫です。'
+    L3:'実行データを踏まえ、アクションを再選択できます。同じアクションへの再コミットも、別アクションへの切り替えも、どちらも有効な戦略です。',
+    L2:'アクションを見直せます。前回と同じ手順をもう一度やるのも、新しい手順に変えるのも、あなたのペースで大丈夫です。',
+    R3:'アクションを選び直せます。もう一回同じのにチャレンジするもよし、新しいのを試すもよし。直感で決めてOK。',
+    R2:'アクションを変えることも、もう一度同じものにトライすることもできます。どちらを選んでも、あなたの判断を応援します。'
   };
   desc.textContent = descMsgs[btKey];
 
-  // Show the 2 unchosen actions
-  const otherChoices = ['A','B','C'].filter(k => k !== currentChoice);
+  // Show all 3 actions — current one tagged as "もう一度チャレンジ"
   let html = '';
-  otherChoices.forEach(key => {
+  ['A','B','C'].forEach(key => {
     const a = actions[key];
+    const isCurrent = key === currentChoice;
     const diffLabel = a.difficulty === '高' ? '高難易度・高効果' : a.difficulty === '中' ? '中程度' : '手軽に始められる';
     const diffColor = a.difficulty === '高' ? 'var(--accent-moon)' : a.difficulty === '中' ? 'var(--accent-blue)' : 'var(--success)';
     html += `
       <div class="correction-card" id="d3Corr${key}" onclick="selectD3Correction('${key}','${primaryRisk}')">
+        ${isCurrent ? '<div style="font-size:0.7rem; color:var(--accent-purple); font-weight:600; letter-spacing:0.06em; margin-bottom:8px;">↻ 前回選択 — もう一度チャレンジ</div>' : ''}
         <div class="action-difficulty" style="color:${diffColor};">${diffLabel}</div>
         <div class="action-text">${a.text}</div>
         <div class="action-note">
@@ -2933,22 +2931,18 @@ function selectD3Correction(choice, riskCode) {
 
 function confirmD3Correction() {
   if (!state.d3CorrectionChoice) return;
-  // Save course correction history (before updating selectedAction)
   const previousAction = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const isSameAction = previousAction.choice === state.d3CorrectionChoice.choice && previousAction.riskCode === state.d3CorrectionChoice.riskCode;
+
   localStorage.setItem('courseCorrection', JSON.stringify({
-    changed: true,
+    changed: !isSameAction,
+    recommitted: isSameAction,
     from: previousAction,
     to: state.d3CorrectionChoice,
     day: 3,
     timestamp: new Date().toISOString()
   }));
-  // Update selected action
   localStorage.setItem('selectedAction', JSON.stringify(state.d3CorrectionChoice));
-  goToD3Step5();
-}
-
-function skipD3Correction() {
-  localStorage.setItem('courseCorrection', JSON.stringify({ changed: false, day: 3 }));
   goToD3Step5();
 }
 
@@ -2990,12 +2984,27 @@ function showDay3Completed() {
   let timeDisp = '';
   if (t) { const d = new Date(t); timeDisp = `${d.getMonth()+1}月${d.getDate()}日 ${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`; }
 
+  // Brain-type-specific encouragement
+  const encourageMsgs = {
+    L3:'3晩分のデータが揃いました。これで改善トレンドの分析精度が格段に上がります。明日のDay4では、このデータを活かして入眠ルーティンを最適化します。あなたの睡眠改善プロジェクトは、着実に前進しています。',
+    L2:'3日間、毎日同じ手順で記録を続けてくれました。この「続けられた」という事実が、あなたのルーティン構築力の証明です。明日のDay4で、もう1つのルーティンが加わります。焦らず、いつも通りのペースで。',
+    R3:'折り返し地点を突破しました。ここまでの3日間で脳タイプの2つの側面が見えて、環境アクションも動き出しています。でもまだ序章です。明日のDay4は「入眠スイッチ」——今までとは違う新しい体験が待っています。',
+    R2:'3日間、ここまで一緒に進んでくれてありがとうございます。毎日記録をつけて、アクションにもチャレンジして——その頑張りが、全部データとして残っています。明日のDay4では、あなたがもっと安心して眠れる方法を見つけましょう。'
+  };
+
   document.querySelector('.container').innerHTML = `
     <div class="screen active visible" style="padding-top:60px;">
       <div style="text-align:center; margin-bottom:28px;">
         <div style="font-size:2.2rem; margin-bottom:12px;">🌙</div>
         <div class="title-en" style="font-size:1.6rem;">Day 3 Complete</div>
       </div>
+
+      <div class="complete-section">
+        <div style="padding:20px; background:linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.04) 100%); border:1px solid rgba(240,199,96,0.12); border-radius:var(--radius); font-size:0.88rem; color:var(--text-secondary); line-height:1.85;">
+          ${encourageMsgs[btKey]}
+        </div>
+      </div>
+
       <div class="complete-section">
         <div class="complete-section-title">TONIGHT'S ACTION</div>
         <div class="tonight-card">
@@ -3006,9 +3015,9 @@ function showDay3Completed() {
       <div class="complete-section">
         <div class="complete-section-title">NEXT</div>
         <div class="wait-card">
-          <div class="wait-title">Day 4 開放予定</div>
-          <div style="font-size:1.1rem; color:var(--accent-moon); font-weight:600; margin:8px 0;">${timeDisp}</div>
-          <div class="wait-body">${D3_WAIT_MSG[btKey]}</div>
+          <div class="wait-title">Day 4 準備完了</div>
+          <div class="wait-body" style="margin-bottom:16px;">${D3_WAIT_MSG[btKey]}</div>
+          <button class="btn-primary" onclick="startDay4FromComplete()" style="width:100%;">Day 4 へ進む</button>
         </div>
       </div>
       <div style="text-align:center; margin:20px 0;">
@@ -4023,6 +4032,10 @@ function startDay2FromComplete() {
 }
 
 function startDay3FromComplete() {
+  location.reload();
+}
+
+function startDay4FromComplete() {
   location.reload();
 }
 
