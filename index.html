@@ -1868,6 +1868,137 @@ input[type="range"]::-moz-range-thumb {
   <div class="spacer-l"></div>
 </div>
 
+<!-- ========== DAY 4 STEP 1: Sleep Check + Execution Check ========== -->
+<div class="screen" id="d4step1">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 4</span><span>STEP 1 / 6</span></div>
+  <div class="section-label">SLEEP CHECK</div>
+  <div class="section-title">昨夜の睡眠を記録する</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:24px;" id="d4SleepMsg"></div>
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">① 寝つき</div>
+    <input type="range" class="sleep-slider" id="d4FallAsleepSlider" min="1" max="5" value="3" step="1">
+    <div class="sleep-slider-labels"><span>なかなか<br>眠れなかった</span><span>いつもと<br>同じ</span><span>いつもより<br>早く眠れた</span></div>
+  </div>
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">② 夜中に目が覚めた回数</div>
+    <div class="wake-options" id="d4WakeOptions">
+      <div class="wake-option" onclick="selectWakeD4('none',this)">なし</div>
+      <div class="wake-option" onclick="selectWakeD4('once',this)">1回</div>
+      <div class="wake-option" onclick="selectWakeD4('multi',this)">2回以上</div>
+    </div>
+  </div>
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">③ 朝の目覚めの感覚</div>
+    <input type="range" class="sleep-slider" id="d4MorningSlider" min="1" max="5" value="3" step="1">
+    <div class="sleep-slider-labels"><span>だるくて<br>起きられない</span><span>いつもと<br>同じ</span><span>すっきり<br>目覚めた</span></div>
+  </div>
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">④ 昨夜のアクション、実行できた？</div>
+    <div class="exec-options" id="d4ExecOptions">
+      <div class="exec-option" onclick="selectExecD4('full',this)">しっかり<br>できた</div>
+      <div class="exec-option" onclick="selectExecD4('partial',this)">一部<br>できた</div>
+      <div class="exec-option" onclick="selectExecD4('none',this)">できな<br>かった</div>
+    </div>
+  </div>
+  <div id="d4ExecFollow" style="display:none; font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-top:-8px; margin-bottom:20px; padding:14px 16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);"></div>
+  <div class="spacer-m"></div>
+  <button class="btn-primary" onclick="submitDay4Step1()">次へ</button>
+</div>
+
+<!-- ========== DAY 4 STEP 2: 3-Night Trend ========== -->
+<div class="screen" id="d4step2">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 4</span><span>STEP 2 / 6</span></div>
+  <div class="section-label">3-NIGHT TREND</div>
+  <div class="section-title">3晩分のスコア推移</div>
+  <div id="d4TrendChart" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px;"></div>
+  <div id="d4TrendMsg" style="margin-top:16px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); font-size:0.85rem; color:var(--text-secondary); line-height:1.7;"></div>
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="showScreen('d4step3')">次へ</button>
+</div>
+
+<!-- ========== DAY 4 STEP 3: 2 Pillars ========== -->
+<div class="screen" id="d4step3">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 4</span><span>STEP 3 / 6</span></div>
+  <div class="section-label">TWO PILLARS</div>
+  <div class="section-title">環境＋行動の2本柱</div>
+  <div id="d4PillarMsg" style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;"></div>
+  <div style="display:flex; gap:12px; margin-bottom:20px;">
+    <div style="flex:1; padding:20px; background:var(--bg-card); border:1px solid var(--success); border-radius:var(--radius); text-align:center;">
+      <div style="font-size:1.4rem; margin-bottom:8px;">🏠</div>
+      <div style="font-size:0.72rem; color:var(--success); letter-spacing:0.08em; font-weight:600;">PILLAR 1</div>
+      <div style="font-size:0.88rem; color:var(--text-primary); margin-top:4px;">環境</div>
+      <div style="font-size:0.72rem; color:var(--success); margin-top:6px;">✅ Day2で着手済み</div>
+    </div>
+    <div style="flex:1; padding:20px; background:linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.06) 100%); border:1px solid var(--accent-moon); border-radius:var(--radius); text-align:center;">
+      <div style="font-size:1.4rem; margin-bottom:8px;">🧠</div>
+      <div style="font-size:0.72rem; color:var(--accent-moon); letter-spacing:0.08em; font-weight:600;">PILLAR 2</div>
+      <div style="font-size:0.88rem; color:var(--text-primary); margin-top:4px;">行動</div>
+      <div style="font-size:0.72rem; color:var(--accent-moon); margin-top:6px;">→ 今夜から着手</div>
+    </div>
+  </div>
+  <div style="padding:14px 16px; background:rgba(167,139,250,0.04); border:1px solid rgba(167,139,250,0.1); border-radius:var(--radius-sm); font-size:0.78rem; color:var(--text-muted); line-height:1.6;">
+    🔒 残りの柱（食事・運動・ストレス・メンタル）はメンバーシップで段階的に解放
+  </div>
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="goToD4Step4()">入眠ルーティンを選ぶ</button>
+</div>
+
+<!-- ========== DAY 4 STEP 4: Routine 3-Choice ========== -->
+<div class="screen" id="d4step4">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 4</span><span>STEP 4 / 6</span></div>
+  <div class="section-label">SLEEP SWITCH</div>
+  <div class="section-title">入眠スイッチを選ぶ</div>
+  <div id="d4RoutineHook" style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;"></div>
+  <div id="d4RoutineCards"></div>
+  <div class="spacer-m"></div>
+  <button class="btn-primary" id="d4RoutineBtn" onclick="selectD4Routine()" style="opacity:0.4; pointer-events:none;">このルーティンを選ぶ</button>
+</div>
+
+<!-- ========== DAY 4 STEP 5: Why This Works ========== -->
+<div class="screen" id="d4step5">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 4</span><span>STEP 5 / 6</span></div>
+  <div class="section-label">WHY THIS WORKS</div>
+  <div class="section-title" id="d4WhyTitle"></div>
+  <div class="insight-card" id="d4WhyCard"></div>
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="goToD4Step6()">今夜のプランを確認する</button>
+</div>
+
+<!-- ========== DAY 4 STEP 6: Commitment ========== -->
+<div class="screen" id="d4step6">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 4</span><span>STEP 6 / 6</span></div>
+  <div class="section-label">COMMITMENT</div>
+  <div class="section-title">今夜の快眠プラン</div>
+  <div style="margin:20px 0;">
+    <div class="tonight-card">
+      <div class="tonight-label">STEP 1（就寝60〜90分前）</div>
+      <div class="tonight-text" id="d4TonightEnv"></div>
+    </div>
+    <div style="text-align:center; margin:8px 0; font-size:1.2rem; color:var(--text-muted);">＋</div>
+    <div class="tonight-card" style="border-color:var(--accent-purple);">
+      <div class="tonight-label" style="color:var(--accent-purple);">STEP 2（布団に入ったら）</div>
+      <div class="tonight-text" id="d4TonightRoutine"></div>
+    </div>
+  </div>
+  <div id="d4CommitMsg" style="font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-bottom:12px;"></div>
+  <div id="d4CommitLoss" style="font-size:0.78rem; color:var(--text-muted); line-height:1.6; margin-bottom:20px; padding:12px 14px; background:var(--surface); border-radius:var(--radius-sm);"></div>
+  <button class="btn-primary" onclick="commitDay4()">はい、今夜やります</button>
+  <div style="text-align:center; margin:20px 0;">
+    <div style="font-size:0.75rem; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:8px;">DAY PROGRESS</div>
+    <div style="background:var(--surface); height:6px; border-radius:6px; overflow:hidden; margin:0 20px;">
+      <div style="width:80%; height:100%; background:linear-gradient(90deg, var(--accent-moon), var(--accent-gold)); border-radius:6px;"></div>
+    </div>
+    <div style="font-size:0.72rem; color:var(--text-muted); margin-top:6px;">80% 完了</div>
+  </div>
+  <div class="spacer-l"></div>
+</div>
+
 </div><!-- /container -->
 
 <!-- ========== Disclaimer Modal ========== -->
@@ -3053,6 +3184,163 @@ function showDay3Locked() {
     </div>`;
 }
 
+// ===================================================================
+// DAY 4 — DATA & MESSAGES
+// ===================================================================
+
+const ACTIONS_ROUTINE = {
+  L3: {
+    light: {
+      name: '認知シャッフル睡眠法',
+      text: '枕に頭をつけたら開始。適当な単語を1つ選ぶ（例：「みかん」）。その頭文字「み」から始まる無関係な単語を連想し、1つずつ映像化する。「みかん」→ 水たまり → 三日月 → ミシン…。映像が浮かんだら即座に次へ。意味のつながりは排除する。ランダムであるほど効く。通常3分以内に思考ループが中断され、入眠モードに移行する。',
+      note: 'あなたのストラテジスト型の脳は、就寝後も「A→B→C」と論理を組み立て続ける。認知シャッフルはこの論理回路を強制的に使用不能にする技術。ランダムな映像を連続生成すると、脳は「処理する価値のない情報だ」と判断し、覚醒を維持する理由を失う。繰り返すほど「シャッフル開始＝処理終了」と学習し、入眠が早くなる。',
+      time: '3〜5分', tools: '不要'
+    },
+    standard: {
+      name: 'タスクダンプ＋処理完了プロトコル',
+      text: '就寝5分前に紙とペンを用意。① 明日やるべきことを思いつく順に全て書き出す。順番も優先度も不要（3〜4分）。② 全て出し切ったらペンを置く。③ 紙を裏返し「処理完了」と声に出す。④ 紙を枕元に置き布団に入る。思考が浮かんだら「それは紙の上にある」と1回だけ唱える。',
+      note: 'あなたの脳が夜も稼働するのは、未処理タスクを忘れないよう監視しているから。タスクを紙に移すと「もう覚えておく必要がない」と判断し監視を解除する。「処理完了」の宣言は脳への明示的なシャットダウンコマンド。5日目には紙を裏返した瞬間に眠気が来るようになる。',
+      time: '5〜8分', tools: '紙とペン'
+    },
+    deep: {
+      name: '思考区画化＋認知シャッフル',
+      text: '就寝10分前に紙とペンを用意。① 紙を3欄に区切る：「今日の未処理」「明日の最優先」「それ以外」。② 頭にあることを全て振り分けて書く（4〜5分）。③「今日の未処理」欄に線を引いて消す。「今日はもう終了」と宣言。④ 紙を裏返してペンを置く。⑤ 布団で認知シャッフルを開始（3〜5分）。',
+      note: 'ストラテジスト型の脳は「整理されていない情報」に最もストレスを感じる。この技法は分類という論理処理を完遂させてから終了するため、「まだ整理が終わっていない」という覚醒維持の理由が完全に消失する。認知シャッフルが仕上げとして論理回路を停止させる。',
+      time: '8〜12分', tools: '紙とペン'
+    }
+  },
+  L2: {
+    light: {
+      name: '4-7-8 呼吸法',
+      text: '毎晩同じ姿勢で開始。仰向け、手は体の横、目を閉じる。① 舌の先を上の前歯の裏に当てる。② 口から息を完全に吐ききる。③ 鼻から4秒かけて吸う。④ 息を7秒止める。⑤ 口から8秒かけてゆっくり吐く。⑥ 4サイクル繰り返す。毎晩まったく同じ手順、同じカウント、同じ姿勢で。',
+      note: 'アナリスト型の脳は「いつもと同じ」に安心する。この呼吸法は秒数が完全に固定されており手順にブレがない。吐く息を吸う息の2倍にすると副交感神経が活性化する——正しい手順で行えば確実に作用する。毎晩同じパターンの反復で「4-7-8＝安全＝眠っていい」と脳が学習する。',
+      time: '3〜5分', tools: '不要'
+    },
+    standard: {
+      name: '定順ボディスキャン',
+      text: '毎晩同じ姿勢で開始。仰向け、手のひらを下に。以下を毎晩必ず同じ順序で行う。① 左足の指先→足首→ふくらはぎ→膝→太もも（各10秒「重い、温かい」と唱える）。② 右足も同じ順で。③ 腰→お腹→胸。④ 左手→左腕。⑤ 右手→右腕。⑥ 首→顔→頭頂。全身終了後そのまま静止。',
+      note: 'アナリスト型の脳は外部の「いつもと違う」を検知して覚醒する。ボディスキャンは注意を外部から体の内部に切り替える。外部への警戒が解除される。さらに厳密な順番の遵守が「この手順＝安全な環境」という確信を与える。',
+      time: '5〜8分', tools: '不要'
+    },
+    deep: {
+      name: '漸進的筋弛緩法（PMR）',
+      text: '毎晩同じ姿勢で開始。以下を毎晩同じ順番・同じ秒数で。① 両足の指を5秒ぎゅっと丸める→脱力10秒。② ふくらはぎ5秒→脱力10秒。③ 太もも→④ お尻→⑤ お腹→⑥ 胸→⑦ 両手を握る→⑧ 両腕→⑨ 肩をすくめる→⑩ 顔全体をくしゃっと。全部位5秒→10秒。全身後、布団に沈むイメージで30秒静止。',
+      note: 'アナリスト型の脳が警戒モードのとき、体も無意識に緊張している。PMRは意図的に力を入れてから脱力することで通常より深い弛緩を引き出す。「5秒→10秒」の明確な数値ルールと決まった順番が「正しい手順で進んでいる」という安心を与える。',
+      time: '8〜12分', tools: '不要'
+    }
+  },
+  R3: {
+    light: {
+      name: '五感カウントダウン',
+      text: '布団に入ったら目を閉じてこのゲームを始める。① 今聞こえる音を5つ見つける。② 体が触れている感覚を4つ。③ 匂いを3つ。④ 口の中の味を2つ。⑤ まぶたの裏の色や模様を1つ。全部見つけたら「今日の五感、終了」。毎晩答えが変わるから飽きない。',
+      note: 'アクティベーター型の脳は刺激がなくなると退屈→覚醒する。この技法は脳に「五感の宝探し」という新しいゲームを与えて満足させてから終了する。環境が毎晩微妙に違うから答えも変わる。「探索したい」欲求を消化し終えたとき、自然に覚醒が下がる。',
+      time: '3〜5分', tools: '不要'
+    },
+    standard: {
+      name: '脳内シアター',
+      text: '布団に入ったら今夜の「行き先」を1つ決める。ビーチ、森、宇宙、好きな映画の世界——自由。① 景色を描く。光の色、空の広さ。② 音を加える。波、風、鳥。③ 温度と匂いを加える。④ その場所をゆっくり歩き始める。好きなだけ探索。行き先は毎晩変えてもリピートしてもいい。あなたの自由。',
+      note: 'あなたの脳が夜に求めているのは「刺激」と「自由」。脳内シアターはその両方を提供する——ただしスマホではなく想像力で。ビジュアル処理に資源が使われると刺激探索に使える認知資源が減り自然に覚醒が下がる。「毎晩違う場所でもいい」の自由度が退屈を防ぐ。',
+      time: '5〜8分', tools: '不要'
+    },
+    deep: {
+      name: 'ヨガニドラ（意識的まどろみ）',
+      text: '仰向けで手のひらを上に。① 心の中で「今から眠りに近づくけど意識は残す」と宣言。② 呼吸は自然なまま。吐くたびに体が沈むイメージ。③ 右手の親指→人差し指→中指→薬指→小指とゆっくり移動。④ 右腕→右肩→右胸→右足→右足指先。⑤ 左足指先→左足→左腕→左手指先。⑥「体は眠り、意識はまどろむ」。途中で寝落ちしたら正解。',
+      note: 'アクティベーター型が眠りを拒むのは「意識を手放すのがもったいない」から。ヨガニドラは「意識を保ったまま眠りに入る」を脳に許可する。実際にはほとんどの人が途中で入眠する。「起きていていい」と許可をもらった状態で警戒を解くから「まだ寝たくない」の抵抗が消える。',
+      time: '8〜12分', tools: '不要'
+    }
+  },
+  R2: {
+    light: {
+      name: '感情ラベリング＋手放し呼吸',
+      text: '布団に入ったら目を閉じて今日の自分に会いに行く。① 今日感じた感情を3つ思い浮かべる。② 1つ目に名前をつける（「不安」「モヤモヤ」…正確じゃなくてOK）。③「今日はありがとう。もう休んでいいよ」と心の中で声をかける。④ 吐く息と一緒に手放す。⑤ 2つ目、3つ目も同じように。⑥「今日の感情は全部終わり。おやすみなさい」。',
+      note: 'あなたの脳は人の気持ちを深く受け取れるぶん、夜になると感情の在庫が溜まっている。感情に名前をつけると扁桃体の活動が低下する（fMRI実証）。名前をつけた瞬間に「対象」になり距離が取れる。「ありがとう」は感情を否定せず区切りをつけるための言葉。あなたの感受性は弱さではなく大切な一部。',
+      time: '3〜5分', tools: '不要'
+    },
+    standard: {
+      name: '3行グッドシングス＋今日の自分へ',
+      text: '就寝5分前に紙とペンを用意。① 今日あった良かったことを3つ書く。大きなことでなくていい（「ランチが美味しかった」レベルでOK）。② その下に1行追加：自分を労う言葉を1つ（「よく頑張った」「えらい」）。③ ペンを置いて紙を枕元に。④ 目を閉じて3つの良かったことを映像で思い出す。うまく書けなくても大丈夫。書こうとしたこと自体が自分を大切にする行動です。',
+      note: 'ハーモナイザー型の反芻はネガティブな対人体験に偏りやすい。就寝直前にポジティブを想起するとワーキングメモリが上書きされ反芻の余地がなくなる。「自分へのひとこと」はセルフコンパッションの最小単位。あなたは日中、他の人にたくさん優しい言葉をかけている。今夜はその1つを自分自身に。',
+      time: '5〜8分', tools: '紙とペン'
+    },
+    deep: {
+      name: 'セルフコンパッション・クロージング',
+      text: '仰向けで両手をお腹の上にそっと置く。手の温もりを感じる（1分）。① 今日一番心に残った出来事を1つ思い出す。② その場面の自分に「大変だったね」と声をかける（30秒）。③「それでも今日を乗り越えた」と声をかける（30秒）。④ 両手をお腹に当て「今日はもう終わり。明日のことは明日の自分に任せる」。⑤ 手の温もりを感じながら呼吸だけを感じる。途中で涙が出ても正常な反応。そのまま続けて大丈夫。',
+      note: 'あなたの不眠の根底にある「自分は十分にできているか」の反芻を、批判から慈悲に切り替える技法。「大変だったね」はあなたが他の誰かに自然にかけている言葉。今夜は自分自身に向ける。手をお腹に当てる動作はオキシトシン分泌を促し安心感を生む。あなたの共感力は強さです。今夜は自分のために使ってください。',
+      time: '8〜12分', tools: '不要'
+    }
+  }
+};
+
+const D4_SLEEP_MSG = {
+  L3:'3晩目の記録です。3データポイントが揃うと改善の方向性が統計的に有意になります。昨夜の数値を入力してください。',
+  L2:'いつもの手順で昨夜の睡眠を記録しましょう。3日間同じ項目をチェックしてきた積み重ねが、今日のデータの精度を支えています。',
+  R3:'3晩目！ここまでのデータが折れ線グラフで見えます。サクッと記録して、今日のメインイベントへ進みましょう。',
+  R2:'昨夜の睡眠を教えてください。3日間記録を続けてくれていること自体が、あなたの頑張りの証です。いつも通り正直な感覚で大丈夫です。'
+};
+
+const D4_EXEC_FOLLOW = {
+  full: {
+    L3:'2晩連続で実行データが取れました。一貫した実行は改善効果の信頼性を高めます。',
+    L2:'2晩連続の実行——手順がルーティンとして定着し始めています。この安定感がそのまま睡眠の安定につながります。',
+    R3:'2晩連続クリア！いい流れです。今日はこの勢いで新しい「入眠スイッチ」にもチャレンジしてみましょう。',
+    R2:'2晩続けて頑張ってくれたんですね。コツコツ続けている自分を、ちゃんと認めてあげてください。'
+  },
+  partial: {
+    L3:'部分的な実行でもデータとして記録されています。今日のDay4で「入眠ルーティン」が加わることで実行しやすい組み合わせを見つけられます。',
+    L2:'完璧でなくても、一部でもルーティンに組み込めたことが大切です。今日は就寝直前の短い手順を追加します。今のアクションと組み合わせやすいものを選べます。',
+    R3:'全部じゃなくても動けたのが大事。今日はさらに新しい「入眠スイッチ」が追加されます。こっちのほうが合うかもしれませんよ。',
+    R2:'少しでもできたこと、それだけで十分です。今日はもっと自然に取り入れられる入眠ルーティンを一緒に選びましょう。'
+  },
+  none: {
+    L3:'今日のDay4では別軸の「入眠ルーティン」を追加するので、そちらから再起動するのも合理的です。',
+    L2:'昨夜のアクションが合っていなかったのかもしれません。今日は新しい手順を選べます。あなたに合う形を見つけていきましょう。',
+    R3:'昨夜はスキップ。でも今日はまったく新しい「入眠スイッチ」が登場。気分を切り替えて試してみてください。',
+    R2:'できなかった日があっても、こうして今日もここに来てくれている。それが一番大事なことです。新しいアプローチを一緒に見つけましょう。'
+  }
+};
+
+const D4_ROUTINE_HOOKS = {
+  L3:'以下の3つは、あなたのストラテジスト型の脳が「処理モード」から抜け出せない問題に対して最も効果が実証されている技法です。<strong style="color:var(--accent-moon);">短いほど実行率が高く、長いほど効果が深い。</strong>今夜のスケジュールに最適なものを選んでください。',
+  L2:'以下はあなたのアナリスト型の脳に合わせた入眠ルーティンです。Day2のアクションの後にこの手順を追加するだけです。<strong style="color:var(--accent-moon);">一度選んだら毎晩同じものを繰り返すことで効果が高まります。</strong>続けやすそうなものを選んでください。',
+  R3:'入眠スイッチ、3つ用意しました。どれもあなたの「まだ起きていたい脳」を楽しませながら眠りに導く方法です。<strong style="color:var(--accent-moon);">直感で「面白そう」と思ったものを選んでください。</strong>合わなければ明日変えてもOK。',
+  R2:'以下はあなたの繊細な脳を穏やかに休ませるための方法です。どれも布団の中であなた一人のペースでできます。<strong style="color:var(--accent-moon);">「これなら安心してできそう」と感じるものを選んでください。</strong>無理はしなくて大丈夫です。'
+};
+
+const D4_COMMIT_MSG = {
+  L3:'入眠ルーティンが確定しました。今夜の実行順序：① 環境アクション → ② 入眠ルーティン。2軸の同時実行データは明日のDay5で統合分析に使用します。',
+  L2:'今夜の就寝手順が完成しました。① 環境アクション → ② 入眠ルーティン。この順番を今夜から毎晩繰り返してください。',
+  R3:'今夜のコンボが決まりました。環境アクション＋入眠スイッチ。この2つを初めて同時に試す夜です。明日の朝どんな変化が起きているか——楽しみにしていてください。',
+  R2:'今夜は2つのアクションであなたの眠りを守ります。まず環境アクション、そして入眠ルーティン。無理のないペースで大丈夫。あなたが安心して眠れることが一番大切です。'
+};
+
+const D4_COMMIT_LOSS = {
+  L3:'このルーティンを実行しない場合、明日のDay5で「環境＋行動の統合効果」が測定できません。統合データがなければ改善の全体像が不完全になります。',
+  L2:'今夜からルーティンを始めることで、明日の夜も同じ手順で安心して眠れます。新しい手順が定着するには最初の1回が最も大切です。',
+  R3:'今夜やらなくても怒られません。ただ、明日のDay5で全データが揃ったとき「昨夜のコンボの結果」が空欄になります。5日間のクライマックスに一番いいデータを残してみませんか。',
+  R2:'今日ここまで頑張ってくれたこと自体が、すでに大きな一歩です。今夜のルーティンはその頑張りを「安心して眠れた」という体感に変える最後のピースです。'
+};
+
+const D4_WAIT_MSG = {
+  L3:'今夜、環境アクションと入眠ルーティンの両方を実行してください。明日のDay5で4晩分のデータを統合分析し、あなた専用の「快眠レシピ」を生成します。',
+  L2:'今夜の手順：まず環境アクション、次に入眠ルーティン。いつも通りの順番で実行してください。明日のDay5で5日間の記録をまとめます。',
+  R3:'今夜が5 NIGHTS RESETのクライマックス。環境×行動のフルコンボで明日の朝にどんな変化が起きるか。Day5で全貌が明らかに。',
+  R2:'今夜は環境アクションと入眠ルーティンの両方を無理のない範囲で続けてください。明日のDay5は最終日。あなたの努力が形になる日です。'
+};
+
+const D4_ENCOURAGE = {
+  L3:'環境と行動の2軸が揃いました。5日間プログラムの設計上、今夜が最も大きな改善が期待できる夜です。明日のDay5では全期間の統計的な改善傾向をお見せします。あなた自身のデータで、何が効いて何が効かなかったかが明確になります。',
+  L2:'4日間、毎日ルーティンを積み重ねてきました。今夜はその集大成——環境と入眠ルーティンの両方を手順通りに実行する初めての夜です。明日のDay5で5日間の記録が完成します。あなたが築いた手順の全体像が見えます。',
+  R3:'環境も行動もセット完了。今夜のコンボがどんな変化を生むか——ここが一番ワクワクするポイントです。明日のDay5で5日間の全データを一気に振り返ります。そしてその先に、まだ見えていない可能性の話があります。',
+  R2:'4日間、本当によく頑張りました。環境を整えて、入眠ルーティンも選んで——ここまで来たこと自体がすごいことです。今夜は2つのアクションに包まれて安心して眠ってください。明日のDay5であなたの5日間の歩みを一緒に振り返りましょう。'
+};
+
+const D4_PILLAR_MSG = {
+  L3:'睡眠改善は単一要因では最適化できません。「環境」と「行動」の2軸を同時に押さえることで改善効果が掛け算になります。',
+  L2:'Day2で始めた「環境」のルーティンに、今日「行動」のルーティンを追加します。2つの手順を組み合わせて今夜の就寝プロセスを完成させましょう。',
+  R3:'Day2では「環境」を変えました。今日は「行動」——自分自身の夜の過ごし方を変えます。2つが揃ったとき、明日の朝が変わります。',
+  R2:'Day2で整えた「環境」に加えて、今日は「行動」の面からもあなたの眠りを支えます。2つの柱があなたの安心を両側から守ります。'
+};
+
 // ===== INITIALIZATION =====
 function init() {
   const params = new URLSearchParams(window.location.search);
@@ -3066,7 +3354,7 @@ function init() {
       'executionChecks','courseCorrection','commitTimestamps','dayCompletionFlags',
       'planSelection','planSelectionTime','shareUsed',
       'day2UnlockTime','day3UnlockTime','day4UnlockTime','day5UnlockTime',
-      'tonightActionAccepted','day2Prediction'
+      'tonightActionAccepted','day2Prediction','selectedRoutine'
     ];
     keysToRemove.forEach(k => localStorage.removeItem(k));
     window.location.href = window.location.pathname;
@@ -3102,9 +3390,18 @@ function init() {
   // Route to correct day
   const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
 
-  if (flags.day3) {
-    showDay3Completed();
+  if (flags.day4) {
+    showDay4Completed();
     document.getElementById('resetLink').style.display = 'block';
+    return;
+  }
+
+  if (flags.day3) {
+    const bt = localStorage.getItem('brainType') || 'L3';
+    const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+    document.getElementById('d4SleepMsg').textContent = D4_SLEEP_MSG[btKey];
+    document.getElementById('resetLink').style.display = 'block';
+    showScreen('d4step1');
     return;
   }
 
@@ -3154,7 +3451,8 @@ function showScreen(id) {
   // Show day badge after step1
   const dayBadge = document.getElementById('dayBadge');
   dayBadge.style.display = (id !== 'step1') ? 'block' : 'none';
-  if (id.startsWith('d3')) dayBadge.textContent = 'DAY 3 / 5';
+  if (id.startsWith('d4')) dayBadge.textContent = 'DAY 4 / 5';
+  else if (id.startsWith('d3')) dayBadge.textContent = 'DAY 3 / 5';
   else if (id.startsWith('d2')) dayBadge.textContent = 'DAY 2 / 5';
   else dayBadge.textContent = 'DAY 1 / 5';
 
@@ -4038,6 +4336,271 @@ function startDay3FromComplete() {
 function startDay4FromComplete() {
   location.reload();
 }
+
+// ===================================================================
+// DAY 4 — FUNCTIONS
+// ===================================================================
+
+function selectWakeD4(val, el) {
+  document.querySelectorAll('#d4WakeOptions .wake-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.d4NightWake = val;
+}
+function selectExecD4(val, el) {
+  document.querySelectorAll('#d4ExecOptions .exec-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.d4ExecResult = val;
+}
+
+function submitDay4Step1() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const data = {
+    day: 4,
+    fallingAsleep: parseInt(document.getElementById('d4FallAsleepSlider').value),
+    nightWaking: state.d4NightWake || 'none',
+    morningFeel: parseInt(document.getElementById('d4MorningSlider').value),
+    execution: state.d4ExecResult || 'none',
+    timestamp: new Date().toISOString()
+  };
+  const checks = JSON.parse(localStorage.getItem('sleepChecks') || '[]');
+  checks.push(data);
+  localStorage.setItem('sleepChecks', JSON.stringify(checks));
+  const execChecks = JSON.parse(localStorage.getItem('executionChecks') || '[]');
+  execChecks.push({ day: 4, result: state.d4ExecResult || 'none', timestamp: new Date().toISOString() });
+  localStorage.setItem('executionChecks', JSON.stringify(execChecks));
+
+  // Show follow message interstitial
+  const execVal = state.d4ExecResult || 'none';
+  const follow = D4_EXEC_FOLLOW[execVal]?.[btKey] || '';
+  const followEl = document.getElementById('d4ExecFollow');
+  followEl.textContent = follow;
+  followEl.style.display = 'block';
+  followEl.style.opacity = '0';
+  followEl.style.transform = 'translateY(10px)';
+  followEl.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  requestAnimationFrame(() => { followEl.style.opacity = '1'; followEl.style.transform = 'translateY(0)'; });
+
+  setTimeout(() => {
+    renderD4TrendChart();
+    showScreen('d4step2');
+  }, 2200);
+}
+
+function renderD4TrendChart() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const checks = JSON.parse(localStorage.getItem('sleepChecks') || '[]');
+  const wakeScore = v => v === 'none' ? 5 : v === 'once' ? 3 : 1;
+
+  // Get 3 nights of data
+  const days = [2, 3, 4];
+  const fallData = days.map(d => { const c = checks.find(x => x.day === d); return c ? c.fallingAsleep : 3; });
+  const wakeData = days.map(d => { const c = checks.find(x => x.day === d); return c ? wakeScore(c.nightWaking) : 3; });
+  const mornData = days.map(d => { const c = checks.find(x => x.day === d); return c ? c.morningFeel : 3; });
+
+  // SVG line chart
+  const w = 280, h = 160, pad = 40, padR = 20, padT = 10, padB = 30;
+  const chartW = w - pad - padR, chartH = h - padT - padB;
+  const xStep = chartW / 2;
+  const yScale = v => padT + chartH - ((v - 1) / 4 * chartH);
+
+  const makeLine = (data, color) => {
+    const pts = data.map((v, i) => `${pad + i * xStep},${yScale(v)}`);
+    return `<polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` +
+      data.map((v, i) => `<circle cx="${pad + i * xStep}" cy="${yScale(v)}" r="4" fill="${color}"/>`).join('');
+  };
+
+  let svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">`;
+  // Grid lines
+  for (let v = 1; v <= 5; v++) {
+    svg += `<line x1="${pad}" y1="${yScale(v)}" x2="${w-padR}" y2="${yScale(v)}" stroke="var(--border)" stroke-width="0.5"/>`;
+    if (v === 1 || v === 3 || v === 5) svg += `<text x="${pad-6}" y="${yScale(v)+4}" text-anchor="end" fill="var(--text-muted)" font-size="9">${v}</text>`;
+  }
+  // X labels
+  days.forEach((d, i) => { svg += `<text x="${pad + i * xStep}" y="${h - 4}" text-anchor="middle" fill="var(--text-muted)" font-size="9">Day${d}</text>`; });
+  // Lines
+  svg += makeLine(fallData, '#F0C760');
+  svg += makeLine(wakeData, '#6BA3D6');
+  svg += makeLine(mornData, '#A78BFA');
+  svg += `</svg>`;
+  svg += `<div class="ba-legend" style="margin-top:12px;">
+    <span><span class="ba-legend-dot" style="background:#F0C760;"></span>寝つき</span>
+    <span><span class="ba-legend-dot" style="background:#6BA3D6;"></span>中途覚醒</span>
+    <span><span class="ba-legend-dot" style="background:#A78BFA;"></span>目覚め</span>
+  </div>`;
+  document.getElementById('d4TrendChart').innerHTML = svg;
+
+  // Trend analysis
+  const avg = arr => arr.reduce((a,b) => a+b, 0) / arr.length;
+  const avgFirst = avg([fallData[0], wakeData[0], mornData[0]]);
+  const avgLast = avg([fallData[2], wakeData[2], mornData[2]]);
+  const trend = avgLast - avgFirst;
+
+  const trendMsgs = trend > 0.3 ? {
+    L3:'3晩のデータに明確な改善トレンドが確認されました。環境アクションの効果が数値に反映されています。今日の入眠ルーティンの追加で改善角度がさらに急になる見込みです。',
+    L2:'3日間の記録を見ると着実に良い方向へ進んでいます。決めたルーティンを続けた結果がグラフに表れています。今日もう1つの手順を加えることでこの改善をさらに安定させます。',
+    R3:'右肩上がりです！環境アクションだけでここまで変わるなんて、ちょっとすごくないですか？ 今日は「入眠スイッチ」が加わります。もう1段ギアを上げましょう。',
+    R2:'少しずつですが確実に良くなっています。あなたの頑張りがグラフにちゃんと表れていますよ。今日はさらに安心して眠れる方法を見つけましょう。'
+  } : trend < -0.3 ? {
+    L3:'一部のスコアが低下していますが、3データポイントでの変動は外的要因に影響されます。今日追加する「行動」アクションとの組み合わせで改善率が上がります。',
+    L2:'昨夜は数値が少し下がりました。手順自体は間違っていないので今夜も同じルーティンを続けてください。今日のDay4でもう1つの安定要因を加えます。',
+    R3:'昨夜はちょっと調子が出なかったみたいです。でもまだ3日目。今日の「入眠スイッチ」はゲームチェンジャーになるかもしれません。',
+    R2:'昨夜は思うようにいかなかったかもしれません。体調や気持ちの波は誰にでもあります。今日はあなたの心と体がもっと楽に切り替えられる方法を見つけましょう。'
+  } : {
+    L3:'3晩のデータでは顕著な変化はまだありません。環境要因だけでは改善が限定的なケースがあります。今日追加する「行動」要因が変化のトリガーになる可能性が高いです。',
+    L2:'数値に大きな変化はまだありません。でもこれは正常な範囲です。行動面のルーティンを加えることで変化が出やすくなります。今日のDay4がその転機です。',
+    R3:'正直、まだ数字は動いていません。でも今日のDay4は全然違うアプローチ。「入眠スイッチ」は別の角度から攻めるので、ここから面白くなりますよ。',
+    R2:'まだ大きな変化は見えていないかもしれません。でもあなたが何か間違えたわけじゃありません。今日のDay4で新しいアプローチを試してみましょう。焦らなくて大丈夫。'
+  };
+  document.getElementById('d4TrendMsg').innerHTML = `<strong style="color:var(--accent-moon);">${trend > 0.3 ? '✦ 改善傾向' : trend < -0.3 ? '◆ 一時的な変動' : '◆ まだ変化は見られません'}</strong><br><br>${trendMsgs[btKey]}`;
+}
+
+function goToD4Step4() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  document.getElementById('d4PillarMsg').innerHTML = D4_PILLAR_MSG[btKey];
+  document.getElementById('d4RoutineHook').innerHTML = D4_ROUTINE_HOOKS[btKey];
+
+  // Render 3 routine cards
+  const routines = ACTIONS_ROUTINE[btKey];
+  const levels = [
+    { key: 'light', label: 'ライト', color: 'var(--success)' },
+    { key: 'standard', label: 'スタンダード', color: 'var(--accent-blue)' },
+    { key: 'deep', label: 'しっかり', color: 'var(--accent-moon)' }
+  ];
+  let html = '';
+  levels.forEach(lv => {
+    const r = routines[lv.key];
+    html += `
+      <div class="action-card" id="d4R_${lv.key}" onclick="pickD4Routine('${lv.key}')">
+        <div class="action-difficulty" style="color:${lv.color};">${lv.label}（${r.time}）${r.tools !== '不要' ? ' — ' + r.tools + '使用' : ''}</div>
+        <div class="action-title" style="font-size:0.92rem; font-weight:500; color:var(--text-primary); margin:8px 0 6px;">${r.name}</div>
+        <div class="action-text">${r.text}</div>
+      </div>`;
+  });
+  document.getElementById('d4RoutineCards').innerHTML = html;
+  state.d4RoutineChoice = null;
+  showScreen('d4step4');
+}
+
+function pickD4Routine(level) {
+  document.querySelectorAll('#d4RoutineCards .action-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('d4R_' + level).classList.add('selected');
+  state.d4RoutineChoice = level;
+  document.getElementById('d4RoutineBtn').style.opacity = '1';
+  document.getElementById('d4RoutineBtn').style.pointerEvents = 'auto';
+}
+
+function selectD4Routine() {
+  if (!state.d4RoutineChoice) return;
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const routine = ACTIONS_ROUTINE[btKey][state.d4RoutineChoice];
+
+  // Save
+  localStorage.setItem('selectedRoutine', JSON.stringify({ level: state.d4RoutineChoice, brainType: btKey }));
+
+  // Render "Why this works" (Step 5)
+  document.getElementById('d4WhyTitle').textContent = '「' + routine.name + '」があなたの脳に効く理由';
+  document.getElementById('d4WhyCard').innerHTML = `
+    <div class="insight-title">FOR YOUR BRAIN TYPE</div>
+    <div class="insight-body">${routine.note}</div>
+  `;
+  showScreen('d4step5');
+}
+
+function goToD4Step6() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const envAction = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  const routineSel = JSON.parse(localStorage.getItem('selectedRoutine') || '{}');
+  const routine = ACTIONS_ROUTINE[btKey]?.[routineSel.level];
+
+  document.getElementById('d4TonightEnv').textContent = envAction?.text || '';
+  document.getElementById('d4TonightRoutine').textContent = routine?.text || '';
+  document.getElementById('d4CommitMsg').textContent = D4_COMMIT_MSG[btKey];
+  document.getElementById('d4CommitLoss').innerHTML = D4_COMMIT_LOSS[btKey];
+  showScreen('d4step6');
+}
+
+function commitDay4() {
+  const stamps = JSON.parse(localStorage.getItem('commitTimestamps') || '[]');
+  stamps.push({ day: 4, timestamp: new Date().toISOString() });
+  localStorage.setItem('commitTimestamps', JSON.stringify(stamps));
+
+  const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
+  flags.day4 = new Date().toISOString();
+  localStorage.setItem('dayCompletionFlags', JSON.stringify(flags));
+
+  const now = new Date();
+  const twelve = new Date(now.getTime() + 12*60*60*1000);
+  const tmr5 = new Date(now); tmr5.setDate(tmr5.getDate()+1); tmr5.setHours(5,0,0,0);
+  localStorage.setItem('day5UnlockTime', new Date(Math.max(twelve.getTime(), tmr5.getTime())).toISOString());
+
+  showDay4Completed();
+}
+
+function showDay4Completed() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const envAction = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  const routineSel = JSON.parse(localStorage.getItem('selectedRoutine') || '{}');
+  const routine = ACTIONS_ROUTINE[btKey]?.[routineSel.level];
+
+  // Brain-type-specific "next locked item" preview
+  const nextLockItem = { L3:'ストレス反応パターン', L2:'食事タイミングの最適化', R3:'やる気スイッチの構造', R2:'メンタルダウンの予防法' };
+
+  document.querySelector('.container').innerHTML = `
+    <div class="screen active visible" style="padding-top:60px;">
+      <div style="text-align:center; margin-bottom:28px;">
+        <div style="font-size:2.2rem; margin-bottom:12px;">🌙</div>
+        <div class="title-en" style="font-size:1.6rem;">Day 4 Complete</div>
+      </div>
+      <div class="complete-section">
+        <div style="padding:20px; background:linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.04) 100%); border:1px solid rgba(240,199,96,0.12); border-radius:var(--radius); font-size:0.88rem; color:var(--text-secondary); line-height:1.85;">
+          ${D4_ENCOURAGE[btKey]}
+        </div>
+      </div>
+      <div class="complete-section">
+        <div class="complete-section-title">TONIGHT'S PLAN</div>
+        <div class="tonight-card">
+          <div style="font-size:0.72rem; color:var(--success); letter-spacing:0.08em; margin-bottom:6px;">STEP 1 — 環境アクション</div>
+          <div style="font-size:0.82rem; color:var(--text-primary); line-height:1.7;">${envAction?.text || ''}</div>
+        </div>
+        <div style="text-align:center; margin:6px 0; font-size:0.9rem; color:var(--text-muted);">＋</div>
+        <div class="tonight-card" style="border-color:var(--accent-purple);">
+          <div style="font-size:0.72rem; color:var(--accent-purple); letter-spacing:0.08em; margin-bottom:6px;">STEP 2 — ${routine?.name || '入眠ルーティン'}</div>
+          <div style="font-size:0.82rem; color:var(--text-primary); line-height:1.7;">${routine?.text || ''}</div>
+        </div>
+      </div>
+      <div class="complete-section">
+        <div style="padding:16px; background:rgba(167,139,250,0.04); border:1px solid rgba(167,139,250,0.1); border-radius:var(--radius-sm); font-size:0.82rem; color:var(--text-secondary); line-height:1.7;">
+          <div style="font-size:0.7rem; color:var(--accent-purple); letter-spacing:0.1em; font-weight:600; margin-bottom:8px;">NEXT UNLOCK PREVIEW</div>
+          あなたの${typeDefinitions[btKey]?.name}の脳には、環境と行動の先に<strong style="color:var(--accent-purple);">「${nextLockItem[btKey]}」</strong>という領域があります。ここにアプローチすると、今夜の改善が"定着"に変わります。
+        </div>
+      </div>
+      <div class="complete-section">
+        <div class="wait-card">
+          <div class="wait-title">Day 5 準備完了</div>
+          <div class="wait-body" style="margin-bottom:16px;">${D4_WAIT_MSG[btKey]}</div>
+          <button class="btn-primary" onclick="startDay5FromComplete()" style="width:100%;">Day 5 へ進む</button>
+        </div>
+      </div>
+      <div style="text-align:center; margin:20px 0;">
+        <div style="font-size:0.75rem; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:8px;">DAY PROGRESS</div>
+        <div style="background:var(--surface); height:6px; border-radius:6px; overflow:hidden; margin:0 20px;">
+          <div style="width:80%; height:100%; background:linear-gradient(90deg, var(--accent-moon), var(--accent-gold)); border-radius:6px;"></div>
+        </div>
+        <div style="font-size:0.72rem; color:var(--text-muted); margin-top:6px;">80% 完了</div>
+      </div>
+      <div style="height:60px;"></div>
+    </div>`;
+}
+
+function startDay5FromComplete() { location.reload(); }
 
 function confirmReset() {
   if (confirm('すべてのデータをリセットして最初からやり直しますか？\n\n※ 入力したデータは全て消去されます')) {
