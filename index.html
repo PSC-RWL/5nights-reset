@@ -1181,6 +1181,281 @@ input[type="range"]::-moz-range-thumb {
   color: var(--text-secondary);
 }
 
+
+/* ===== DAY 5 — Plan cards & closing ===== */
+.plan-card {
+  border-radius: var(--radius);
+  padding: 24px 22px;
+  margin-bottom: 18px;
+  position: relative;
+}
+.plan-card.plan-b {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.06) 100%);
+  border: 1.5px solid rgba(240,199,96,0.35);
+  box-shadow: 0 0 24px rgba(240,199,96,0.08);
+}
+.plan-card.plan-a {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  opacity: 0.85;
+}
+.plan-badge {
+  position: absolute;
+  top: -10px;
+  right: 18px;
+  background: linear-gradient(135deg, var(--accent-moon), var(--accent-gold));
+  color: var(--bg-deep);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.plan-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.plan-price {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent-moon);
+  margin-bottom: 14px;
+}
+.plan-price-unit {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  margin-left: 2px;
+}
+.plan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.plan-list li {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding: 7px 0 7px 24px;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.plan-list li:last-child { border-bottom: none; }
+.plan-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 2px;
+  color: var(--success);
+  font-weight: 700;
+}
+.plan-list-muted li { color: var(--text-muted); }
+.plan-list-muted li::before {
+  content: "—";
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.plan-benefit {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(167,139,250,0.06);
+  border: 1px solid rgba(167,139,250,0.18);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+.plan-a-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.plan-a-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+
+/* Disclosure & recap rows */
+.disclose-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.disclose-item.open {
+  background: rgba(74,222,128,0.06);
+  border: 1px solid rgba(74,222,128,0.2);
+  color: var(--text-primary);
+}
+.disclose-item.locked {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.disclose-icon { font-size: 0.95rem; flex-shrink: 0; }
+
+.recap-item {
+  padding: 16px 18px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+.recap-item .recap-tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.recap-item .recap-body {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Recipe card */
+.recipe-card {
+  background:
+    radial-gradient(circle at 80% 12%, rgba(240,199,96,0.12), transparent 45%),
+    radial-gradient(circle at 18% 85%, rgba(167,139,250,0.1), transparent 45%),
+    linear-gradient(160deg, #0d1326 0%, #161f38 100%);
+  border: 1px solid rgba(240,199,96,0.22);
+  border-radius: var(--radius);
+  padding: 26px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.recipe-card .recipe-moon {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 1.6rem;
+  opacity: 0.9;
+}
+.recipe-brand {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: var(--accent-moon);
+  margin-bottom: 6px;
+}
+.recipe-type {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 18px;
+}
+.recipe-row { margin-bottom: 16px; }
+.recipe-row-label {
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.recipe-row-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+.recipe-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(255,255,255,0.12);
+}
+.recipe-stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent-moon);
+}
+.recipe-stat-label { font-size: 0.74rem; color: var(--text-secondary); }
+.recipe-date {
+  position: absolute;
+  bottom: 14px;
+  right: 22px;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Countdown */
+.countdown-box {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(239,107,107,0.05) 100%);
+  border: 1px solid rgba(239,107,107,0.22);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-align: center;
+  margin: 20px 0;
+}
+.countdown-title {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.countdown-unit { min-width: 56px; }
+.countdown-num {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 600;
+  color: var(--accent-moon);
+  line-height: 1;
+}
+.countdown-unit-label {
+  font-size: 0.64rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+.countdown-sep {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--text-muted);
+  line-height: 1;
+}
+.countdown-note {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.wake-other-input {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+}
+.wake-other-input::placeholder { color: var(--text-muted); }
+.wake-other-input:focus { outline: none; border-color: var(--accent-moon); }
 </style>
 </head>
 <body>
@@ -1564,9 +1839,20 @@ input[type="range"]::-moz-range-thumb {
       <div class="wake-option" onclick="selectWake('once',this)">1回</div>
       <div class="wake-option" onclick="selectWake('multi',this)">2回以上</div>
     </div>
-    <div id="d2WakeReasonWrap" style="display:none; margin-top:12px;">
-      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:6px;">何が原因で目が覚めましたか？（わかる範囲で）</div>
-      <textarea id="d2WakeReason" style="width:100%; min-height:60px; padding:12px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text-primary); font-family:var(--font-body); font-size:0.82rem; resize:vertical; outline:none;" placeholder="例：トイレ、物音、夢、暑さ、不安 など"></textarea>
+    <div id="d2WakeReasonWrap" style="display:none; margin-top:10px;">
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">心当たりのある理由は？<span style="color:var(--text-muted);">（複数選択可）</span></div>
+      <div class="exec-options" id="d2WakeReasons">
+        <div class="exec-option" onclick="toggleWakeReason(2,'toilet',this)">トイレ</div>
+        <div class="exec-option" onclick="toggleWakeReason(2,'noise_light',this)">物音・光</div>
+        <div class="exec-option" onclick="toggleWakeReason(2,'temp',this)">暑さ/寒さ</div>
+        <div class="exec-option" onclick="toggleWakeReason(2,'dream',this)">夢・悪夢</div>
+        <div class="exec-option" onclick="toggleWakeReason(2,'anxiety',this)">不安・<br>考え事</div>
+        <div class="exec-option" onclick="toggleWakeReason(2,'unknown',this)">わから<br>ない</div>
+        <div class="exec-option" onclick="toggleWakeReason(2,'other',this)">その他</div>
+      </div>
+      <div id="d2WakeOtherWrap" style="display:none; margin-top:8px;">
+        <input type="text" class="wake-other-input" id="d2WakeOtherInput" placeholder="その他の理由を記入（任意）" oninput="setWakeOther(2,this.value)">
+      </div>
     </div>
   </div>
 
@@ -1738,6 +2024,21 @@ input[type="range"]::-moz-range-thumb {
       <div class="wake-option" onclick="selectWakeD3('once',this)">1回</div>
       <div class="wake-option" onclick="selectWakeD3('multi',this)">2回以上</div>
     </div>
+    <div id="d3WakeReasonWrap" style="display:none; margin-top:10px;">
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">心当たりのある理由は？<span style="color:var(--text-muted);">（複数選択可）</span></div>
+      <div class="exec-options" id="d3WakeReasons">
+        <div class="exec-option" onclick="toggleWakeReason(3,'toilet',this)">トイレ</div>
+        <div class="exec-option" onclick="toggleWakeReason(3,'noise_light',this)">物音・光</div>
+        <div class="exec-option" onclick="toggleWakeReason(3,'temp',this)">暑さ/寒さ</div>
+        <div class="exec-option" onclick="toggleWakeReason(3,'dream',this)">夢・悪夢</div>
+        <div class="exec-option" onclick="toggleWakeReason(3,'anxiety',this)">不安・<br>考え事</div>
+        <div class="exec-option" onclick="toggleWakeReason(3,'unknown',this)">わから<br>ない</div>
+        <div class="exec-option" onclick="toggleWakeReason(3,'other',this)">その他</div>
+      </div>
+      <div id="d3WakeOtherWrap" style="display:none; margin-top:8px;">
+        <input type="text" class="wake-other-input" id="d3WakeOtherInput" placeholder="その他の理由を記入（任意）" oninput="setWakeOther(3,this.value)">
+      </div>
+    </div>
   </div>
 
   <div class="sleep-check-group">
@@ -1887,6 +2188,21 @@ input[type="range"]::-moz-range-thumb {
       <div class="wake-option" onclick="selectWakeD4('once',this)">1回</div>
       <div class="wake-option" onclick="selectWakeD4('multi',this)">2回以上</div>
     </div>
+    <div id="d4WakeReasonWrap" style="display:none; margin-top:10px;">
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">心当たりのある理由は？<span style="color:var(--text-muted);">（複数選択可）</span></div>
+      <div class="exec-options" id="d4WakeReasons">
+        <div class="exec-option" onclick="toggleWakeReason(4,'toilet',this)">トイレ</div>
+        <div class="exec-option" onclick="toggleWakeReason(4,'noise_light',this)">物音・光</div>
+        <div class="exec-option" onclick="toggleWakeReason(4,'temp',this)">暑さ/寒さ</div>
+        <div class="exec-option" onclick="toggleWakeReason(4,'dream',this)">夢・悪夢</div>
+        <div class="exec-option" onclick="toggleWakeReason(4,'anxiety',this)">不安・<br>考え事</div>
+        <div class="exec-option" onclick="toggleWakeReason(4,'unknown',this)">わから<br>ない</div>
+        <div class="exec-option" onclick="toggleWakeReason(4,'other',this)">その他</div>
+      </div>
+      <div id="d4WakeOtherWrap" style="display:none; margin-top:8px;">
+        <input type="text" class="wake-other-input" id="d4WakeOtherInput" placeholder="その他の理由を記入（任意）" oninput="setWakeOther(4,this.value)">
+      </div>
+    </div>
   </div>
   <div class="sleep-check-group">
     <div class="sleep-check-label">③ 朝の目覚めの感覚</div>
@@ -1998,6 +2314,153 @@ input[type="range"]::-moz-range-thumb {
   </div>
   <div class="spacer-l"></div>
 </div>
+
+
+<!-- ================================================================== -->
+<!-- ========================= DAY 5 (金) ============================= -->
+<!-- ================================================================== -->
+
+<!-- ========== DAY 5 STEP 1: Sleep Check + Integrated Execution Check ========== -->
+<div class="screen" id="d5step1">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 5</span><span>STEP 1 / 7</span></div>
+  <div class="section-label">SLEEP CHECK</div>
+  <div class="section-title">最終日 — 昨夜の睡眠を記録する</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:24px;" id="d5SleepMsg"></div>
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">① 寝つき</div>
+    <input type="range" class="sleep-slider" id="d5FallAsleepSlider" min="1" max="5" value="3" step="1">
+    <div class="sleep-slider-labels"><span>なかなか<br>眠れなかった</span><span>いつもと<br>同じ</span><span>いつもより<br>早く眠れた</span></div>
+  </div>
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">② 夜中に目が覚めた回数</div>
+    <div class="wake-options" id="d5WakeOptions">
+      <div class="wake-option" onclick="selectWakeD5('none',this)">なし</div>
+      <div class="wake-option" onclick="selectWakeD5('once',this)">1回</div>
+      <div class="wake-option" onclick="selectWakeD5('multi',this)">2回以上</div>
+    </div>
+    <div id="d5WakeReasonWrap" style="display:none; margin-top:10px;">
+      <div style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">心当たりのある理由は？<span style="color:var(--text-muted);">（複数選択可）</span></div>
+      <div class="exec-options" id="d5WakeReasons">
+        <div class="exec-option" onclick="toggleWakeReason(5,'toilet',this)">トイレ</div>
+        <div class="exec-option" onclick="toggleWakeReason(5,'noise_light',this)">物音・光</div>
+        <div class="exec-option" onclick="toggleWakeReason(5,'temp',this)">暑さ/寒さ</div>
+        <div class="exec-option" onclick="toggleWakeReason(5,'dream',this)">夢・悪夢</div>
+        <div class="exec-option" onclick="toggleWakeReason(5,'anxiety',this)">不安・<br>考え事</div>
+        <div class="exec-option" onclick="toggleWakeReason(5,'unknown',this)">わから<br>ない</div>
+        <div class="exec-option" onclick="toggleWakeReason(5,'other',this)">その他</div>
+      </div>
+      <div id="d5WakeOtherWrap" style="display:none; margin-top:8px;">
+        <input type="text" class="wake-other-input" id="d5WakeOtherInput" placeholder="その他の理由を記入（任意）" oninput="setWakeOther(5,this.value)">
+      </div>
+    </div>
+  </div>
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">③ 朝の目覚めの感覚</div>
+    <input type="range" class="sleep-slider" id="d5MorningSlider" min="1" max="5" value="3" step="1">
+    <div class="sleep-slider-labels"><span>だるくて<br>起きられない</span><span>いつもと<br>同じ</span><span>すっきり<br>目覚めた</span></div>
+  </div>
+  <div class="sleep-check-group">
+    <div class="sleep-check-label">④ 環境アクションと入眠ルーティン、両方を実行できた？</div>
+    <div class="exec-options" id="d5ExecOptions">
+      <div class="exec-option" onclick="selectExecD5('full',this)">両方<br>できた</div>
+      <div class="exec-option" onclick="selectExecD5('partial',this)">片方<br>だけ</div>
+      <div class="exec-option" onclick="selectExecD5('none',this)">どちらも<br>できなかった</div>
+    </div>
+  </div>
+  <div id="d5ExecFollow" style="display:none; font-size:0.85rem; color:var(--text-secondary); line-height:1.7; margin-top:-8px; margin-bottom:20px; padding:14px 16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);"></div>
+  <div class="spacer-m"></div>
+  <button class="btn-primary" onclick="submitDay5Step1()">次へ</button>
+</div>
+
+<!-- ========== DAY 5 STEP 2: 4-Night Full Summary ========== -->
+<div class="screen" id="d5step2">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 5</span><span>STEP 2 / 7</span></div>
+  <div class="section-label">4-NIGHT SUMMARY</div>
+  <div class="section-title">4晩分の全データ</div>
+  <div id="d5SummaryChart" style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px;"></div>
+  <div id="d5SummaryMsg" style="margin-top:16px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); font-size:0.85rem; color:var(--text-secondary); line-height:1.7;"></div>
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="goToD5Step3()">あなたの快眠レシピを見る</button>
+</div>
+
+<!-- ========== DAY 5 STEP 3: Sleep Recipe Card ========== -->
+<div class="screen" id="d5step3">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 5</span><span>STEP 3 / 7</span></div>
+  <div class="section-label">YOUR SLEEP RECIPE</div>
+  <div class="section-title">あなたの快眠レシピ</div>
+  <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.7; margin-bottom:20px;">5日間のデータから、あなた専用の組み合わせが完成しました。スクリーンショットで保存できます。</div>
+  <div id="d5RecipeCard"></div>
+  <div class="spacer-m"></div>
+  <button class="btn-primary" onclick="shareRecipe()" style="background:var(--surface); color:var(--text-primary); border:1px solid var(--border);" id="d5ShareBtn">結果をシェアする（タイプ名と改善率のみ）</button>
+  <div class="spacer-m"></div>
+  <button class="btn-primary" onclick="showScreen('d5step4')">次へ</button>
+</div>
+
+<!-- ========== DAY 5 STEP 4: Disclosure 30% + Locked Items ========== -->
+<div class="screen" id="d5step4">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 5</span><span>STEP 4 / 7</span></div>
+  <div class="section-label">BRAIN TYPE DISCLOSURE</div>
+  <div class="section-title">あなたの脳タイプ、いま見えているのは</div>
+  <div style="text-align:center; margin:24px 0;">
+    <div style="font-size:0.72rem; color:var(--text-muted); letter-spacing:0.1em; margin-bottom:10px;">DISCLOSURE</div>
+    <div style="font-family:var(--font-display); font-size:3rem; font-weight:600; color:var(--accent-moon); line-height:1;">30<span style="font-size:1.4rem;">%</span></div>
+    <div style="background:var(--surface); height:8px; border-radius:8px; overflow:hidden; margin:14px 40px 0;">
+      <div style="width:30%; height:100%; background:linear-gradient(90deg, var(--accent-moon), var(--accent-gold)); border-radius:8px;"></div>
+    </div>
+  </div>
+  <div id="d5DisclosureList"></div>
+  <div style="font-size:0.85rem; color:var(--text-secondary); line-height:1.8; margin-top:20px; padding:16px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm);">
+    5日間で取り組んだのは、不眠を引き起こしている要因のうち<strong style="color:var(--accent-moon);">最も表面的な2つ</strong>です。残りの70%は、まだ手つかずのまま眠っています。
+  </div>
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="showScreen('d5step5')">次へ</button>
+</div>
+
+<!-- ========== DAY 5 STEP 5: Aware / Unaware Recap ========== -->
+<div class="screen" id="d5step5">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 5</span><span>STEP 5 / 7</span></div>
+  <div class="section-label">WHAT WE FOUND</div>
+  <div class="section-title">5日間でわかったこと</div>
+  <div id="d5RecapList" style="margin-top:8px;"></div>
+  <div class="spacer-l"></div>
+  <button class="btn-primary" onclick="goToD5Step6()">この先の選択肢を見る</button>
+</div>
+
+<!-- ========== DAY 5 STEP 6: Plan A vs Plan B ========== -->
+<div class="screen" id="d5step6">
+  <div class="spacer-l"></div>
+  <div class="day-indicator"><span class="day-num">DAY 5</span><span>STEP 6 / 7</span></div>
+  <div class="section-label">WHAT'S NEXT</div>
+  <div class="section-title">ここから、どうしますか</div>
+  <div id="d5CtaMsg" style="font-size:0.88rem; color:var(--text-secondary); line-height:1.85; margin:16px 0 24px; padding:18px; background:linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.04) 100%); border:1px solid rgba(240,199,96,0.12); border-radius:var(--radius);"></div>
+
+  <div class="plan-card plan-b">
+    <div class="plan-badge">RECOMMENDED</div>
+    <div class="plan-name">REWIRE SLEEP LAB メンバーシップ</div>
+    <div class="plan-price"><span id="d5PlanBPrice">¥3,980</span><span class="plan-price-unit">/月</span></div>
+    <ul class="plan-list" id="d5PlanBList"></ul>
+    <div class="plan-benefit" id="d5PlanBBenefit"></div>
+    <button class="btn-primary" onclick="selectPlanB()" style="margin-top:18px;">このプランで次へ進む</button>
+  </div>
+
+  <div class="plan-card plan-a">
+    <div class="plan-name" style="color:var(--text-secondary);">5 NIGHTS RESET を続ける（追加費用なし）</div>
+    <ul class="plan-list plan-list-muted" id="d5PlanAList"></ul>
+    <button class="plan-a-btn" onclick="selectPlanA()">今はこのまま続ける</button>
+  </div>
+  <div class="spacer-l"></div>
+</div>
+
+<!-- ========== DAY 5 STEP 7: Closing (Plan A countdown / Plan B welcome) ========== -->
+<div class="screen" id="d5step7">
+  <div id="d5ClosingContent"></div>
+</div>
+
 
 </div><!-- /container -->
 
@@ -2414,13 +2877,35 @@ function isDay2Unlocked() {
   return t ? new Date() >= new Date(t) : false;
 }
 
+// ----- Wake-reason multi-select (shared across Day2-5) -----
+const wakeReasonState = { 2:{tags:[],other:''}, 3:{tags:[],other:''}, 4:{tags:[],other:''}, 5:{tags:[],other:''} };
+function toggleWakeReason(day, val, el) {
+  const st = wakeReasonState[day];
+  const i = st.tags.indexOf(val);
+  if (i >= 0) { st.tags.splice(i, 1); el.classList.remove('selected'); }
+  else { st.tags.push(val); el.classList.add('selected'); }
+  if (val === 'other') {
+    const ow = document.getElementById('d' + day + 'WakeOtherWrap');
+    if (ow) ow.style.display = st.tags.includes('other') ? 'block' : 'none';
+  }
+}
+function setWakeOther(day, v) { wakeReasonState[day].other = v; }
+function resetWakeReason(day) {
+  wakeReasonState[day] = { tags:[], other:'' };
+  const wrap = document.getElementById('d' + day + 'WakeReasons');
+  if (wrap) wrap.querySelectorAll('.exec-option').forEach(o => o.classList.remove('selected'));
+  const ow = document.getElementById('d' + day + 'WakeOtherWrap');
+  if (ow) ow.style.display = 'none';
+  const oi = document.getElementById('d' + day + 'WakeOtherInput');
+  if (oi) oi.value = '';
+}
+
 function selectWake(val, el) {
   document.querySelectorAll('#d2WakeOptions .wake-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   state.d2NightWake = val;
-  // Show reason input when woke up
-  const wrap = document.getElementById('d2WakeReasonWrap');
-  if (wrap) wrap.style.display = (val !== 'none') ? 'block' : 'none';
+  document.getElementById('d2WakeReasonWrap').style.display = val !== 'none' ? 'block' : 'none';
+  if (val === 'none') resetWakeReason(2);
 }
 
 function submitDay2Step1() {
@@ -2428,12 +2913,12 @@ function submitDay2Step1() {
   const btKey = (bt === 'BALANCED') ? 'L3' : bt;
 
   // Save sleep check
-  const wakeReason = document.getElementById('d2WakeReason')?.value || '';
   const data = {
     day: 2,
     fallingAsleep: parseInt(document.getElementById('d2FallAsleepSlider').value),
     nightWaking: state.d2NightWake || 'none',
-    wakeReason: wakeReason,
+    wakeReasons: wakeReasonState[2].tags.slice(),
+    wakeReasonOther: wakeReasonState[2].other || '',
     morningFeel: parseInt(document.getElementById('d2MorningSlider').value),
     timestamp: new Date().toISOString()
   };
@@ -2759,6 +3244,8 @@ function selectWakeD3(val, el) {
   document.querySelectorAll('#d3WakeOptions .wake-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   state.d3NightWake = val;
+  document.getElementById('d3WakeReasonWrap').style.display = val !== 'none' ? 'block' : 'none';
+  if (val === 'none') resetWakeReason(3);
 }
 
 function selectExecD3(val, el) {
@@ -2776,6 +3263,8 @@ function submitDay3Step1() {
     day: 3,
     fallingAsleep: parseInt(document.getElementById('d3FallAsleepSlider').value),
     nightWaking: state.d3NightWake || 'none',
+    wakeReasons: wakeReasonState[3].tags.slice(),
+    wakeReasonOther: wakeReasonState[3].other || '',
     morningFeel: parseInt(document.getElementById('d3MorningSlider').value),
     execution: state.d3ExecResult || 'none',
     timestamp: new Date().toISOString()
@@ -3390,9 +3879,18 @@ function init() {
   // Route to correct day
   const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
 
-  if (flags.day4) {
-    showDay4Completed();
+  if (flags.day5) {
+    showDay5Terminal();
     document.getElementById('resetLink').style.display = 'block';
+    return;
+  }
+
+  if (flags.day4) {
+    const bt = localStorage.getItem('brainType') || 'L3';
+    const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+    document.getElementById('d5SleepMsg').textContent = D5_SLEEP_MSG[btKey];
+    document.getElementById('resetLink').style.display = 'block';
+    showScreen('d5step1');
     return;
   }
 
@@ -3451,7 +3949,8 @@ function showScreen(id) {
   // Show day badge after step1
   const dayBadge = document.getElementById('dayBadge');
   dayBadge.style.display = (id !== 'step1') ? 'block' : 'none';
-  if (id.startsWith('d4')) dayBadge.textContent = 'DAY 4 / 5';
+  if (id.startsWith('d5')) dayBadge.textContent = 'DAY 5 / 5';
+  else if (id.startsWith('d4')) dayBadge.textContent = 'DAY 4 / 5';
   else if (id.startsWith('d3')) dayBadge.textContent = 'DAY 3 / 5';
   else if (id.startsWith('d2')) dayBadge.textContent = 'DAY 2 / 5';
   else dayBadge.textContent = 'DAY 1 / 5';
@@ -4345,6 +4844,8 @@ function selectWakeD4(val, el) {
   document.querySelectorAll('#d4WakeOptions .wake-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   state.d4NightWake = val;
+  document.getElementById('d4WakeReasonWrap').style.display = val !== 'none' ? 'block' : 'none';
+  if (val === 'none') resetWakeReason(4);
 }
 function selectExecD4(val, el) {
   document.querySelectorAll('#d4ExecOptions .exec-option').forEach(o => o.classList.remove('selected'));
@@ -4359,6 +4860,8 @@ function submitDay4Step1() {
     day: 4,
     fallingAsleep: parseInt(document.getElementById('d4FallAsleepSlider').value),
     nightWaking: state.d4NightWake || 'none',
+    wakeReasons: wakeReasonState[4].tags.slice(),
+    wakeReasonOther: wakeReasonState[4].other || '',
     morningFeel: parseInt(document.getElementById('d4MorningSlider').value),
     execution: state.d4ExecResult || 'none',
     timestamp: new Date().toISOString()
@@ -4601,6 +5104,595 @@ function showDay4Completed() {
 }
 
 function startDay5FromComplete() { location.reload(); }
+
+
+// ===================================================================
+// DAY 5 — FUNCTIONS
+// ===================================================================
+
+// --- Editable plan content (swap freely when subscription plan is finalized) ---
+const D5_PRICE = '¥3,980';
+const STRIPE_SUBSCRIBE_URL = ''; // TODO: paste Stripe Payment Link (subscription) here before release
+
+const D5_PLAN_B = [
+  '5日間の全データを引き継ぎ',
+  'B-Brain正式診断（80問）で脳を数値化',
+  'ロックされた全5項目を段階的に解放',
+  'AIコーチが毎日パーソナライズ',
+  '食事・運動・ストレスの最適化プログラム'
+];
+const D5_PLAN_B_BENEFIT = '7日以内の加入特典：無料対面セッション（20分）＋脳タイプ詳細レポート先行アクセス';
+
+const D5_PLAN_A = [
+  'データは7日後にアクセスできなくなります',
+  '脳タイプは「入眠」と「睡眠の質」の2項目のみ',
+  '上位要因の残り1つは未対処のまま',
+  '今後の改善は自力で続けることになります'
+];
+
+const D5_SLEEP_MSG = {
+  L3:'5日間の最終データです。この5晩目の数値が、改善傾向を統計的に確定させます。昨夜の睡眠を正確に記録してください。',
+  L2:'最終日も、いつもと同じ手順で昨夜の睡眠を記録しましょう。5日間同じリズムで続けてきたこと自体が、あなたの記録の信頼性を支えています。',
+  R3:'ついに5日目！ラストの記録です。サクッと入力して、5日間の集大成を一緒に見にいきましょう。',
+  R2:'最終日まで来てくれてありがとうございます。昨夜の睡眠を、いつも通り正直な感覚で教えてください。'
+};
+
+const D5_EXEC_FOLLOW = {
+  full: {
+    L3:'環境と行動の両方を実行——5日間の統合データが完全な形で揃いました。これで効果検証の精度が最大になります。',
+    L2:'2軸とも手順通りに完了。5日間の積み重ねが、ここで一つの完成形になりました。',
+    R3:'フルコンボ達成！5日間やり切ったあなた、本当にすごい。この勢いのまま集大成を見にいきましょう。',
+    R2:'両方ともできたんですね。5日間ここまで続けてこられた自分を、どうか誇ってあげてください。'
+  },
+  partial: {
+    L3:'片方でも実行データは有効です。どちらが機能したかを切り分けることで、あなたに最適な組み合わせが見えてきます。',
+    L2:'片方だけでも、手順を守れたことに意味があります。何が続けやすかったかが、次のルーティン設計のヒントになります。',
+    R3:'片方できたなら上出来です。どっちが自分に合っていたか——それがわかっただけで大きな収穫ですよ。',
+    R2:'片方でもできたなら十分です。完璧じゃなくていいんです。ここまで続けたこと自体が、もう大きな一歩です。'
+  },
+  none: {
+    L3:'昨夜は実行できなかったとのこと。それでも4晩分のデータは残っています。傾向の分析には十分な量です。',
+    L2:'できない夜があっても大丈夫です。5日間チェックを続けてきた記録そのものが、あなたの財産です。',
+    R3:'昨夜はお休みモードだったんですね。それも含めて5日間。最後まで来たことに意味があります。',
+    R2:'できなかった日があっても、こうして最終日まで来てくれた。それが何より大切なことです。'
+  }
+};
+
+// Confirmed CTA messages (引継ぎ指示書 修正3)
+const D5_CTA_MSG = {
+  L3:'5日間のデータは、あなたの睡眠改善の"ベースライン"として価値があります。このデータを活かすか、ゼロから再スタートするかの判断です。',
+  L2:'5日間かけて築いた記録と手順があります。これを引き継いで、さらに精度の高いルーティンを構築できます。',
+  R3:'ここまでは序章です。B-Brain正式診断で、あなたの脳のまだ見ぬ可能性が数値で見えてきます。',
+  R2:'5日間の頑張りが、ちゃんとデータとして残っています。このデータと一緒に、安心して次のステップへ進めます。専門家との無料セッションで、あなたの話を直接聞かせてください。'
+};
+
+const D5_CLOSING_A = {
+  L3:'5日間、論理的に睡眠と向き合ってくれました。今夜のプランは引き続き有効です。このまま自分のデータで検証を続けてください。あなたなら、何が効いて何が効かないかを見極められます。',
+  L2:'5日間、毎日同じリズムで続けてくれました。築いた手順は、今夜以降もあなたの味方です。いつものペースで、穏やかな夜を重ねていってください。',
+  R3:'5日間おつかれさまでした！見つけた「切り替えスイッチ」は今夜からもあなたのもの。これからも自由に、楽しく夜を過ごしてください。また新しい発見があったら、いつでも戻ってきて。',
+  R2:'5日間、本当によく頑張りました。あなたが整えた環境と入眠ルーティンは、これからもあなたを支えてくれます。どうか自分を大切に、安心して眠れる夜を重ねてくださいね。'
+};
+
+// ----- STEP 1: sleep + integrated execution check -----
+function selectWakeD5(val, el) {
+  document.querySelectorAll('#d5WakeOptions .wake-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.d5NightWake = val;
+  document.getElementById('d5WakeReasonWrap').style.display = val !== 'none' ? 'block' : 'none';
+  if (val === 'none') resetWakeReason(5);
+}
+function selectExecD5(val, el) {
+  document.querySelectorAll('#d5ExecOptions .exec-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.d5ExecResult = val;
+}
+
+function submitDay5Step1() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+
+  const data = {
+    day: 5,
+    fallingAsleep: parseInt(document.getElementById('d5FallAsleepSlider').value),
+    nightWaking: state.d5NightWake || 'none',
+    wakeReasons: wakeReasonState[5].tags.slice(),
+    wakeReasonOther: wakeReasonState[5].other || '',
+    morningFeel: parseInt(document.getElementById('d5MorningSlider').value),
+    execution: state.d5ExecResult || 'none',
+    timestamp: new Date().toISOString()
+  };
+  const checks = JSON.parse(localStorage.getItem('sleepChecks') || '[]');
+  // Avoid duplicate day:5 entry if user revisits step1
+  const filtered = checks.filter(c => c.day !== 5);
+  filtered.push(data);
+  localStorage.setItem('sleepChecks', JSON.stringify(filtered));
+
+  const execChecks = JSON.parse(localStorage.getItem('executionChecks') || '[]');
+  const execFiltered = execChecks.filter(c => c.day !== 5);
+  execFiltered.push({ day: 5, result: state.d5ExecResult || 'none', timestamp: new Date().toISOString() });
+  localStorage.setItem('executionChecks', JSON.stringify(execFiltered));
+
+  // Prepare static content for later steps now that all data is final
+  populateD5Static();
+
+  // Interstitial follow message
+  const execVal = state.d5ExecResult || 'none';
+  const follow = D5_EXEC_FOLLOW[execVal]?.[btKey] || '';
+  const followEl = document.getElementById('d5ExecFollow');
+  followEl.textContent = follow;
+  followEl.style.display = 'block';
+  followEl.style.opacity = '0';
+  followEl.style.transform = 'translateY(10px)';
+  followEl.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  requestAnimationFrame(() => { followEl.style.opacity = '1'; followEl.style.transform = 'translateY(0)'; });
+
+  setTimeout(() => {
+    renderD5Summary();
+    showScreen('d5step2');
+  }, 2200);
+}
+
+// ----- Improvement computation (night 1 vs night 4) -----
+function d5WakeScore(v) { return v === 'none' ? 5 : v === 'once' ? 3 : 1; }
+function d5Metric(c) { return (c.fallingAsleep + d5WakeScore(c.nightWaking) + c.morningFeel) / 3; }
+
+function computeD5Improvement() {
+  const checks = JSON.parse(localStorage.getItem('sleepChecks') || '[]');
+  const first = checks.find(c => c.day === 2);
+  const last = checks.find(c => c.day === 5);
+  if (!first || !last) return { pct: 0, trend: 'flat', valid: false };
+  const fm = d5Metric(first), lm = d5Metric(last);
+  const pct = Math.round((lm - fm) / fm * 100);
+  const trend = pct >= 8 ? 'up' : pct <= -8 ? 'down' : 'flat';
+  return { pct, trend, valid: true, firstMetric: fm, lastMetric: lm };
+}
+
+// ----- STEP 2: 4-night summary chart -----
+function buildD5ChartSVG() {
+  const checks = JSON.parse(localStorage.getItem('sleepChecks') || '[]');
+  const days = [2, 3, 4, 5];
+  const fallData = days.map(d => { const c = checks.find(x => x.day === d); return c ? c.fallingAsleep : 3; });
+  const wakeData = days.map(d => { const c = checks.find(x => x.day === d); return c ? d5WakeScore(c.nightWaking) : 3; });
+  const mornData = days.map(d => { const c = checks.find(x => x.day === d); return c ? c.morningFeel : 3; });
+
+  const w = 280, h = 160, pad = 40, padR = 20, padT = 10, padB = 30;
+  const chartW = w - pad - padR, chartH = h - padT - padB;
+  const xStep = chartW / 3;
+  const yScale = v => padT + chartH - ((v - 1) / 4 * chartH);
+
+  const makeLine = (data, color) => {
+    const pts = data.map((v, i) => `${pad + i * xStep},${yScale(v)}`);
+    return `<polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>` +
+      data.map((v, i) => `<circle cx="${pad + i * xStep}" cy="${yScale(v)}" r="4" fill="${color}"/>`).join('');
+  };
+
+  let svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">`;
+  for (let v = 1; v <= 5; v++) {
+    svg += `<line x1="${pad}" y1="${yScale(v)}" x2="${w-padR}" y2="${yScale(v)}" stroke="var(--border)" stroke-width="0.5"/>`;
+    if (v === 1 || v === 3 || v === 5) svg += `<text x="${pad-6}" y="${yScale(v)+4}" text-anchor="end" fill="var(--text-muted)" font-size="9">${v}</text>`;
+  }
+  const xLabels = ['1晩目','2晩目','3晩目','4晩目'];
+  days.forEach((d, i) => { svg += `<text x="${pad + i * xStep}" y="${h - 4}" text-anchor="middle" fill="var(--text-muted)" font-size="9">${xLabels[i]}</text>`; });
+  svg += makeLine(fallData, '#F0C760');
+  svg += makeLine(wakeData, '#6BA3D6');
+  svg += makeLine(mornData, '#A78BFA');
+  svg += `</svg>`;
+  svg += `<div class="ba-legend" style="margin-top:12px;">
+    <span><span class="ba-legend-dot" style="background:#F0C760;"></span>寝つき</span>
+    <span><span class="ba-legend-dot" style="background:#6BA3D6;"></span>中途覚醒</span>
+    <span><span class="ba-legend-dot" style="background:#A78BFA;"></span>目覚め</span>
+  </div>`;
+  return svg;
+}
+
+function renderD5Summary() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+
+  document.getElementById('d5SummaryChart').innerHTML = buildD5ChartSVG();
+
+  const imp = computeD5Improvement();
+  const msgs = imp.trend === 'up' ? {
+    L3:`4晩のデータに明確な改善が確認できます。あなた自身の記録が、対策の有効性を数値で証明しました。問題は——この改善は「最も表面的な2要因」だけで得られたものだということです。`,
+    L2:`4晩を通して、着実に良い方向へ進んでいます。決めた手順を守り続けた結果がグラフに表れています。この手順を「自分専用」に磨き上げる余地が、まだ残されています。`,
+    R3:`右肩上がり！5日間でここまで変わりました。でも正直に言うと、ここはまだ入口。あなたの脳には、まだ見えていない可能性が眠っています。`,
+    R2:`少しずつ、でも確かに良くなっています。あなたが毎晩続けた頑張りが、ちゃんと形になりましたね。この変化を、これからも一緒に育てていけます。`
+  } : imp.trend === 'down' ? {
+    L3:`数値は一時的に変動しています。4データポイントは外的要因の影響を受けやすく、これは異常ではありません。むしろ、まだ手つかずの3要因が影響している可能性が高いと考えられます。`,
+    L2:`今回は数値が下がった項目があります。手順自体は間違っていません。ただ、環境と行動だけでは届かない要因が残っているサインかもしれません。`,
+    R3:`数字はちょっと荒ぶってますね。でも5日間で「何が効いて何が効かないか」が見えただけで大収穫。本番はむしろここからです。`,
+    R2:`思うようにいかない夜もありましたね。体や心の波は誰にでもあります。あなたが間違えたわけではありません。まだアプローチできていない部分が残っているだけです。`
+  } : {
+    L3:`4晩では顕著な変化はまだ出ていません。これは「最も表面的な2要因」だけに取り組んだ結果として説明がつきます。残り70%の要因が、変化を頭打ちにしている可能性が高いです。`,
+    L2:`大きな数値変化はまだ見られません。これは正常な範囲です。環境と行動は整えました。次は、まだ触れていない要因に手順を広げる段階です。`,
+    R3:`正直、まだ数字は動ききっていません。でもそれは、まだ2割しか開けていないから。残りの8割を開けたとき、何が起きるか——気になりませんか？`,
+    R2:`まだ大きな変化は見えていないかもしれません。でも焦らないで。あなたはちゃんと続けられた。手つかずの部分にこれから向き合えば、まだ良くなれます。`
+  };
+  const tag = imp.trend === 'up' ? `✦ 改善傾向（${imp.pct > 0 ? '+' : ''}${imp.pct}%）` : imp.trend === 'down' ? '◆ 一時的な変動' : '◆ 変化はこれから';
+  document.getElementById('d5SummaryMsg').innerHTML = `<strong style="color:var(--accent-moon);">${tag}</strong><br><br>${msgs[btKey]}`;
+}
+
+// ----- STEP 3: recipe card -----
+function goToD5Step3() {
+  buildRecipeCard();
+  showScreen('d5step3');
+}
+
+function buildRecipeCard() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const typeName = (bt === 'BALANCED') ? 'バランス型' : (typeDefinitions[btKey]?.name || '');
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const envAction = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  const routineSel = JSON.parse(localStorage.getItem('selectedRoutine') || '{}');
+  const routine = ACTIONS_ROUTINE[btKey]?.[routineSel.level];
+  const imp = computeD5Improvement();
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+
+  let statHtml;
+  if (imp.trend === 'up') {
+    statHtml = `<div class="recipe-stat"><div class="recipe-stat-num">+${imp.pct}%</div><div class="recipe-stat-label">4晩での睡眠体感スコア改善</div></div>`;
+  } else {
+    statHtml = `<div class="recipe-stat"><div class="recipe-stat-num">5<span style="font-size:1rem;">晩</span></div><div class="recipe-stat-label">継続記録（あなたのベースライン完成）</div></div>`;
+  }
+
+  document.getElementById('d5RecipeCard').innerHTML = `
+    <div class="recipe-card">
+      <div class="recipe-moon">🌙</div>
+      <div class="recipe-brand">REWIRE SLEEP LAB</div>
+      <div class="recipe-type">${typeName}<span style="font-size:0.78rem; color:var(--text-secondary); font-weight:400;"> の快眠レシピ</span></div>
+      <div class="recipe-row">
+        <div class="recipe-row-label" style="color:var(--accent-blue);">環境アクション</div>
+        <div class="recipe-row-text">${envAction?.text || '—'}</div>
+      </div>
+      <div class="recipe-row">
+        <div class="recipe-row-label" style="color:var(--accent-purple);">入眠ルーティン — ${routine?.name || ''}</div>
+        <div class="recipe-row-text">${routine?.text || '—'}</div>
+      </div>
+      ${statHtml}
+      <div class="recipe-date">${dateStr}</div>
+    </div>`;
+}
+
+function shareRecipe() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const typeName = (bt === 'BALANCED') ? 'バランス型' : (typeDefinitions[btKey]?.name || '');
+  const imp = computeD5Improvement();
+  const impText = imp.trend === 'up' ? `睡眠体感が+${imp.pct}%改善しました。` : `5日間、睡眠の記録を続けました。`;
+  const shareText = `【5 NIGHTS RESET】私の睡眠脳タイプは「${typeName}」。${impText} #REWIRESLEEPLAB`;
+
+  localStorage.setItem('shareUsed', 'true');
+  const btn = document.getElementById('d5ShareBtn');
+
+  if (navigator.share) {
+    navigator.share({ text: shareText }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(shareText).then(() => {
+      btn.textContent = '✓ コピーしました（SNSに貼り付けできます）';
+    }).catch(() => { btn.textContent = '✓ シェア準備完了'; });
+  } else {
+    btn.textContent = '✓ シェア準備完了';
+  }
+}
+
+// ----- Build static content for STEP4 & STEP5 -----
+function populateD5Static() {
+  // STEP 4 — disclosure list
+  const opened = [
+    { label:'入眠パターン', note:'Day1で解放' },
+    { label:'睡眠の質', note:'Day3で解放' }
+  ];
+  const locked = [
+    '食事タイミングの最適化',
+    '運動種類と時間帯',
+    'ストレス反応パターンと対処法',
+    'やる気スイッチの構造',
+    'メンタルダウンの予防法'
+  ];
+  let disc = '';
+  opened.forEach(o => {
+    disc += `<div class="disclose-item open"><span class="disclose-icon">✅</span><span><strong>${o.label}</strong> <span style="color:var(--text-muted); font-size:0.76rem;">（${o.note}）</span></span></div>`;
+  });
+  locked.forEach(l => {
+    disc += `<div class="disclose-item locked"><span class="disclose-icon">🔒</span><span>${l}</span></div>`;
+  });
+  document.getElementById('d5DisclosureList').innerHTML = disc;
+
+  // STEP 5 — aware / unaware recap (data-aware)
+  const top3 = JSON.parse(localStorage.getItem('riskFactorsTop3') || '[]');
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const hiddenCode = sel.riskCode || (top3[0] && top3[0].code);
+  const hiddenLabel = hiddenCode ? (RISK_FACTORS[hiddenCode]?.label || '隠れた要因') : '隠れた要因';
+  const untouched = top3.find(r => r.code !== hiddenCode);
+  const untouchedLabel = untouched ? (RISK_FACTORS[untouched.code]?.label || '残りの要因') : '残りの要因';
+
+  const recap = `
+    <div class="recap-item">
+      <div class="recap-tag" style="color:var(--success);">自覚していた原因</div>
+      <div class="recap-body">「眠れない」という実感そのもの。Day4の入眠ルーティンで、入眠と睡眠の質の両面からアプローチしました。</div>
+    </div>
+    <div class="recap-item">
+      <div class="recap-tag" style="color:var(--accent-blue);">気づいていなかった隠れた原因</div>
+      <div class="recap-body">あなたの「<strong style="color:var(--text-primary);">${hiddenLabel}</strong>」。自覚しにくいこの要因に、Day2の環境アクションでアプローチ済みです。</div>
+    </div>
+    <div class="recap-item">
+      <div class="recap-tag" style="color:var(--text-muted);">まだ手つかずの原因</div>
+      <div class="recap-body">「<strong style="color:var(--text-primary);">${untouchedLabel}</strong>」をはじめ、影響度の高い要因がまだ残っています。これらはメンバーシップで段階的に対処できます。</div>
+    </div>
+    <div class="recap-item" style="background:linear-gradient(135deg, var(--bg-card) 0%, rgba(167,139,250,0.05) 100%); border-color:rgba(167,139,250,0.2);">
+      <div class="recap-tag" style="color:var(--accent-purple);">そして、根底にあるもの</div>
+      <div class="recap-body">これらすべての要因の奥にあるのは、あなたの「脳の使い方」です。B-Brain正式診断で、その全体像が数値で見えてきます。</div>
+    </div>`;
+  document.getElementById('d5RecapList').innerHTML = recap;
+}
+
+// ----- STEP 6: plan A vs plan B -----
+function goToD5Step6() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  document.getElementById('d5CtaMsg').textContent = D5_CTA_MSG[btKey];
+  document.getElementById('d5PlanBPrice').textContent = D5_PRICE;
+  document.getElementById('d5PlanBList').innerHTML = D5_PLAN_B.map(x => `<li>${x}</li>`).join('');
+  document.getElementById('d5PlanBBenefit').innerHTML = `<strong style="color:var(--accent-purple);">⏱ 7日以内の加入特典</strong><br>${D5_PLAN_B_BENEFIT.replace('7日以内の加入特典：','')}`;
+  document.getElementById('d5PlanAList').innerHTML = D5_PLAN_A.map(x => `<li>${x}</li>`).join('');
+  showScreen('d5step6');
+}
+
+let d5CountdownTimer = null;
+
+// ----- "今回の悩み" capture & save (persists for buy-once / Plan A users) -----
+function buildConcernText() {
+  const ans = JSON.parse(localStorage.getItem('questionResponses') || '{}');
+  const q7 = ans[6] !== undefined ? ans[6] : ans['6'];
+  const ft = localStorage.getItem('freeTextQ7') || '';
+  if (q7 === 'E') return ft || 'その他（記入なし）';
+  const opt = questions[6].options.find(o => o.label === q7);
+  return opt ? opt.text : (ft || '—');
+}
+
+function saveCurrentConcern() {
+  const concern = buildConcernText();
+  localStorage.setItem('currentConcern', concern);
+  const bt = localStorage.getItem('brainType') || '';
+  const btName = (bt === 'BALANCED') ? 'バランス型' : (typeDefinitions[bt]?.name || '');
+  const log = JSON.parse(localStorage.getItem('concernLog') || '[]');
+  const today = new Date().toISOString().slice(0, 10);
+  if (!log.some(e => e.date === today && e.concern === concern)) {
+    log.push({ date: today, concern, type: btName });
+    localStorage.setItem('concernLog', JSON.stringify(log));
+  }
+}
+
+function markDay5Complete(plan) {
+  const now = new Date();
+  localStorage.setItem('planSelection', plan);
+  localStorage.setItem('planSelectionTime', now.toISOString());
+  saveCurrentConcern();
+  // 7-day deadline anchored at first selection
+  if (!localStorage.getItem('planDeadline')) {
+    const deadline = new Date(now.getTime() + 7*24*60*60*1000);
+    localStorage.setItem('planDeadline', deadline.toISOString());
+  }
+  const flags = JSON.parse(localStorage.getItem('dayCompletionFlags') || '{}');
+  if (!flags.day5) { flags.day5 = now.toISOString(); localStorage.setItem('dayCompletionFlags', JSON.stringify(flags)); }
+}
+
+function selectPlanA() {
+  markDay5Complete('A');
+  renderClosingA();
+}
+
+function selectPlanB() {
+  markDay5Complete('B');
+  renderClosingB();
+}
+
+// ----- STEP 7: closing -----
+function renderClosingA() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const typeName = (bt === 'BALANCED') ? 'バランス型' : (typeDefinitions[btKey]?.name || '');
+  const deadline = localStorage.getItem('planDeadline');
+
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const envAction = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  const routineSel = JSON.parse(localStorage.getItem('selectedRoutine') || '{}');
+  const routine = ACTIONS_ROUTINE[btKey]?.[routineSel.level];
+  const concern = localStorage.getItem('currentConcern') || buildConcernText();
+  const top3 = JSON.parse(localStorage.getItem('riskFactorsTop3') || '[]');
+  const riskLine = top3.map((r, i) => `${i+1}. ${RISK_FACTORS[r.code]?.label || ''}`).join('　');
+  const imp = computeD5Improvement();
+  const impLine = imp.trend === 'up' ? `睡眠体感スコア +${imp.pct}%` : '5晩の記録を継続';
+
+  // concern history (accumulates across repeated uses of the program)
+  const log = JSON.parse(localStorage.getItem('concernLog') || '[]');
+  let historyHtml = '';
+  if (log.length > 1) {
+    historyHtml = `<div class="complete-section">
+      <div class="complete-section-title">これまでの「悩み」の記録</div>
+      ${log.slice().reverse().map(e => `<div style="display:flex; justify-content:space-between; gap:10px; padding:10px 14px; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:8px; font-size:0.8rem;"><span style="color:var(--text-secondary); line-height:1.5;">${e.concern}</span><span style="color:var(--text-muted); white-space:nowrap;">${e.date}</span></div>`).join('')}
+    </div>`;
+  }
+
+  document.getElementById('d5ClosingContent').innerHTML = `
+    <div class="spacer-l"></div>
+    <div style="text-align:center; margin-bottom:24px;">
+      <div style="font-size:2.2rem; margin-bottom:12px;">🌙</div>
+      <div class="title-en" style="font-size:1.6rem;">5 Nights Complete</div>
+    </div>
+    <div class="complete-section">
+      <div style="padding:20px; background:linear-gradient(135deg, var(--bg-card) 0%, rgba(240,199,96,0.04) 100%); border:1px solid rgba(240,199,96,0.12); border-radius:var(--radius); font-size:0.88rem; color:var(--text-secondary); line-height:1.85;">
+        ${D5_CLOSING_A[btKey]}
+      </div>
+    </div>
+
+    <div class="complete-section">
+      <div class="complete-section-title">YOUR RECORD — 5日間の振り返り</div>
+      <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px;">
+        <div style="margin-bottom:16px;">
+          <div style="font-size:0.68rem; letter-spacing:0.08em; color:var(--danger); margin-bottom:5px; font-weight:600;">今回の悩み（保存済み）</div>
+          <div style="font-size:0.9rem; color:var(--text-primary); line-height:1.6;">${concern}</div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="font-size:0.68rem; letter-spacing:0.08em; color:var(--accent-moon); margin-bottom:5px; font-weight:600;">睡眠脳タイプ</div>
+          <div style="font-size:0.85rem; color:var(--text-secondary); line-height:1.6;">${typeName}</div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="font-size:0.68rem; letter-spacing:0.08em; color:var(--accent-blue); margin-bottom:5px; font-weight:600;">取り組んだ環境アクション</div>
+          <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">${envAction?.text || '—'}</div>
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="font-size:0.68rem; letter-spacing:0.08em; color:var(--accent-purple); margin-bottom:5px; font-weight:600;">入眠ルーティン ${routine?.name ? '— ' + routine.name : ''}</div>
+          <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">${routine?.text || '—'}</div>
+        </div>
+        ${top3.length ? `<div style="margin-bottom:16px;">
+          <div style="font-size:0.68rem; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:5px; font-weight:600;">見つかったリスク要因（上位3）</div>
+          <div style="font-size:0.82rem; color:var(--text-secondary); line-height:1.6;">${riskLine}</div>
+        </div>` : ''}
+        <div style="margin-top:18px; padding-top:16px; border-top:1px solid var(--border);">
+          <div style="font-size:0.68rem; letter-spacing:0.08em; color:var(--text-muted); margin-bottom:10px; font-weight:600;">4晩のスコア推移</div>
+          ${buildD5ChartSVG()}
+        </div>
+        <div style="margin-top:14px; font-size:0.8rem; color:var(--accent-moon); text-align:center;">${impLine}</div>
+      </div>
+    </div>
+
+    ${historyHtml}
+
+    <div class="complete-section">
+      <button class="btn-primary" onclick="copyD5Summary()" style="background:var(--surface); color:var(--text-primary); border:1px solid var(--border);" id="d5SaveBtn">この振り返りをコピーして保管する</button>
+      <div style="font-size:0.74rem; color:var(--text-muted); line-height:1.6; margin-top:8px; text-align:center;">※「今回の悩み」と記録はこの端末に保存され、次に開いたときも表示されます</div>
+    </div>
+
+    <div class="countdown-box">
+      <div class="countdown-title">無料対面セッション特典の残り時間</div>
+      <div class="countdown-timer" id="d5Countdown">
+        <div class="countdown-unit"><div class="countdown-num" id="cdD">--</div><div class="countdown-unit-label">日</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-num" id="cdH">--</div><div class="countdown-unit-label">時間</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-num" id="cdM">--</div><div class="countdown-unit-label">分</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-num" id="cdS">--</div><div class="countdown-unit-label">秒</div></div>
+      </div>
+      <div class="countdown-note">この時間内であれば、5日間のデータ引き継ぎ＋無料対面セッション（20分）が適用されます。<br><span style="color:var(--text-muted);">※パーソナライズされた改善データは7日後にアクセスできなくなります（上記の振り返りは保存されます）</span></div>
+    </div>
+    <button class="btn-primary" onclick="selectPlanB()">特典を使ってメンバーシップに進む</button>
+    <div style="height:60px;"></div>`;
+  showScreen('d5step7');
+  startD5Countdown(deadline);
+}
+
+function copyD5Summary() {
+  const bt = localStorage.getItem('brainType') || 'L3';
+  const btKey = (bt === 'BALANCED') ? 'L3' : bt;
+  const typeName = (bt === 'BALANCED') ? 'バランス型' : (typeDefinitions[btKey]?.name || '');
+  const sel = JSON.parse(localStorage.getItem('selectedAction') || '{}');
+  const envAction = ACTIONS[sel.riskCode]?.[btKey]?.[sel.choice];
+  const routineSel = JSON.parse(localStorage.getItem('selectedRoutine') || '{}');
+  const routine = ACTIONS_ROUTINE[btKey]?.[routineSel.level];
+  const concern = localStorage.getItem('currentConcern') || buildConcernText();
+  const imp = computeD5Improvement();
+  const impLine = imp.trend === 'up' ? `睡眠体感スコア +${imp.pct}%` : '5晩の記録を継続';
+  const now = new Date();
+  const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+
+  const text =
+`【5 NIGHTS RESET — 5日間の振り返り】 ${dateStr}
+
+■ 今回の悩み
+${concern}
+
+■ 睡眠脳タイプ
+${typeName}
+
+■ 環境アクション
+${envAction?.text || '—'}
+
+■ 入眠ルーティン（${routine?.name || ''}）
+${routine?.text || '—'}
+
+■ 結果
+${impLine}
+
+— REWIRE SLEEP LAB`;
+
+  const btn = document.getElementById('d5SaveBtn');
+  const done = () => { if (btn) btn.textContent = '✓ コピーしました（メモ等に貼り付けて保管できます）'; };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => { if (btn) btn.textContent = '✓ 保管用テキストを準備しました'; });
+  } else {
+    done();
+  }
+}
+
+function renderClosingB() {
+  const hasLink = STRIPE_SUBSCRIBE_URL && STRIPE_SUBSCRIBE_URL.length > 0;
+  document.getElementById('d5ClosingContent').innerHTML = `
+    <div class="spacer-l"></div>
+    <div style="text-align:center; margin-bottom:24px;">
+      <div style="font-size:2.2rem; margin-bottom:12px;">✨</div>
+      <div class="title-en" style="font-size:1.6rem;">Welcome</div>
+    </div>
+    <div class="complete-section">
+      <div style="padding:22px; background:linear-gradient(135deg, var(--bg-card) 0%, rgba(167,139,250,0.06) 100%); border:1px solid rgba(167,139,250,0.2); border-radius:var(--radius); font-size:0.9rem; color:var(--text-secondary); line-height:1.9; text-align:center;">
+        <div style="font-size:1.05rem; color:var(--text-primary); font-weight:600; margin-bottom:10px;">ようこそ、REWIRE SLEEP LAB へ</div>
+        5日間で見えたのは、あなたの脳のほんの30%。<br>ここから、あなた専用の眠り方を一緒に設計していきます。<br>まずはB-Brain正式診断で、残りの70%を解き明かしましょう。
+      </div>
+    </div>
+    <div class="complete-section">
+      <div class="plan-benefit"><strong style="color:var(--accent-purple);">⏱ 7日以内の加入特典</strong><br>${D5_PLAN_B_BENEFIT.replace('7日以内の加入特典：','')}</div>
+    </div>
+    ${hasLink
+      ? `<button class="btn-primary" onclick="location.href='${STRIPE_SUBSCRIBE_URL}'">メンバーシップに申し込む（${D5_PRICE}/月）</button>`
+      : `<button class="btn-primary" onclick="alert('決済リンクは現在準備中です。\\nStripe Payment Link を STRIPE_SUBSCRIBE_URL に設定してください。')">メンバーシップに申し込む（${D5_PRICE}/月）</button>
+         <div style="text-align:center; font-size:0.72rem; color:var(--text-muted); margin-top:10px;">※ 決済リンク接続前のプレビュー状態です</div>`}
+    <div style="height:60px;"></div>`;
+  showScreen('d5step7');
+  if (d5CountdownTimer) { clearInterval(d5CountdownTimer); d5CountdownTimer = null; }
+}
+
+function startD5Countdown(deadlineIso) {
+  if (d5CountdownTimer) { clearInterval(d5CountdownTimer); d5CountdownTimer = null; }
+  if (!deadlineIso) return;
+  const deadline = new Date(deadlineIso).getTime();
+  const tick = () => {
+    const diff = deadline - Date.now();
+    const dEl = document.getElementById('cdD');
+    if (!dEl) { clearInterval(d5CountdownTimer); d5CountdownTimer = null; return; }
+    if (diff <= 0) {
+      ['cdD','cdH','cdM','cdS'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = '0'; });
+      clearInterval(d5CountdownTimer); d5CountdownTimer = null;
+      return;
+    }
+    const d = Math.floor(diff / (24*60*60*1000));
+    const h = Math.floor((diff % (24*60*60*1000)) / (60*60*1000));
+    const m = Math.floor((diff % (60*60*1000)) / (60*1000));
+    const s = Math.floor((diff % (60*1000)) / 1000);
+    document.getElementById('cdD').textContent = d;
+    document.getElementById('cdH').textContent = String(h).padStart(2,'0');
+    document.getElementById('cdM').textContent = String(m).padStart(2,'0');
+    document.getElementById('cdS').textContent = String(s).padStart(2,'0');
+  };
+  tick();
+  d5CountdownTimer = setInterval(tick, 1000);
+}
+
+function reopenDay5Recap() {
+  populateD5Static();
+  renderD5Summary();
+  showScreen('d5step2');
+}
+
+// Terminal state on reload after a plan was selected
+function showDay5Terminal() {
+  const plan = localStorage.getItem('planSelection');
+  if (plan === 'B') { renderClosingB(); }
+  else { renderClosingA(); }
+}
+
 
 function confirmReset() {
   if (confirm('すべてのデータをリセットして最初からやり直しますか？\n\n※ 入力したデータは全て消去されます')) {
